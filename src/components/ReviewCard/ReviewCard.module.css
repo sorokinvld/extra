@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 500px;
+}
+.user {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.userimage {
+  border-radius: 50%;
+  overflow: hidden;
+}
+.userdetails {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  height: 50px;
+  width: 50px;
+}
+.userdetails > div:nth-child(1) {
+  font-size: 18px;
+}
+.userdetails > div:nth-child(2) {
+  color: grey;
+  font-size: 15px;
+}
+.review {
+  font-size: 18px;
+}

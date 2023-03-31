@@ -1,0 +1,19 @@
+{
+  "location": "المكان",
+  "subLocation": "إلى أين؟",
+  "dates": "التاريخ",
+  "checkin": "تسجيل الوصول",
+  "checkout": "تسجيل المغادرة",
+  "guests": "الضيوف",
+  "adult": "بالغ",
+  "adults": "بالغين",
+  "children": "أطفال",
+  "child": "طفل",
+  "room": "غرفة",
+  "rooms": "غرف",
+  "guestadults": "بالغين",
+  "guestchildren": "أطفال",
+  "guestrooms": "غرف",
+  "destinationnullerror": "الرجاء إدخال المكان",
+  "search": "ابحث عن المكان"
+}

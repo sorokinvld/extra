@@ -1,0 +1,15 @@
+{
+  "preheader": "hotels available",
+  "hotels": "Hotels",
+  "in": "in",
+  "filter": "Filters",
+  "night": "night",
+  "total": "total",
+  "showmap": "Show map",
+  "showlist": "Show list",
+  "searcherror": "No hotel found.",
+  "filterbyprice": "Filter by price",
+  "filterbystars": "Filter by stars",
+  "filterbyamenities": "",
+  "apply": "Apply"
+}

@@ -1,0 +1,11 @@
+.header {
+  position: sticky;
+  z-index: 9999;
+  top: 0;
+  width: 100%;
+  background: white;
+  border-bottom: 1px solid #eaeaea;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

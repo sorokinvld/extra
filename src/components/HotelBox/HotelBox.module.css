@@ -1,0 +1,120 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  color: var(--normal-color);
+  margin-bottom: 15px;
+}
+.image {
+  position: relative;
+  width: 350px;
+  height: 350px;
+  border-radius: 15px;
+  overflow: hidden;
+}
+.image > a {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.heart {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  background: url("../../../public/images/img.png") no-repeat;
+  background-position: left;
+  background-size: 2900%;
+  height: 90px;
+  width: 100px;
+  left: 0;
+}
+.heart[heart-active="true"] {
+  animation: animate 0.8s steps(28) 1;
+  background-position: right;
+}
+.heartbtn {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+}
+.rating {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  background: #213547;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.26);
+  color: white;
+  font-size: 18px;
+  width: 40px;
+  right: 0;
+  padding: 10px;
+  margin: 25px;
+  margin-left: 30px;
+  border-radius: 5px;
+}
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 5px;
+}
+.title > h2 {
+  font-size: 17px;
+}
+.stars {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.stars > svg {
+  margin-bottom: 5px;
+}
+.location {
+  font-size: 15px;
+  margin-bottom: auto;
+}
+.reviews {
+  display: flex;
+  margin-left: auto;
+  gap: 5px;
+}
+.reviews > span {
+  text-align: center;
+}
+.details > p {
+  font-size: 15px;
+  flex-wrap: nowrap;
+  width: 250px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.price {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  gap: 5px;
+}
+.price > span:nth-child(2) {
+  font-size: 15px;
+}
+@keyframes animate {
+  0% {
+    background-position: left;
+  }
+  100% {
+    background-position: right;
+  }
+}

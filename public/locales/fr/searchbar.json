@@ -1,0 +1,19 @@
+{
+  "location": "Destination",
+  "subLocation": "Vers où?",
+  "dates": "Date",
+  "checkin": "Arrivée",
+  "checkout": "Départ",
+  "guests": "Voyageurs",
+  "adult": "adulte",
+  "adults": "adultes",
+  "children": "enfants",
+  "child": "enfant",
+  "room": "chambre",
+  "rooms": "chambres",
+  "guestadults": "Adultes",
+  "guestchildren": "Enfants",
+  "guestrooms": "Chambres",
+  "destinationnullerror": "Veuillez indiquer une destination!",
+  "search": "Rechercher une destination..."
+}

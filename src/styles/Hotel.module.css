@@ -1,0 +1,205 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1rem;
+  max-width: 1150px;
+  margin-top: 30px;
+  gap: 10px;
+}
+.container > p > a {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.stars {
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+}
+.images {
+  position: relative;
+  display: grid;
+  gap: 8px;
+  height: 500px;
+  width: 100%;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eaeaea;
+}
+.image {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  cursor: pointer;
+}
+.image[grid-col-span="2"] {
+  grid-column: span 2;
+}
+.image[grid-row-span="2"] {
+  grid-row: span 2;
+}
+.image[first-image="true"] {
+  grid-column: span 2;
+  grid-row: span 2;
+  border-radius: 4% 0% 0% 4%;
+}
+.image[last-first-col-image="true"] {
+  border-radius: 0% 4% 0% 0%;
+}
+.image[last-image="true"] {
+  border-radius: 0% 0% 4% 0%;
+}
+.overlay {
+  z-index: 2;
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.15);
+  transition: opacity 300ms ease-in-out;
+}
+.overlay[shown-state="true"] {
+  opacity: 1;
+  transition: opacity 300ms ease-in-out;
+}
+.imagebtn {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  bottom: 0;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  border: none;
+  outline: none;
+  border: 1px solid #d8d7d7;
+  color: var(--normal-color);
+  background: white;
+  margin-top: 10px;
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transform: scale(1);
+  transition: transform 250ms ease-in-out;
+}
+.imagebtn:active {
+  transform: scale(0.9);
+}
+.buttoncontainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eaeaea;
+}
+.buttoncontainer > a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: auto;
+}
+.reserveroombtn {
+  border: none;
+  outline: none;
+  color: white;
+  background: var(--normal-color);
+  margin-left: auto;
+  width: 200px;
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transform: scale(1);
+  transition: transform 250ms ease-in-out;
+}
+.reserveroombtn:active {
+  transform: scale(0.9);
+}
+.hoteldetails {
+  margin-top: 30px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eaeaea;
+}
+.hoteldesc {
+  margin-top: 10px;
+}
+.amenities {
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+}
+.amenities > span {
+  font-size: 20px;
+}
+.amenitieslist {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  width: 600px;
+  padding-top: 20px;
+}
+.amenitiesitem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+.reviewsection {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin-top: 30px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eaeaea;
+}
+.reviewsection > h2 {
+  font-size: 20px;
+}
+.reviews {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 60px;
+}
+.reviewbtn {
+  border: none;
+  outline: none;
+  border: 1px solid #d8d7d7;
+  color: var(--normal-color);
+  background: white;
+  width: 200px;
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transform: scale(1);
+  transition: transform 250ms ease-in-out;
+}
+.reviewbtn:active {
+  transform: scale(0.9);
+}
+.mapsection {
+  margin-top: 30px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eaeaea;
+}
+.mapsection > h2 {
+  margin-bottom: 10px;
+}
+.mapsection > p {
+  margin-bottom: 30px;
+}
+.map {
+  width: 100%;
+  height: 450px;
+  margin-bottom: 30px;
+}
+.roomsection {
+  margin-top: 30px;
+}
+.roomsection > h2 {
+  margin-bottom: 30px;
+}

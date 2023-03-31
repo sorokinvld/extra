@@ -1,0 +1,111 @@
+.dropdown {
+  display: flex;
+  justify-content: space-between;
+  width: 172px;
+  font-size: 17px;
+}
+.currencywrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.currency {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.currency:hover {
+  color: var(--secondary-color);
+}
+.currencies {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  overflow: hidden;
+  border-radius: 5px;
+  pointer-events: none;
+  margin-top: 180px;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.26);
+  opacity: 0;
+  transform: translateY(-10%);
+  transition: opacity 200ms ease-in-out, transform 200ms ease-in-out;
+}
+.currencies > div {
+  display: flex;
+  padding: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+  width: 100%;
+  transition: color 150ms ease-in-out, background-color 150ms ease-in-out;
+}
+.currencies > div > svg {
+  margin-right: 5px;
+}
+.currencies > div:hover {
+  background-color: #ececec;
+}
+.currencies[open-state="open"] {
+  transform: translateY(0%);
+  opacity: 1;
+  pointer-events: all;
+}
+.languagewrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.language {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.language:hover {
+  color: var(--secondary-color);
+}
+.languages {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  border-radius: 5px;
+  overflow: hidden;
+  pointer-events: none;
+  margin-top: 180px;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.26);
+  opacity: 0;
+  transform: translateY(-10%);
+  transition: opacity 200ms ease-in-out, transform 200ms ease-in-out;
+}
+.languages > div {
+  display: flex;
+  padding: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+  width: 100%;
+  transition: color 150ms ease-in-out, background-color 150ms ease-in-out;
+}
+.languages > div > svg {
+  margin-right: 5px;
+}
+.languages > div:hover {
+  background-color: #ececec;
+}
+.languages > div > svg {
+  margin-right: 5px;
+}
+.languages[open-state="open"] {
+  transform: translateY(0%);
+  opacity: 1;
+  pointer-events: all;
+}
+.downsvg {
+  transform: rotate(-180deg);
+  transition: transform 200ms ease-out;
+}
+.upsvg {
+  transform: rotate(0deg);
+  transition: transform 200ms ease-out;
+}

@@ -1,0 +1,429 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.section {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-top: 15px;
+  margin-bottom: 55px;
+  width: 100%;
+  max-width: 1150px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+.section > h2 {
+  padding-bottom: 50px;
+}
+.destinations {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+.destination {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin: 10px;
+  padding-top: 10px;
+  padding-bottom: 12px;
+  padding-left: 5px;
+  padding-right: 10px;
+  border: solid 1px #213547;
+  border-radius: 80px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.26);
+  cursor: pointer;
+  transform: scale(1);
+  transition: transform ease-in-out 100ms;
+}
+.destination:hover {
+  transform: scale(1.1);
+  transition: transform ease-in-out 100ms;
+}
+.recommendationsection {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-top: 15px;
+  width: 100%;
+  min-height: 80vh;
+  max-width: 1150px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+.recommendationsection > h2 {
+  padding-bottom: 40px;
+}
+.recommendationsection > span {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 28px;
+  left: 40%;
+  top: 15%;
+}
+.recommendationsection > span > span:nth-child(1) > span {
+  color: var(--main-color);
+}
+.recommended {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 15px;
+  margin-top: 40px;
+  flex-direction: row;
+  gap: 15px;
+  align-items: center;
+}
+.recommended > div:nth-child(2) {
+  margin-top: 85px;
+}
+.link {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+.link > a {
+  font-size: 25px;
+  text-decoration: underline;
+}
+.link > a > span {
+  display: flex;
+  align-items: center;
+}
+.link > a > span > svg {
+  transform: translateX(0%);
+  transition: transform 100ms ease-in-out;
+}
+.link > a:hover > span > svg {
+  transform: translateX(20%);
+  transition: transform 100ms ease-in-out;
+}
+.tripsection {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-top: 35px;
+  margin-bottom: 15px;
+  width: 100%;
+  min-height: 100vh;
+}
+.tripbackground {
+  background-color: #f5f5f5;
+  position: absolute;
+  min-height: 100vh;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+}
+.tripcontainer {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-top: 15px;
+  margin-bottom: 15px;
+  width: 100%;
+  max-width: 1150px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+.tripcontainer > h2 {
+  padding-top: 25px;
+}
+.trips {
+  display: flex;
+  align-items: center;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.trips::-webkit-scrollbar {
+  display: none;
+}
+.tripquote {
+  display: flex;
+  flex-direction: column;
+  width: 31.875rem;
+  margin-top: 18%;
+  margin-left: 18%;
+  gap: 15px;
+}
+.tripquote > span {
+  width: 650px;
+}
+.tripquote > span:nth-child(2) {
+  font-size: 45px;
+}
+.tripquote > span:nth-child(3) {
+  font-size: 20px;
+}
+.tripcards {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  padding: 10px;
+}
+.tripcards::-webkit-scrollbar {
+  display: none;
+}
+.button {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  background: white;
+  padding: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.26);
+  cursor: pointer;
+  margin-left: 81.5%;
+  transition: padding 400ms ease-in-out;
+}
+.button > button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  outline: none;
+  border: 2px dotted var(--normal-color);
+  background: white;
+  padding: 20px;
+  cursor: pointer;
+  transition: padding 400ms ease-in-out;
+}
+.button > svg {
+  position: absolute;
+}
+.button:hover {
+  padding: 15px;
+  transition: padding 400ms ease-in-out;
+}
+.button:hover > button {
+  animation: rotate 10s linear infinite;
+  padding: 25px;
+  transition: padding 400ms ease-in-out;
+}
+.buttonleft {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  background: white;
+  padding: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.26);
+  margin-left: 25%;
+  cursor: default;
+  opacity: 0;
+  transition: padding 400ms ease-in-out, opacity 400ms ease-in-out;
+}
+.buttonleft[shown-state="shown"] {
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 400ms ease-in-out;
+}
+.buttonleft > button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  outline: none;
+  border: 2px dotted var(--normal-color);
+  background: white;
+  padding: 20px;
+  cursor: default;
+  transition: padding 400ms ease-in-out;
+}
+.buttonleft[shown-state="shown"] > button {
+  cursor: pointer;
+}
+.buttonleft > svg {
+  position: absolute;
+}
+.buttonleft:hover {
+  padding: 15px;
+  transition: padding 400ms ease-in-out, opacity 400ms ease-in-out;
+}
+.buttonleft:hover > button {
+  animation: rotate 10s linear infinite;
+  padding: 25px;
+  transition: padding 400ms ease-in-out, opacity 400ms ease-in-out;
+}
+.buttonleft:hover[shown-state="shown"] > button {
+  animation: rotate 10s linear infinite;
+  padding: 25px;
+  transition: padding 400ms ease-in-out, opacity 400ms ease-in-out;
+}
+.toursection {
+  min-height: 200vh;
+  height: 100%;
+  width: 100%;
+  padding-bottom: 150px;
+}
+.toursection > div > h2 {
+  padding-bottom: 150px;
+}
+.imagesection {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+}
+.imagecontainer {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.imagecontainer > h2 {
+  position: absolute;
+  margin-top: 270px;
+  font-size: 45px;
+}
+.imagecontainer > p {
+  position: absolute;
+  margin-top: 200px;
+}
+.imagecontainer > input {
+  position: absolute;
+  margin-top: 430px;
+  height: 46px;
+  max-width: 400px;
+  width: 95%;
+  outline: none;
+  padding-left: 20px;
+  background: transparent;
+  font-size: 15px;
+  border: none;
+  border-bottom: 1px solid #838383;
+  margin-bottom: 20px;
+}
+.imagecontainer > input:focus {
+  border-bottom: 2px solid var(--main-color);
+}
+.imagecontainer > .error {
+  position: absolute;
+  margin-top: 630px;
+  color: var(--secondary-color);
+}
+.imagecontainer > .success {
+  position: absolute;
+  margin-top: 630px;
+  color: var(--main-color);
+}
+.imagebutton {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  margin-top: 530px;
+  font-size: 15px;
+  height: 60px;
+  outline: none;
+  border: none;
+  color: var(--normal-color);
+  border-radius: 80px;
+  background: transparent;
+  border: 1px solid #838383;
+  padding: 15px 35px;
+  cursor: pointer;
+  transition: background 200ms ease-in-out, color 200ms ease-in-out;
+}
+.imagebutton:hover {
+  background: var(--normal-color);
+  color: white;
+  border: 1px solid var(--normal-color);
+  transition: background 200ms ease-in-out, color 200ms ease-in-out;
+}
+.imagebutton:disabled {
+  border: 1px solid grey;
+  background: transparent;
+  color: grey;
+  cursor: not-allowed;
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media screen and (max-width: 1220px) {
+  .recommended {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .recommendationsection > span {
+    display: none;
+  }
+  .recommended > div:nth-child(2) {
+    margin-top: 0;
+  }
+}
+@media screen and (max-width: 935px) {
+  .main {
+    margin-top: 170px;
+  }
+  .destinations {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .destination:hover {
+    transform: scale(1.05);
+    transition: transform ease-in-out 100ms;
+  }
+  .trips {
+    flex-direction: column;
+    gap: 65px;
+    overflow-x: hidden;
+  }
+  .tripquote {
+    margin-left: 5px;
+    width: 100%;
+  }
+  .tripquote {
+    width: 100%;
+  }
+  .tripcards {
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .button {
+    display: none;
+  }
+  .imagecontainer > h2 {
+    font-size: 25px;
+  }
+}
+@media screen and (max-width: 330px) {
+  .destinations {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

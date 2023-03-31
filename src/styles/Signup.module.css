@@ -1,0 +1,275 @@
+.main {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0 1rem;
+  width: 65%;
+  margin-top: 1rem;
+}
+.backbutton {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: auto;
+  border-radius: 100%;
+  padding: 5px;
+}
+.backbutton > a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.backbutton:hover {
+  background-color: #ececec;
+}
+.image {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+.form {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px;
+  width: 100%;
+}
+.firstsection {
+  width: 400px;
+}
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.label > h1 {
+  font-size: 25px;
+}
+.divider {
+  margin-top: 25px;
+  text-align: center;
+  position: relative;
+}
+.divider::before {
+  content: "";
+  display: block;
+  max-width: 180px;
+  width: 40%;
+  height: 2px;
+  background: #eaeaea;
+  position: absolute;
+  left: 0;
+  top: 50%;
+}
+.divider::after {
+  content: "";
+  display: block;
+  max-width: 180px;
+  width: 40%;
+  height: 2px;
+  background: #eaeaea;
+  position: absolute;
+  right: 0;
+  top: 50%;
+}
+.secondsection {
+  display: none;
+}
+.secondsection[step-state="current"] {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+  width: 100%;
+}
+.input {
+  display: flex;
+  flex-direction: column;
+}
+.input > span {
+  margin-bottom: 5px;
+}
+.input > input {
+  height: 46px;
+  width: 100%;
+  outline: none;
+  padding-left: 20px;
+  font-size: 15px;
+  border: 1px solid #e1e1e1;
+  border-radius: 4px;
+}
+.input > input:focus {
+  outline: none;
+  border: 2px solid var(--main-color);
+}
+.input > select {
+  height: 46px;
+  width: 100%;
+  outline: none;
+  padding-left: 20px;
+  font-size: 15px;
+  border: 1px solid #e1e1e1;
+  margin-bottom: 3px;
+  border-radius: 4px;
+}
+.input > p {
+  padding-top: 5px;
+  height: 15px;
+  color: var(--main-color);
+}
+.phone {
+  display: flex;
+  gap: 35px;
+  max-width: 400px;
+  width: 100%;
+  margin-top: 5px;
+  align-items: center;
+}
+.phonesuffixe {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  border-bottom: 2px solid #e1e1e1;
+}
+.phone > input {
+  font-family: Roboto, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  appearance: none;
+  outline: none;
+  border: none;
+  height: 40px;
+  width: 90%;
+  border-bottom: 2px solid #e1e1e1;
+}
+.phone > input::placeholder {
+  font-family: Roboto, sans-serif;
+  font-weight: 500;
+}
+.options {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.terms > label {
+  display: flex;
+  gap: 5px;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+}
+.terms > label > input {
+  cursor: pointer;
+}
+.terms > label > input:checked {
+  background-color: var(--secondary-color);
+}
+.terms > input {
+  display: block;
+}
+.terms > p {
+  height: 15px;
+  color: var(--main-color);
+  margin-top: 5px;
+}
+.singupbutton {
+  display: flex;
+  margin-top: 10px;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 10px;
+  max-width: 400px;
+  width: 98%;
+  border: none;
+  font-size: 18px;
+  border-radius: 5px;
+  background: var(--secondary-color);
+  outline: none;
+  color: white;
+  cursor: pointer;
+}
+.singupbutton:hover {
+  background: #963446;
+}
+.singupbutton:disabled {
+  border: 2px solid grey;
+  color: grey;
+  background: white;
+  cursor: not-allowed;
+}
+.singupbutton > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+}
+.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.login > span:nth-child(2) {
+  cursor: pointer;
+}
+.cbcontainer > input[type="checkbox"] {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.checkbox {
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  background: #fff;
+  border: 2px #ddd solid;
+  margin-right: 4px;
+}
+
+.checkbox[active-state="active"] {
+  border-color: var(--main-color);
+  background: var(--main-color);
+}
+
+.goback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 935px) {
+  .image {
+    display: none;
+  }
+  .container {
+    width: 100%;
+  }
+  .firstsection {
+    width: 100%;
+  }
+  .login {
+    margin-bottom: 50px;
+  }
+}

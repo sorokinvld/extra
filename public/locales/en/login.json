@@ -1,0 +1,20 @@
+{
+  "welcome": "Welcome to Extra Virgin Travel",
+  "subwelcome": "Please, continue with social media or enter your details.",
+  "facebook": "Login with Facebook",
+  "google": "Login with Google",
+  "or": "or",
+  "email": "Email",
+  "emailfirsterror": "Please use a valid email!",
+  "password": "Password",
+  "passwordfirsterror": "Password must be at least 8 characters long!",
+  "rememberme": "Remember me",
+  "forgotpassword": "Forgot Password",
+  "accountmsg": "Dont have an account?",
+  "signup": "Sign up",
+  "login": "Login",
+  "wait": "Loading",
+  "success": "Successfully logged in!",
+  "emailnotfound": "Email not found!",
+  "incorrectpassword": "Incorrect password!"
+}
