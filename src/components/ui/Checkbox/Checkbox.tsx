@@ -16,6 +16,7 @@ interface ICheckBoxProps extends InputHTMLAttributes<HTMLInputElement> {
 const robotoBold = Roboto({
   subsets: ["latin"],
   weight: "500",
+  display: "swap",
 });
 
 function Checkbox(props: ICheckBoxProps) {

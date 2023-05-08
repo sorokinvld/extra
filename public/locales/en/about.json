@@ -7,5 +7,6 @@
   "phone": "Phone",
   "email": "Email",
   "type-your-message-here": "Type your message here",
-  "send": "Send"
+  "send": "Send",
+  "success": "Sent successfully"
 }

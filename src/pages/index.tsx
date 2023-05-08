@@ -17,11 +17,11 @@ import TourLeft from "@/components/TourShowCaseLeft/TourLeft";
 import AOS from "aos";
 import { z } from "zod";
 import image from "public/images/greece.jpg";
-import swimage from "public/images/starwards.jpg";
 import bgimage from "public/images/mountain-cutout.webp";
 import CircularProgress from "@mui/material/CircularProgress";
 import axios from "axios";
 import MailchimpSubscribe from "react-mailchimp-subscribe";
+import { useRouter } from "next/router";
 
 const robotoBold = Roboto({
   subsets: ["latin"],
@@ -35,10 +35,12 @@ const lora = Lora({
   display: "swap",
 });
 
-export default function Home({ hotels, destinations, trips }: any) {
+export default function Home({ hotels, destinations, trips, tours }: any) {
   const { t: nav } = useTranslation("navbar");
   const { t: sb } = useTranslation("searchbar");
   const { t } = useTranslation("home");
+  const emailPlaceholder = t("email");
+  const { locale } = useRouter();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [shown, setShown] = useState<boolean>(false);
   const [email, setEmail] = useState<SubcriptionSchemaType>({
@@ -96,6 +98,11 @@ export default function Home({ hotels, destinations, trips }: any) {
         login={nav("login")}
         menu={nav("menu")}
         signup={nav("signup")}
+        welcome={nav("welcome")}
+        ph={nav("ph")}
+        fav={nav("fav")}
+        rev={nav("rev")}
+        lg={nav("lg")}
       >
         <Banner
           headinglabel={t("headinglabel")}
@@ -116,6 +123,8 @@ export default function Home({ hotels, destinations, trips }: any) {
           guestRooms={sb("guestrooms")}
           destinationNullError={sb("destinationnullerror")}
           searchLocation={sb("search")}
+          destinationinvalid={sb("destinationinvalid")}
+          destinationinvalidError={sb("destinationinvaliderror")}
         />
         <main className={styles.main}>
           <section className={styles.section} id="parent">
@@ -133,7 +142,7 @@ export default function Home({ hotels, destinations, trips }: any) {
                   .slice(0, 4)
                   .map((destination: any, index: number) => (
                     <div
-                      key={destination.id}
+                      key={destination._id}
                       data-aos="fade-up"
                       data-aos-duration="400"
                       data-aos-delay={((Number(index) + 1) * 50).toString()}
@@ -146,19 +155,31 @@ export default function Home({ hotels, destinations, trips }: any) {
                             d="M480 550q23 0 38.5-15.5T534 496q0-23-15.5-38.5T480 442q-23 0-38.5 15.5T426 496q0 23 15.5 38.5T480 550Zm0 367q126-108 196-222.5T746 504q0-121-77-197.5T480 230q-112 0-189 76.5T214 504q0 76 70 190.5T480 917Zm0 39Q331 822 258.5 707.5T186 504q0-138 89-220t205-82q116 0 205 82t89 220q0 89-72.5 203.5T480 956Zm0-452Z"
                           />
                         </svg>
-                        <span className={robotoBold.className}>
-                          {destination.name}
-                        </span>
+                        {locale == "en" && (
+                          <span className={robotoBold.className}>
+                            {destination.city_en}, {destination.country_en}
+                          </span>
+                        )}
+                        {locale == "fr" && (
+                          <span className={robotoBold.className}>
+                            {destination.city_fr}, {destination.country_fr}
+                          </span>
+                        )}
+                        {locale == "ar" && (
+                          <span className={robotoBold.className}>
+                            {destination.city_ar}, {destination.country_ar}
+                          </span>
+                        )}
                       </div>
                     </div>
                   ))}
               </div>
               <div className={styles.destinations}>
                 {destinations
-                  .slice(4)
+                  .slice(4, 6)
                   .map((destination: any, index: number) => (
                     <div
-                      key={destination.id}
+                      key={destination._id}
                       data-aos="fade-up"
                       data-aos-duration="400"
                       data-aos-delay={(
@@ -174,9 +195,21 @@ export default function Home({ hotels, destinations, trips }: any) {
                             d="M480 550q23 0 38.5-15.5T534 496q0-23-15.5-38.5T480 442q-23 0-38.5 15.5T426 496q0 23 15.5 38.5T480 550Zm0 367q126-108 196-222.5T746 504q0-121-77-197.5T480 230q-112 0-189 76.5T214 504q0 76 70 190.5T480 917Zm0 39Q331 822 258.5 707.5T186 504q0-138 89-220t205-82q116 0 205 82t89 220q0 89-72.5 203.5T480 956Zm0-452Z"
                           />
                         </svg>
-                        <span className={robotoBold.className}>
-                          {destination.name}
-                        </span>
+                        {locale == "en" && (
+                          <span className={robotoBold.className}>
+                            {destination.city_en}, {destination.country_en}
+                          </span>
+                        )}
+                        {locale == "fr" && (
+                          <span className={robotoBold.className}>
+                            {destination.city_fr}, {destination.country_fr}
+                          </span>
+                        )}
+                        {locale == "ar" && (
+                          <span className={robotoBold.className}>
+                            {destination.city_ar}, {destination.country_ar}
+                          </span>
+                        )}
                       </div>
                     </div>
                   ))}
@@ -269,20 +302,47 @@ export default function Home({ hotels, destinations, trips }: any) {
               <div className={styles.tripcards}>
                 {trips.map((trip: any, index: any) => (
                   <div
-                    key={trip.id}
+                    key={trip._id}
                     data-aos="fade-left"
                     data-aos-duration="500"
                     data-aos-delay={((Number(index) + 1) * 100).toString()}
                   >
-                    <TripCard
-                      image={image.src}
-                      location={trip.location}
-                      name={trip.name}
-                      description={trip.description}
-                      price={trip.price}
-                      discover={t("discover")}
-                      from={t("from")}
-                    />
+                    {locale == "en" && (
+                      <TripCard
+                        id={trip._id}
+                        image={trip.image}
+                        location={trip.location}
+                        name={trip.title_en}
+                        description={trip.desc_en}
+                        price={trip.priceDt}
+                        discover={t("discover")}
+                        from={t("from")}
+                      />
+                    )}
+                    {locale == "fr" && (
+                      <TripCard
+                        id={trip._id}
+                        image={trip.image}
+                        location={trip.location}
+                        name={trip.title_fr}
+                        description={trip.desc_fr}
+                        price={trip.priceDt}
+                        discover={t("discover")}
+                        from={t("from")}
+                      />
+                    )}
+                    {locale == "ar" && (
+                      <TripCard
+                        id={trip._id}
+                        image={trip.image}
+                        location={trip.location}
+                        name={trip.title_ar}
+                        description={trip.desc_ar}
+                        price={trip.priceDt}
+                        discover={t("discover")}
+                        from={t("from")}
+                      />
+                    )}
                   </div>
                 ))}
               </div>
@@ -320,30 +380,73 @@ export default function Home({ hotels, destinations, trips }: any) {
                 {t("toursec")}
               </h2>
             </div>
-            <TourRight
-              image={swimage.src}
-              tourname={"EXTRA VIRGIN STAR WARS TOUR"}
-              tourdesc={
-                "the 6-day Star Wars tour is the ideal tour for Saga lovers to travel in the footsteps of Georges Lucas and Skywalker in southern Tunisia! Between the island of Djerba, Tataouine Matmata and Tozeur, you will visit all the Star Wars filming locations! You will visit the Ksours which served as slave quarters, the House of Ben and that of Lars, you will discover the Igloo in the middle of the salt lake and the village Mos Espa considered the largest Star Wars site in Tunisia"
+            {tours.map((tour: any, index: any) => {
+              if (index % 2 == 0) {
+                return (
+                  <div key={tour._id}>
+                    {locale == "en" && (
+                      <TourRight
+                        id={tour._id}
+                        image={tour.image}
+                        tourname={tour.title_en}
+                        tourdesc={tour.desc_en}
+                        seemore={t("seemore")}
+                      />
+                    )}
+                    {locale == "fr" && (
+                      <TourRight
+                        id={tour._id}
+                        image={tour.image}
+                        tourname={tour.title_fr}
+                        tourdesc={tour.desc_fr}
+                        seemore={t("seemore")}
+                      />
+                    )}
+                    {locale == "ar" && (
+                      <TourRight
+                        id={tour._id}
+                        image={tour.image}
+                        tourname={tour.title_ar}
+                        tourdesc={tour.desc_ar}
+                        seemore={t("seemore")}
+                      />
+                    )}
+                  </div>
+                );
+              } else {
+                return (
+                  <div key={tour._id}>
+                    {locale == "en" && (
+                      <TourLeft
+                        id={tour._id}
+                        image={tour.image}
+                        tourname={tour.title_en}
+                        tourdesc={tour.desc_en}
+                        seemore={t("seemore")}
+                      />
+                    )}
+                    {locale == "fr" && (
+                      <TourLeft
+                        id={tour._id}
+                        image={tour.image}
+                        tourname={tour.title_fr}
+                        tourdesc={tour.desc_fr}
+                        seemore={t("seemore")}
+                      />
+                    )}
+                    {locale == "ar" && (
+                      <TourLeft
+                        id={tour._id}
+                        image={tour.image}
+                        tourname={tour.title_ar}
+                        tourdesc={tour.desc_ar}
+                        seemore={t("seemore")}
+                      />
+                    )}
+                  </div>
+                );
               }
-              seemore={t("seemore")}
-            />
-            <TourLeft
-              image={swimage.src}
-              tourname={"EXTRA VIRGIN STAR WARS TOUR"}
-              tourdesc={
-                "the 6-day Star Wars tour is the ideal tour for Saga lovers to travel in the footsteps of Georges Lucas and Skywalker in southern Tunisia! Between the island of Djerba, Tataouine Matmata and Tozeur, you will visit all the Star Wars filming locations! You will visit the Ksours which served as slave quarters, the House of Ben and that of Lars, you will discover the Igloo in the middle of the salt lake and the village Mos Espa considered the largest Star Wars site in Tunisia"
-              }
-              seemore={t("seemore")}
-            />
-            <TourRight
-              image={swimage.src}
-              tourname={"EXTRA VIRGIN STAR WARS TOUR"}
-              tourdesc={
-                "the 6-day Star Wars tour is the ideal tour for Saga lovers to travel in the footsteps of Georges Lucas and Skywalker in southern Tunisia! Between the island of Djerba, Tataouine Matmata and Tozeur, you will visit all the Star Wars filming locations! You will visit the Ksours which served as slave quarters, the House of Ben and that of Lars, you will discover the Igloo in the middle of the salt lake and the village Mos Espa considered the largest Star Wars site in Tunisia"
-              }
-              seemore={t("seemore")}
-            />
+            })}
           </section>
           <MailchimpSubscribe
             url={MAILCHIMP_URL!}
@@ -378,7 +481,7 @@ export default function Home({ hotels, destinations, trips }: any) {
                       value={email.email}
                       data-aos="fade-up"
                       data-aos-duration="200"
-                      placeholder="Email"
+                      placeholder={emailPlaceholder}
                       type="email"
                       onChange={(e) => setEmail({ email: e.target.value })}
                     />
@@ -456,10 +559,13 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     .get(`http://localhost:5000/hotels`)
     .then((response) => response.data);
   const destinations = await axios
-    .get(`http://localhost:5000/destination`)
+    .get(`http://localhost:3000/api/getDestination`)
     .then((response) => response.data);
   const trips = await axios
-    .get(`http://localhost:5000/trips`)
+    .get(`http://localhost:3000/api/getTrips`)
+    .then((response) => response.data);
+  const tours = await axios
+    .get(`http://localhost:3000/api/getTours`)
     .then((response) => response.data);
   if (!locale) {
     return {
@@ -493,6 +599,8 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       hotels,
       destinations,
       trips,
+      tours,
     },
+    revalidate: 10,
   };
 };

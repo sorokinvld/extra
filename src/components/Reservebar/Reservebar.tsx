@@ -10,6 +10,7 @@ import { enUS, fr, ar } from "date-fns/locale";
 import { RangeSchemaType } from "@/types/dateRangeType";
 import add from "date-fns/add";
 import parse from "date-fns/parse";
+import format from "date-fns/format";
 
 const robotoBold = Roboto({
   subsets: ["latin"],
@@ -61,7 +62,7 @@ function ReserveBar({
   guestChildren,
   guestRooms,
 }: Props) {
-  const { locale, push } = useRouter();
+  const { locale } = useRouter();
   const [adultsNbr, setAdultsNbr] = useState<number>(
     Number(adultPlaceholder) || 1
   );
@@ -75,7 +76,6 @@ function ReserveBar({
   const [openGuest, setOpenGuest] = useState<boolean>(false);
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
-  const searchRef = useRef<HTMLInputElement>(null);
   const dateRef = useRef<HTMLDivElement>(null);
   const guestRef = useRef<HTMLDivElement>(null);
   const selectionRange = (): RangeSchemaType => {
@@ -101,6 +101,26 @@ function ReserveBar({
         endDate: endDate || add(new Date(), { days: 1 }),
         key: "selection",
       };
+    }
+  };
+
+  const formatedStartDate = (): string => {
+    if (startDate != null) {
+      return format(new Date(startDate), "dd/MM/yyyy");
+    } else {
+      return format(new Date(), "dd/MM/yyyy");
+    }
+  };
+  const formatedEndDate = (): string => {
+    if (endDate != null) {
+      return format(new Date(endDate), "dd/MM/yyyy");
+    } else {
+      return format(
+        add(new Date(), {
+          days: 1,
+        }),
+        "dd/MM/yyyy"
+      );
     }
   };
 
@@ -169,19 +189,11 @@ function ReserveBar({
     }
   };
   const handleSubmit = () => {
-    const formatedStartDate = Intl.DateTimeFormat("eu", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    }).format(startDate);
-    const formatedEndDate = Intl.DateTimeFormat("eu", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    }).format(endDate);
+    const startDate = formatedStartDate();
+    const endDate = formatedEndDate();
     const searchForm = {
-      startDate: formatedStartDate,
-      endDate: formatedEndDate,
+      startDate: startDate,
+      endDate: endDate,
       adults: adultsNbr,
       children: childrenNbr,
       rooms: roomsNbr,

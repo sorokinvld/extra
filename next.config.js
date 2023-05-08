@@ -5,6 +5,7 @@ const nextConfig = {
   reactStrictMode: true,
   i18n,
   images: {
+    domains: ["res.cloudinary.com"],
     remotePatterns: [
       {
         protocol: "https",

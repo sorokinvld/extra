@@ -11,7 +11,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 .secondarycolor {
   color: var(--secondary-color);
@@ -20,6 +20,63 @@
   color: var(--main-color);
   letter-spacing: 6px;
   font-size: 15px;
+}
+.userwrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+  width: 80%;
+}
+.user {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 20px;
+  margin-top: 10px;
+  border-radius: 5px 5px 0% 0%;
+  background-color: #f1f5f9;
+  cursor: pointer;
+}
+.userimage {
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+  width: 50px;
+  height: 50px;
+}
+.details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 10px;
+}
+.useroptions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.useroptions > span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 20px;
+  margin-top: 5px;
+  background-color: #f1f5f9;
+  cursor: pointer;
+}
+.useroptions > span:nth-child(3) {
+  border-radius: 0% 0% 5px 5px;
 }
 .languagewrapper {
   display: flex;
@@ -105,6 +162,7 @@
   font-size: 16px;
   padding-top: 12px;
   padding-bottom: 12px;
+  margin-bottom: 15px;
   margin-top: 20px;
   border-radius: 5px;
   background-color: #f1f5f9;

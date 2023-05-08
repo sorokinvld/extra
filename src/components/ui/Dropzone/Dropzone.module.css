@@ -1,0 +1,90 @@
+.containerwrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: 165px;
+  border: 2px dashed #eaeeea;
+  border-radius: 20px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+.preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  margin-top: 20px;
+}
+.thumbInner {
+  display: flex;
+  min-width: 0;
+  overflow: hidden;
+}
+.image {
+  display: block;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+.thumbsContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+.buttons {
+  display: flex;
+  gap: 15px;
+}
+.updatebtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background: var(--normal-color);
+  color: white;
+  border-radius: 5px;
+  transform: scale(1);
+  overflow: hidden;
+  position: relative;
+  width: 100px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: color 200ms ease-in-out, background 200ms ease-in-out,
+    border 200ms ease-in-out, transform 250ms ease-in-out;
+}
+.updatebtn:active {
+  transform: scale(0.9);
+}
+.cancelbtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background: white;
+  color: var(--normal-color);
+  border: 1px solid var(--normal-color);
+  border-radius: 5px;
+  transform: scale(1);
+  overflow: hidden;
+  position: relative;
+  width: 100px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: color 200ms ease-in-out, background 200ms ease-in-out,
+    border 200ms ease-in-out, transform 250ms ease-in-out;
+}
+.cancelbtn:active {
+  transform: scale(0.9);
+}

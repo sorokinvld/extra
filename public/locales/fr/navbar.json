@@ -6,5 +6,10 @@
   "contact": "Contact",
   "login": "Connexion",
   "menu": "Menu",
-  "signup": "S'inscrire"
+  "signup": "S'inscrire",
+  "welcome": "Bienvenue",
+  "ph": "Historique des achats",
+  "fav": "Favoris",
+  "rev": "Avis",
+  "lg": "Se déconnecter"
 }

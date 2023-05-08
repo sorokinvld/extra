@@ -6,16 +6,18 @@ import { Layout } from "@/components/Layout";
 import styles from "@/styles/Hotels.module.css";
 import HotelSearchbar from "@/components/HotelSearchBar/HotelSearchbar";
 import { Roboto, Lora } from "@next/font/google";
-import React from "react";
+import React, { useEffect } from "react";
 import HotelBox from "@/components/HotelBox/HotelBox";
 import CustomMap from "@/components/Map/CustomMap";
 import image from "public/images/greece.jpg";
 import axios from "axios";
 import Modal from "@/components/Modal/Modal";
-import { Slider, CircularProgress } from "@mui/material";
+import Slider from "@mui/material/Slider";
+import CircularProgress from "@mui/material/CircularProgress";
 import { useCurrency } from "@/lib/currencyProvider";
 import Aos from "aos";
 import StarCheckbox from "@/components/ui/StarCheckBox/StarCheckbox";
+import Checkbox from "@/components/ui/Checkbox/Checkbox";
 import { useRouter } from "next/router";
 
 const robotoBold = Roboto({
@@ -35,16 +37,18 @@ export default function Hotels() {
   const { t: nav } = useTranslation("navbar");
   const { t: sb } = useTranslation("searchbar");
   const [data, setData] = React.useState<any>();
+  const [amenities, setAmenities] = React.useState<any>();
   const [hoveredLocation, setHoveredLocation] = React.useState<any>();
   const [shown, setShown] = React.useState<boolean>(true);
   const [showModal, setShowModal] = React.useState<boolean>(false);
   const [stars, setStars] = React.useState<number[]>([]);
+  const [amenitiesFilter, setAmenitiesFilter] = React.useState<string[]>([]);
   const [priceRange, setPriceRange] = React.useState<number[]>([0, 1000]);
   const [maxPrice, setMaxPrice] = React.useState<number>(-1);
   const [loading, setLoading] = React.useState(true);
   const filterStars = ["2", "3", "4", "5"];
   const { currency } = useCurrency();
-  const { query } = useRouter();
+  const { query, locale } = useRouter();
 
   React.useEffect(() => {
     Aos.init();
@@ -55,13 +59,15 @@ export default function Hotels() {
     setLoading(true);
     const data = async () => {
       try {
-        setTimeout(async () => {
-          const res = await axios.get(
-            `http://localhost:5000/hotels?location=${query.destination}`
-          );
-          setData(res.data);
-          setLoading(false);
-        }, 3000);
+        const res = await axios.get(
+          `http://localhost:5000/hotels?location=${query.destination}`
+        );
+        const amenities = await axios.get(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/getAmenities`
+        );
+        setData(res.data);
+        setAmenities(amenities.data);
+        setLoading(false);
       } catch (error: any) {
         console.log(error);
       }
@@ -117,6 +123,21 @@ export default function Hotels() {
     setPriceRange(newValue as number[]);
   };
 
+  const handleAmenitiesFilter = (amenity: any) => {
+    if (amenitiesFilter.includes(amenity)) {
+      const newArray = [];
+      for (let i = 0; i < amenitiesFilter.length; i++) {
+        if (amenitiesFilter[i] !== amenity) {
+          newArray.push(amenitiesFilter[i]);
+        }
+      }
+      setAmenitiesFilter([]);
+      setAmenitiesFilter(newArray);
+    } else {
+      setAmenitiesFilter([...amenitiesFilter, amenity]);
+    }
+  };
+
   return (
     <>
       <Head>
@@ -138,6 +159,11 @@ export default function Hotels() {
         login={nav("login")}
         menu={nav("menu")}
         signup={nav("signup")}
+        welcome={nav("welcome")}
+        ph={nav("ph")}
+        fav={nav("fav")}
+        rev={nav("rev")}
+        lg={nav("lg")}
       >
         <main className={styles.container} id="parent">
           <section
@@ -163,6 +189,8 @@ export default function Hotels() {
                 guestChildren={sb("guestchildren")}
                 guestRooms={sb("guestrooms")}
                 destinationNullError={sb("destinationnullerror")}
+                destinationinvalid={sb("destinationinvalid")}
+                destinationinvalidError={sb("destinationinvaliderror")}
                 locationPlaceholder={query.destination}
                 checkinPlaceholder={query.startDate}
                 checkoutPlaceholder={query.endDate}
@@ -243,26 +271,6 @@ export default function Hotels() {
               </div>
             </div>
           </section>
-          <section
-            className={styles.rightsection}
-            show-state={!shown ? "true" : "false"}
-          >
-            {loading ? (
-              <div className={styles.loading}>
-                <CircularProgress sx={{ color: "grey" }} />
-              </div>
-            ) : (
-              <>
-                {data.length == 0 ? (
-                  <div className={styles.loading}>
-                    <CircularProgress sx={{ color: "grey" }} />
-                  </div>
-                ) : (
-                  <CustomMap searchResult={data} hovered={hoveredLocation} />
-                )}
-              </>
-            )}
-          </section>
           {shown ? (
             <button
               className={styles.showbutton}
@@ -290,6 +298,26 @@ export default function Hotels() {
               </svg>
             </button>
           )}
+          <section
+            className={styles.rightsection}
+            show-state={!shown ? "true" : "false"}
+          >
+            {loading ? (
+              <div className={styles.loading}>
+                <CircularProgress sx={{ color: "grey" }} />
+              </div>
+            ) : (
+              <>
+                {data.length == 0 ? (
+                  <div className={styles.loading}>
+                    <CircularProgress sx={{ color: "grey" }} />
+                  </div>
+                ) : (
+                  <CustomMap searchResult={data} hovered={hoveredLocation} />
+                )}
+              </>
+            )}
+          </section>
         </main>
         <Modal
           onClose={() => setShowModal(false)}
@@ -382,6 +410,35 @@ export default function Hotels() {
                       label={star}
                       onChange={() => onStarFilter(star)}
                     />
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className={styles.filteroption}>
+              <span className={robotoBold.className}>
+                {t("filterbyamenities")}
+              </span>
+              <div className={styles.amenities}>
+                {amenities?.map((amenity: any) => (
+                  <div key={amenity._id}>
+                    {locale == "en" && (
+                      <Checkbox
+                        label={amenity.title_en}
+                        onChange={() => handleAmenitiesFilter(amenity.title_en)}
+                      />
+                    )}
+                    {locale == "fr" && (
+                      <Checkbox
+                        label={amenity.title_fr}
+                        onChange={() => handleAmenitiesFilter(amenity.title_en)}
+                      />
+                    )}
+                    {locale == "ar" && (
+                      <Checkbox
+                        label={amenity.title_ar}
+                        onChange={() => handleAmenitiesFilter(amenity.title_en)}
+                      />
+                    )}
                   </div>
                 ))}
               </div>

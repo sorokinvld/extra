@@ -15,5 +15,7 @@
   "guestchildren": "أطفال",
   "guestrooms": "غرف",
   "destinationnullerror": "الرجاء إدخال المكان",
-  "search": "ابحث عن المكان"
+  "search": "ابحث عن المكان",
+  "destinationinvalid": "وجهة غير صالحة",
+  "destinationinvaliderror": "الرجاء توفير وجهة صالحة"
 }

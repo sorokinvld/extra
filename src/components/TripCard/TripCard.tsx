@@ -3,6 +3,7 @@ import styles from "./TripCard.module.css";
 import Image from "next/image";
 import { Roboto, Lora } from "@next/font/google";
 import { useCurrency } from "@/lib/currencyProvider";
+import { useRouter } from "next/router";
 
 const robotoBold = Roboto({
   subsets: ["latin"],
@@ -13,6 +14,7 @@ const robotoBold = Roboto({
 const lora = Lora({ subsets: ["latin"], weight: "500" });
 
 interface Props {
+  id: string;
   image: string;
   location: string;
   name: string;
@@ -23,6 +25,7 @@ interface Props {
 }
 
 function TripCard({
+  id,
   image,
   location,
   name,
@@ -32,6 +35,7 @@ function TripCard({
   from,
 }: Props) {
   const { currency } = useCurrency();
+  const { push } = useRouter();
 
   return (
     <div className={styles.container}>
@@ -53,7 +57,7 @@ function TripCard({
           <span className={robotoBold.className}>{name}</span>
           <span className={lora.className}>{description}</span>
           <div className={styles.options}>
-            <button>
+            <button onClick={() => push(`/trips/${id}`)}>
               <span className={robotoBold.className}>{discover}</span>
             </button>
             <div className={styles.price}>

@@ -7,5 +7,6 @@
   "phone": "هاتف",
   "email": "بريد إلكتروني",
   "type-your-message-here": "اكتب رسالتك هنا",
-  "send": "أرسل"
+  "send": "أرسل",
+  "success": "أرسل بنجاح"
 }

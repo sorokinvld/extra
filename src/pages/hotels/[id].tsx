@@ -14,6 +14,10 @@ import ReviewCard from "@/components/ReviewCard/ReviewCard";
 import HotelMap from "@/components/HotelMap/HotelMap";
 import { Link } from "react-scroll";
 import { useRouter } from "next/router";
+import RoomCard from "@/components/RoomCard/RoomCard";
+import Footer from "@/components/Footer/Footer";
+import Modal from "@/components/Modal/Modal";
+import Carousel from "@/components/Carousel/Carousel";
 
 const robotoBold = Roboto({
   subsets: ["latin"],
@@ -28,23 +32,33 @@ const lora = Lora({
 });
 
 export default function Hotel({ data, params }: any) {
+  const { t } = useTranslation("hotel");
+  const { t: ft } = useTranslation("footer");
   const { t: nav } = useTranslation("navbar");
   const { t: sb } = useTranslation("searchbar");
-  const { query } = useRouter();
+  const { query, isFallback } = useRouter();
   const images = ["1", "2", "3", "4", "5", "6"];
+  const rooms = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
   const reviews = 7;
   const amenities = ["Wifi", "Free parking", "On private beach", "Pool"];
   const nearby = ["Airport", "Beach", "Musuem", "Hospital"];
   const [hovered, setHovered] = useState<number>(-1);
-  const stars = Number(data[0].stars);
+  const [selected, setSelected] = useState<number>(-1);
+  const [showReviewsModal, setShowReviewsModal] = useState<boolean>(false);
+  const [showImagesModal, setShowImagesModal] = useState<boolean>(false);
 
+  if (isFallback) {
+    return <div>Loading please wait...</div>;
+  }
+
+  const stars = Number(data.stars);
   return (
     <>
       <Head>
-        <title>{data[0].name}</title>
+        <title>{data.name}</title>
         <meta
           name="description"
-          content={data[0].name + " hotel page. " + data[0].desc}
+          content={data.name + " hotel page. " + data.desc}
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
@@ -59,6 +73,11 @@ export default function Hotel({ data, params }: any) {
         login={nav("login")}
         menu={nav("menu")}
         signup={nav("signup")}
+        welcome={nav("welcome")}
+        ph={nav("ph")}
+        fav={nav("fav")}
+        rev={nav("rev")}
+        lg={nav("lg")}
       >
         <main className={styles.container}>
           <p className={lora.className}>
@@ -66,10 +85,10 @@ export default function Hotel({ data, params }: any) {
               to="reviews"
               spy={true}
               smooth={false}
-              offset={-250}
+              offset={-100}
               duration={500}
             >
-              {reviews} reviews
+              {reviews} {t("reviews")}
             </Link>{" "}
             ·{" "}
             <Link
@@ -79,10 +98,10 @@ export default function Hotel({ data, params }: any) {
               offset={-230}
               duration={500}
             >
-              {data[0].location}
+              {data.location}
             </Link>
           </p>
-          <h1 className={robotoBold.className}>{data[0].name}</h1>
+          <h1 className={robotoBold.className}>{data.name}</h1>
           <div className={styles.stars}>
             {Array.from({ length: stars }).map((_, index: number) => (
               <svg height="20" viewBox="0 96 960 960" width="20" key={index}>
@@ -105,6 +124,10 @@ export default function Hotel({ data, params }: any) {
                     key={index}
                     onMouseEnter={() => setHovered(index)}
                     onMouseLeave={() => setHovered(-1)}
+                    onClick={() => {
+                      setSelected(index);
+                      setShowImagesModal(true);
+                    }}
                   >
                     <div
                       className={styles.overlay}
@@ -120,31 +143,54 @@ export default function Hotel({ data, params }: any) {
                   </div>
                 );
             })}
-            <button className={styles.imagebtn}>
-              <span className={robotoBold.className}>Show all photos</span>
+            <button
+              className={styles.imagebtn}
+              onClick={() => {
+                setSelected(0);
+                setShowImagesModal(true);
+              }}
+            >
+              <span className={robotoBold.className}>{t("showallphotos")}</span>
             </button>
           </section>
+          <section className={styles.mobileimages}>
+            <Carousel slides={images.length} selected={0}>
+              {images.map((mock: any, index: number) => {
+                return (
+                  <div key={index} className={styles.imageshowcase}>
+                    <Image
+                      src={image.src}
+                      alt={mock + "hotel images"}
+                      width={1000}
+                      height={500}
+                      priority
+                    />
+                  </div>
+                );
+              })}
+            </Carousel>
+          </section>
           <section className={styles.buttoncontainer}>
-            <h2 className={robotoBold.className}>Skip to rooms ?</h2>
+            <h2 className={robotoBold.className}>{t("skip")}</h2>
             <Link
               to="rooms"
               spy={true}
               smooth={false}
-              offset={50}
+              offset={-120}
               duration={500}
             >
               <button className={styles.reserveroombtn}>
-                <span className={robotoBold.className}>Reserve a room</span>
+                <span className={robotoBold.className}>{t("reserveroom")}</span>
               </button>
             </Link>
           </section>
           <section className={styles.hoteldetails}>
-            <h2 className={robotoBold.className}>Know the hotel</h2>
+            <h2 className={robotoBold.className}>{t("know")}</h2>
             <div className={styles.hoteldesc}>
-              <span className={lora.className}>{data[0].desc}</span>
+              <span className={lora.className}>{data.desc}</span>
             </div>
             <div className={styles.amenities}>
-              <span className={robotoBold.className}>Amenities</span>
+              <span className={robotoBold.className}>{t("amenities")}</span>
               <div className={styles.amenitieslist}>
                 {amenities.map((amenity: any, index: number) => (
                   <div key={index} className={styles.amenitiesitem}>
@@ -164,7 +210,7 @@ export default function Hotel({ data, params }: any) {
               </div>
             </div>
             <div className={styles.amenities}>
-              <span className={robotoBold.className}>Near by</span>
+              <span className={robotoBold.className}>{t("near")}</span>
               <div className={styles.amenitieslist}>
                 {nearby.map((nearby: any, index: number) => (
                   <div key={index} className={styles.amenitiesitem}>
@@ -180,8 +226,10 @@ export default function Hotel({ data, params }: any) {
               </div>
             </div>
           </section>
-          <section className={styles.reviewsection} id="reviews">
-            <h2 className={robotoBold.className}>9.0/10 · {reviews} reviews</h2>
+          <section className={styles.reviewsection}>
+            <h2 className={robotoBold.className} id="reviews">
+              9.0/10 · {reviews} {t("reviews")}
+            </h2>
             <div className={styles.reviews}>
               {Array.from({ length: reviews }).map((_, index: number) => {
                 if (index < 6)
@@ -197,21 +245,21 @@ export default function Hotel({ data, params }: any) {
                   );
               })}
               {reviews > 6 ? (
-                <button className={styles.reviewbtn}>
-                  <span className={robotoBold.className}>Show all reviews</span>
+                <button
+                  className={styles.reviewbtn}
+                  onClick={() => setShowReviewsModal(true)}
+                >
+                  <span className={robotoBold.className}>
+                    {t("showallreviews")}
+                  </span>
                 </button>
               ) : null}
             </div>
           </section>
-          <section className={styles.mapsection} id="map">
-            <h2 className={robotoBold.className}>Where you’ll be</h2>
-            <p className={lora.className}>{data[0].location}</p>
-            <div className={styles.map}>
-              <HotelMap hotel={data} />
-            </div>
-          </section>
-          <section className={styles.roomsection} id="rooms">
-            <h2 className={robotoBold.className}>Choose your room</h2>
+          <section className={styles.roomsection}>
+            <h2 className={robotoBold.className} id="rooms">
+              {t("chooseroom")}
+            </h2>
             <ReserveBar
               dates={sb("dates")}
               checkin={sb("checkin")}
@@ -232,8 +280,90 @@ export default function Hotel({ data, params }: any) {
               childrenPlaceholder={query.childrens}
               roomsPlaceholder={query.rooms}
             />
+            <div className={styles.rooms}>
+              {rooms.map((mock: any, index: number) => (
+                <div key={index}>
+                  <RoomCard
+                    name="Single Room"
+                    price="50"
+                    reserve={t("reserve")}
+                    night={t("night")}
+                  />
+                </div>
+              ))}
+            </div>
           </section>
+          <section className={styles.mapsection} id="map">
+            <h2 className={robotoBold.className}>{t("location")}</h2>
+            <p className={lora.className}>{data.location}</p>
+            <div className={styles.map}>
+              <HotelMap hotel={data} />
+            </div>
+          </section>
+          <Modal
+            onClose={() => setShowImagesModal(false)}
+            show={showImagesModal}
+            setShow={setShowImagesModal}
+            title={t("images")}
+          >
+            <Carousel
+              slides={images.length}
+              selected={selected != -1 ? selected : 0}
+            >
+              {images.map((mock: any, index: number) => {
+                return (
+                  <div key={index} className={styles.imageshowcase}>
+                    <Image
+                      src={image.src}
+                      alt={mock + "hotel images"}
+                      width={1000}
+                      height={500}
+                      priority
+                    />
+                  </div>
+                );
+              })}
+            </Carousel>
+          </Modal>
+          <Modal
+            onClose={() => setShowReviewsModal(false)}
+            show={showReviewsModal}
+            setShow={setShowReviewsModal}
+            title={t("reviews")}
+          >
+            <div className={styles.allreviews}>
+              {Array.from({ length: reviews }).map((_, index: number) => {
+                return (
+                  <div key={index}>
+                    <ReviewCard
+                      image={image.src}
+                      name={"dani"}
+                      date={"28/03/2023"}
+                      review={"Wow that's really cool!"}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </Modal>
         </main>
+        <Footer
+          companydesc={ft("companydesc")}
+          paymentdesc={ft("paymentdesc")}
+          browseheading={ft("browseheading")}
+          home={ft("home")}
+          hotels={ft("hotels")}
+          trips={ft("trips")}
+          excursions={ft("excursions")}
+          contact={ft("contact")}
+          services={ft("services")}
+          firstservice={ft("firstservice")}
+          secondservice={ft("secondservice")}
+          thirdservice={ft("thirdservice")}
+          address={ft("address")}
+          phone={ft("phone")}
+          email={ft("email")}
+        />
       </Layout>
     </>
   );
@@ -251,7 +381,7 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
     };
   }
   const data = await axios
-    .get(`http://localhost:5000/hotels?id=${params.id}`)
+    .get(`http://localhost:5000/hotels/${params.id}`)
     .then((response) => response.data);
   if (!data) {
     return {
@@ -260,26 +390,45 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
   }
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["navbar", "searchbar"])),
+      ...(await serverSideTranslations(locale, [
+        "navbar",
+        "searchbar",
+        "footer",
+        "hotel",
+      ])),
       data,
       params,
     },
+    revalidate: 10,
   };
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const data = await axios
     .get("http://localhost:5000/hotels")
     .then((response) => response.data);
-  const paths = data.map((hotel: any) => {
+  if (!locales) {
+    const paths = data.flatMap((hotel: any) => {
+      return {
+        params: { id: hotel.id },
+      };
+    });
     return {
-      params: {
-        id: `${hotel.id}`,
-      },
+      paths,
+      fallback: true,
     };
-  });
-  return {
-    paths,
-    fallback: false,
-  };
+  } else {
+    const paths = data.flatMap((hotel: any) => {
+      return locales.map((locale) => {
+        return {
+          params: { id: hotel.id },
+          locale: locale,
+        };
+      });
+    });
+    return {
+      paths: paths,
+      fallback: true,
+    };
+  }
 };

@@ -6,6 +6,10 @@ import { GetStaticProps } from "next";
 import { Roboto } from "@next/font/google";
 import { Layout } from "@/components/Layout";
 import { useState } from "react";
+import axios from "axios";
+import CircularProgress from "@mui/material/CircularProgress";
+import { contactType, contactDefaultValues } from "@/types/contactType";
+import { toast } from "react-toastify";
 
 const robotoBold = Roboto({
   subsets: ["latin"],
@@ -13,22 +17,11 @@ const robotoBold = Roboto({
   display: "swap",
 });
 
-type Values = {
-  name: string;
-  email: string;
-  phone: string;
-  message: string;
-};
-
 export default function Contact() {
   const { t: nav } = useTranslation("navbar");
   const { t } = useTranslation("about");
-  const [values, setValues] = useState<Values>({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
-  });
+  const [values, setValues] = useState<contactType>(contactDefaultValues);
+  const [loading, setLoading] = useState(false);
 
   const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [event.target.name]: event.target.value });
@@ -40,9 +33,26 @@ export default function Contact() {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(values);
+    setLoading(true);
+    await new Promise<void>(async (resolve) => {
+      try {
+        const res = await axios.post(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/ContactUs`,
+          values
+        );
+        if (res.data == "success") {
+          setLoading(false);
+          toast.success(t("success"));
+          resolve();
+        }
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+        resolve();
+      }
+    });
   };
 
   return (
@@ -63,6 +73,11 @@ export default function Contact() {
         login={nav("login")}
         menu={nav("menu")}
         signup={nav("signup")}
+        welcome={nav("welcome")}
+        ph={nav("ph")}
+        fav={nav("fav")}
+        rev={nav("rev")}
+        lg={nav("lg")}
       >
         <section className={styles.contact}>
           <div className={styles.contactheading}>
@@ -163,7 +178,7 @@ export default function Contact() {
                       className={styles.thirdinput}
                       type="text"
                       placeholder={t("phone")!}
-                      name={"phone"}
+                      name={"phonenumber"}
                       onChange={handleChangeInput}
                       required
                     />
@@ -173,9 +188,17 @@ export default function Contact() {
                       onChange={handleChangeTextArea}
                       required
                     />
-                    <button className={styles.formbutton}>
-                      <span className={robotoBold.className}>{t("send")}</span>
-                    </button>
+                    {loading ? (
+                      <div>
+                        <CircularProgress size={40} sx={{ color: "grey" }} />
+                      </div>
+                    ) : (
+                      <button className={styles.formbutton}>
+                        <span className={robotoBold.className}>
+                          {t("send")}
+                        </span>
+                      </button>
+                    )}
                   </form>
                 </div>
               </div>

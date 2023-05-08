@@ -1,0 +1,22 @@
+{
+  "pp": "Modifier votre photo de profil :",
+  "ppsucc": "Image mise à jour!",
+  "dd": "Faites glisser et déposez votre image,",
+  "ch": "ou cliquez ici",
+  "un": "Changez votre nom d'utilisateur :",
+  "unsucc": "Nom d'utilisateur mis à jour!",
+  "em": "Modifiez votre adresse e-mail :",
+  "emsucc": "E-mail mis à jour!",
+  "cn": "Changez votre pays :",
+  "cnsucc": "Pays mis à jour!",
+  "ph": "Changer de téléphone :",
+  "phsucc": "Téléphone mis à jour",
+  "pw": "Changez votre mot de passe :",
+  "pwd": "Mot de passe",
+  "cpwd": "Confirmer le mot de passe",
+  "pwde": "Le mot de passe doit comporter entre 8 et 14 caractères",
+  "cpwde": "Les mots de passe doivent correspondre!",
+  "pwda": "Les mots de passe ne correspondent pas!",
+  "pwdsucc": "Mot de passe mis à jour!",
+  "up": "Mettre à jour"
+}

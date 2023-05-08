@@ -13,7 +13,15 @@ const roboto = Roboto({
   display: "swap",
 });
 
-function UserBar() {
+interface Props {
+  welcome: string;
+  ph: string;
+  fav: string;
+  rev: string;
+  lg: string;
+}
+
+function UserBar({ welcome, ph, fav, rev, lg }: Props) {
   const { push, asPath } = useRouter();
   const [open, setOpen] = useState<boolean>(false);
   const [hovered, setHovered] = useState<boolean>(false);
@@ -58,7 +66,9 @@ function UserBar() {
             setOpen(!open);
           }}
         >
-          <span className={roboto.className}>Welcome, {user.username}</span>
+          <span className={roboto.className}>
+            {welcome}, {user.username}
+          </span>
           <svg
             height="24"
             width="24"
@@ -75,22 +85,12 @@ function UserBar() {
             className={styles.userimage}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
+            onClick={() => push("/usersettings")}
           >
             <div
               className={styles.overlay}
               shown-state={hovered ? "true" : ""}
             />
-            <svg
-              height="35"
-              viewBox="0 96 960 960"
-              width="35"
-              shown-state={hovered ? "true" : ""}
-            >
-              <path
-                fill="currentColor"
-                d="M194.872 915.999q-25.788 0-44.176-18.388-18.387-18.388-18.387-44.176v-554.87q0-25.788 18.387-44.176 18.388-18.388 44.176-18.388h371.64v165.794h80.411v80.666h165.383v370.974q0 25.788-18.388 44.176t-44.176 18.388h-554.87Zm67.437-151.077h423.073L556.819 593.591 441.128 743.128l-81.897-104.204-96.922 125.998Zm435.128-332.974v-80.667h-80.411v-50.255h80.411v-80.41h50.254v80.41h80.411v50.255h-80.411v80.667h-50.254Z"
-              />
-            </svg>
             <Image
               src={user.imageurl}
               alt={"user image"}
@@ -99,11 +99,16 @@ function UserBar() {
             />
           </div>
           <div className={styles.options}>
-            <span className={roboto.className}>Purchase history</span>
-            <span className={roboto.className}>Favorites</span>
-            <span className={roboto.className}>Reviews</span>
+            <span
+              className={roboto.className}
+              onClick={() => push("/purchasehistory")}
+            >
+              {ph}
+            </span>
+            <span className={roboto.className}>{fav}</span>
+            <span className={roboto.className}>{rev}</span>
             <span className={roboto.className} onClick={handleLogout}>
-              Log out
+              {lg}
             </span>
           </div>
         </div>

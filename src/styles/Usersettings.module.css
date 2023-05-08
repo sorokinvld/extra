@@ -1,0 +1,141 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.userimage {
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+  width: 100px;
+  height: 100px;
+  margin-top: 15px;
+}
+.firstsection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  width: 100%;
+}
+.details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+  width: 100%;
+}
+.input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 40%;
+}
+.input > span {
+  margin-bottom: 5px;
+}
+.input > input {
+  height: 46px;
+  width: 100%;
+  outline: none;
+  padding-left: 20px;
+  font-size: 15px;
+  border: 1px solid #e1e1e1;
+  border-radius: 4px;
+}
+.input > input:focus {
+  outline: none;
+  border: 2px solid var(--main-color);
+}
+.input > select {
+  height: 46px;
+  width: 100%;
+  outline: none;
+  padding-left: 20px;
+  font-size: 15px;
+  border: 1px solid #e1e1e1;
+  margin-bottom: 3px;
+  border-radius: 4px;
+}
+.input > p {
+  padding-top: 5px;
+  height: 15px;
+  color: var(--main-color);
+}
+.phone {
+  display: flex;
+  gap: 35px;
+  max-width: 400px;
+  width: 100%;
+  margin-top: 5px;
+  align-items: center;
+}
+.phonesuffixe {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  border-bottom: 2px solid #e1e1e1;
+}
+.phone > input {
+  font-family: Roboto, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  appearance: none;
+  outline: none;
+  border: none;
+  height: 40px;
+  width: 90%;
+  border-bottom: 2px solid #e1e1e1;
+}
+.phone > input::placeholder {
+  font-family: Roboto, sans-serif;
+  font-weight: 500;
+}
+.updatebutton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background: var(--normal-color);
+  color: white;
+  border-radius: 5px;
+  transform: scale(1);
+  overflow: hidden;
+  position: relative;
+  width: 100px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 13px;
+}
+.updatebutton:active {
+  transform: scale(0.9);
+}
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 40px;
+}
+@media screen and (max-width: 935px) {
+  .container {
+    width: 100%;
+  }
+  .firstsection {
+    width: 100%;
+  }
+  .input {
+    width: 100%;
+  }
+}

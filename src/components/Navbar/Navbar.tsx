@@ -19,6 +19,11 @@ interface Props {
   contact: string;
   login: string;
   signup: string;
+  welcome: string;
+  ph: string;
+  fav: string;
+  rev: string;
+  lg: string;
 }
 
 const roboto = Roboto({
@@ -46,6 +51,11 @@ function Navbar({
   contact,
   login,
   signup,
+  welcome,
+  ph,
+  fav,
+  rev,
+  lg,
 }: Props) {
   const links = [
     { id: 1, name: home, link: "/" },
@@ -69,7 +79,7 @@ function Navbar({
           setUser(user);
         }
       } else {
-        console.log(error);
+        return;
       }
     };
     if (user == null) getMe();
@@ -111,7 +121,7 @@ function Navbar({
       </div>
       {user != null ? (
         <div className={styles.buttons}>
-          <UserBar />
+          <UserBar welcome={welcome} ph={ph} fav={fav} rev={rev} lg={lg} />
         </div>
       ) : (
         <div className={styles.buttons}>

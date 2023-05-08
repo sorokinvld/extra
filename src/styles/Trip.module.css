@@ -1,0 +1,344 @@
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1rem;
+  max-width: 1150px;
+}
+.bannerwrapper {
+  position: relative;
+  height: 500px;
+}
+.overlay {
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.45);
+}
+.bannerwrapper > h1 {
+  z-index: 3;
+  position: absolute;
+  color: white;
+  top: 50%;
+  text-align: center;
+  width: 100%;
+  font-size: 50px;
+}
+.header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.header > h2 {
+  text-align: center;
+  margin-top: 40px;
+}
+.header > h2::before {
+  content: "";
+  display: block;
+  margin-top: 40px;
+  width: 30%;
+  height: 2px;
+  background: #eaeaea;
+  position: absolute;
+  left: 0;
+  top: 8%;
+}
+.header > h2::after {
+  content: "";
+  display: block;
+  margin-top: 40px;
+  width: 30%;
+  height: 2px;
+  background: #eaeaea;
+  position: absolute;
+  right: 0;
+  top: 8%;
+}
+.header > p {
+  padding: 0 1rem;
+  margin-top: 20px;
+}
+.header > span {
+  text-align: center;
+  font-size: 20px;
+  margin-top: 20px;
+}
+.header > span::before {
+  content: "";
+  display: block;
+  margin-top: 25px;
+  width: 40%;
+  height: 2px;
+  background: #eaeaea;
+  position: absolute;
+  left: 0;
+}
+.header > span::after {
+  content: "";
+  display: block;
+  width: 40%;
+  height: 2px;
+  background: #eaeaea;
+  position: absolute;
+  right: 0;
+}
+.header > button {
+  margin-top: 40px;
+  border: none;
+  outline: none;
+  color: white;
+  width: 100%;
+  background: var(--normal-color);
+  padding: 10px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  transform: scale(1);
+  transition: transform 200ms ease-in-out;
+}
+.header > button:active {
+  transform: scale(0.99);
+}
+.timeline {
+  position: relative;
+  max-width: 1200px;
+  margin: 100px auto;
+}
+.timelinecontainer {
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+.textbox {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  overflow: hidden;
+  border: 1px solid #eaeaea;
+  border-radius: 20px;
+}
+.image {
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+.text {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  max-height: 280px;
+  overflow: hidden;
+  gap: 15px;
+  padding: 20px 30px;
+}
+.timelinecontainer[container-position="left"] {
+  left: -50%;
+}
+.timelinecontainer[container-position="right"] {
+  left: 50%;
+  margin-left: 50px;
+  padding-left: 50px;
+}
+.timelinecontainer[container-position="left"] .numbers {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border: 1px solid #eaeaea;
+  border-radius: 100%;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  right: -50px;
+  top: -25px;
+  z-index: 10;
+}
+.timelinecontainer[container-position="right"] .numbers {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border: 1px solid #eaeaea;
+  border-radius: 100%;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  left: -50px;
+  top: -25px;
+  z-index: 10;
+}
+.timeline::after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 100%;
+  background: #eaeaea;
+  top: 0;
+  left: 54%;
+  margin-left: -3px;
+  z-index: -1;
+  animation: moveline 3s linear forwards;
+}
+.dontforget {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+.dontforget > span {
+  font-size: 25px;
+}
+.forgotten {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.forgottenitem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+@keyframes moveline {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 100%;
+  }
+}
+@media screen and (max-width: 1440px) {
+  .timeline {
+    margin: 50px auto;
+  }
+  .timeline::after {
+    left: 31px;
+  }
+  .timelinecontainer {
+    margin-bottom: 10px;
+  }
+  .timelinecontainer[container-position="left"] {
+    left: 10%;
+  }
+  .timelinecontainer[container-position="right"] {
+    left: 10%;
+    margin-left: 0;
+    padding-left: 0;
+  }
+  .timelinecontainer[container-position="left"] .numbers {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border: 1px solid #eaeaea;
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    left: -58px;
+    top: -25px;
+    z-index: 10;
+  }
+  .timelinecontainer[container-position="right"] .numbers {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border: 1px solid #eaeaea;
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    left: -58px;
+    top: -25px;
+    z-index: 10;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .bannerwrapper {
+    height: 400px;
+  }
+  .bannerwrapper > h1 {
+    font-size: 35px;
+  }
+}
+@media screen and (max-width: 764px) {
+  .bannerwrapper {
+    height: 300px;
+  }
+  .bannerwrapper > h1 {
+    font-size: 20px;
+  }
+  .timeline::after {
+    left: -20px;
+  }
+  .timelinecontainer[container-position="left"] {
+    left: 0%;
+  }
+  .timelinecontainer[container-position="right"] {
+    left: 0%;
+  }
+  .timelinecontainer[container-position="left"] .numbers {
+    left: -47px;
+  }
+  .timelinecontainer[container-position="right"] .numbers {
+    left: -47px;
+  }
+}
+@media screen and (max-width: 716px) {
+  .timeline::after {
+    display: none;
+  }
+  .timelinecontainer[container-position="left"] .numbers {
+    display: none;
+  }
+  .timelinecontainer[container-position="right"] .numbers {
+    display: none;
+  }
+  .header > h1::before {
+    width: 30%;
+  }
+  .header > h1::after {
+    width: 30%;
+  }
+  .header > span::before {
+    width: 30%;
+  }
+  .header > span::after {
+    width: 30%;
+  }
+}
+@media screen and (max-width: 644px) {
+  .textbox {
+    flex-direction: column;
+  }
+  .text {
+    max-height: 100%;
+  }
+}
+@media screen and (max-width: 375px) {
+  .forgotten {
+    flex-direction: column;
+  }
+  .header > h1::before {
+    width: 20%;
+  }
+  .header > h1::after {
+    width: 20%;
+  }
+  .header > span::before {
+    width: 20%;
+  }
+  .header > span::after {
+    width: 20%;
+  }
+}

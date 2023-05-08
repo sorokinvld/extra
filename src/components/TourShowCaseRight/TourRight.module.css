@@ -29,20 +29,21 @@
   align-items: center;
   margin-top: 30px;
 }
-.link > a {
+.link {
   font-size: 25px;
   text-decoration: underline;
+  cursor: pointer;
 }
-.link > a > span {
+.link > span {
   display: flex;
   align-items: center;
 }
-.link > a > span > svg {
+.link > span > svg {
   opacity: 0;
   transform: translateX(0%);
   transition: transform 200ms ease-in-out, opacity 200ms ease-in-out;
 }
-.link > a:hover > span > svg {
+.link:hover > span > svg {
   opacity: 1;
   transform: translateX(20%);
   transition: transform 200ms ease-in-out, opacity 200ms ease-in-out;

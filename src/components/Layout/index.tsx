@@ -11,6 +11,11 @@ interface Props {
   login: string;
   menu: string;
   signup: string;
+  welcome: string;
+  ph: string;
+  fav: string;
+  rev: string;
+  lg: string;
   children?: ReactNode;
 }
 
@@ -24,6 +29,11 @@ export const Layout = ({
   login,
   menu,
   signup,
+  welcome,
+  ph,
+  fav,
+  rev,
+  lg,
   children,
 }: Props) => {
   return (
@@ -38,6 +48,11 @@ export const Layout = ({
         login={login}
         signup={signup}
         menu={menu}
+        welcome={welcome}
+        ph={ph}
+        fav={fav}
+        rev={rev}
+        lg={lg}
       />
       <div>{children}</div>
     </>

@@ -15,5 +15,7 @@
   "guestchildren": "Enfants",
   "guestrooms": "Chambres",
   "destinationnullerror": "Veuillez indiquer une destination!",
-  "search": "Rechercher une destination..."
+  "search": "Rechercher une destination...",
+  "destinationinvalid": "Destination invalide!",
+  "destinationinvaliderror": "Veuillez indiquer une destination valide!"
 }

@@ -3,6 +3,9 @@ import styles from "./MobileOptions.module.css";
 import { Roboto, Lora } from "@next/font/google";
 import { useRouter } from "next/router";
 import { useCurrency } from "@/lib/currencyProvider";
+import { useUser } from "@/lib/userProvider";
+import Image from "next/image";
+import axios from "axios";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -25,11 +28,25 @@ interface Props {
   currencies: string;
   login: string;
   signup: string;
+  ph: string;
+  fav: string;
+  rev: string;
+  lg: string;
 }
 
-function MobileOptions({ languages, currencies, login, signup }: Props) {
-  const { locale, push, pathname } = useRouter();
+function MobileOptions({
+  languages,
+  currencies,
+  login,
+  signup,
+  ph,
+  fav,
+  rev,
+  lg,
+}: Props) {
+  const { locale, push, pathname, asPath } = useRouter();
   const { currency, setCurrency } = useCurrency();
+  const { user, setUser } = useUser();
 
   const handleEuro = () => {
     setCurrency("Euro");
@@ -44,6 +61,23 @@ function MobileOptions({ languages, currencies, login, signup }: Props) {
     localStorage.setItem("currency", "Dinar");
   };
 
+  const handleLogout = async () => {
+    try {
+      const res = await axios.delete(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/session/logout`,
+        {
+          withCredentials: true,
+        }
+      );
+      if ((res.data = "success")) {
+        setUser(null);
+        push(asPath);
+      }
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <div className={styles.container}>
@@ -55,6 +89,34 @@ function MobileOptions({ languages, currencies, login, signup }: Props) {
             <span className={lora.className}>TRAVEL</span>
           </span>
         </div>
+        {user != null && (
+          <div className={styles.userwrapper}>
+            <div
+              className={styles.user}
+              onClick={() => {
+                push("/usersettings");
+              }}
+            >
+              <div className={styles.userimage}>
+                <Image
+                  src={user.imageurl}
+                  alt={"user image"}
+                  width={50}
+                  height={50}
+                />
+              </div>
+              <div className={styles.details}>
+                <h1>{user.username}</h1>
+                <p>{user.email}</p>
+              </div>
+            </div>
+            <div className={styles.useroptions}>
+              <span className={lora.className}>{ph}</span>
+              <span className={lora.className}>{fav}</span>
+              <span className={lora.className}>{rev}</span>
+            </div>
+          </div>
+        )}
         <div className={styles.languagewrapper}>
           <div className={styles.language}>
             <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24">
@@ -177,22 +239,30 @@ function MobileOptions({ languages, currencies, login, signup }: Props) {
             </div>
           </div>
         </div>
-        <button
-          className={styles.button}
-          onClick={() => {
-            push("/login");
-          }}
-        >
-          <span className={roboto.className}>{login}</span>
-        </button>
-        <button
-          className={styles.button}
-          onClick={() => {
-            push("/signup");
-          }}
-        >
-          <span className={roboto.className}>{signup}</span>
-        </button>
+        {user != null ? (
+          <button className={styles.button} onClick={handleLogout}>
+            <span className={roboto.className}>{lg}</span>
+          </button>
+        ) : (
+          <>
+            <button
+              className={styles.button}
+              onClick={() => {
+                push("/login");
+              }}
+            >
+              <span className={roboto.className}>{login}</span>
+            </button>
+            <button
+              className={styles.button}
+              onClick={() => {
+                push("/signup");
+              }}
+            >
+              <span className={roboto.className}>{signup}</span>
+            </button>
+          </>
+        )}
       </div>
       <div className={styles.error}>
         <div className={roboto.className}>404 - Page not found.</div>

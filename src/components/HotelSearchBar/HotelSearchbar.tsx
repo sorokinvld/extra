@@ -11,6 +11,10 @@ import { toast } from "react-toastify";
 import { RangeSchemaType } from "@/types/dateRangeType";
 import add from "date-fns/add";
 import parse from "date-fns/parse";
+import format from "date-fns/format";
+import { useDebouceQuery } from "@/lib/debounceQuery";
+import axios from "axios";
+import { CircularProgress } from "@mui/material";
 
 const robotoBold = Roboto({
   subsets: ["latin"],
@@ -45,6 +49,8 @@ interface Props {
   guestChildren: string;
   guestRooms: string;
   destinationNullError: string;
+  destinationinvalid: string;
+  destinationinvalidError: string;
 }
 
 function HotelSearchbar({
@@ -71,6 +77,8 @@ function HotelSearchbar({
   guestChildren,
   guestRooms,
   destinationNullError,
+  destinationinvalid,
+  destinationinvalidError,
 }: Props) {
   const { locale, push } = useRouter();
   const [inputSearch, setInputSearch] = useState<string>("");
@@ -88,6 +96,11 @@ function HotelSearchbar({
   const [openGuest, setOpenGuest] = useState<boolean>(false);
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
+  const [open, setOpen] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
+  const [results, setResults] = useState<any[]>();
+  const [ignore, setIgnore] = useState(false);
   const searchRef = useRef<HTMLInputElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const dateRef = useRef<HTMLDivElement>(null);
@@ -115,6 +128,26 @@ function HotelSearchbar({
         endDate: endDate || add(new Date(), { days: 1 }),
         key: "selection",
       };
+    }
+  };
+
+  const formatedStartDate = (): string => {
+    if (startDate != null) {
+      return format(new Date(startDate), "dd/MM/yyyy");
+    } else {
+      return format(new Date(), "dd/MM/yyyy");
+    }
+  };
+  const formatedEndDate = (): string => {
+    if (endDate != null) {
+      return format(new Date(endDate), "dd/MM/yyyy");
+    } else {
+      return format(
+        add(new Date(), {
+          days: 1,
+        }),
+        "dd/MM/yyyy"
+      );
     }
   };
 
@@ -157,6 +190,50 @@ function HotelSearchbar({
     };
   }, [openCalender, openGuest, openSearchInput]);
 
+  const debounceQuery = useDebouceQuery(inputSearch, 700);
+
+  useEffect(() => {
+    setError(false);
+    setLoading(true);
+    setOpen(true);
+    setIgnore(false);
+    if (!ignore) {
+      if (debounceQuery != "") {
+        const options = {
+          method: "GET",
+          url: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/autocompletesearch/?Destination=${debounceQuery}`,
+        };
+        axios
+          .request(options)
+          .then(function (response) {
+            if (response.data.length > 0) {
+              console.log(response.data);
+              setResults(response.data);
+              setLoading(false);
+            }
+            if (response.data.length == 0) {
+              setError(true);
+              setLoading(false);
+            }
+          })
+          .catch(function (error) {
+            console.error(error);
+            setLoading(false);
+          });
+      } else {
+        setOpen(false);
+        setLoading(false);
+      }
+    }
+    return () => setIgnore(true);
+  }, [debounceQuery, ignore]);
+
+  useEffect(() => {
+    if (inputSearch == "") {
+      setResults([]);
+    }
+  }, [inputSearch]);
+
   const handleSelect = (ranges: any) => {
     setStartDate(ranges.selection.startDate);
     setEndDate(ranges.selection.endDate);
@@ -194,33 +271,51 @@ function HotelSearchbar({
     }
   };
   const handleSubmit = () => {
-    const formatedStartDate = Intl.DateTimeFormat("eu", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    }).format(startDate);
-    const formatedEndDate = Intl.DateTimeFormat("eu", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    }).format(endDate);
-    const searchForm = {
-      destination: inputSearch || locationPlaceholder || "",
-      startDate: formatedStartDate,
-      endDate: formatedEndDate,
-      adults: adultsNbr,
-      children: childrenNbr,
-      rooms: roomsNbr,
-    };
-    if (searchForm.destination == "") {
+    const startDate = formatedStartDate();
+    const endDate = formatedEndDate();
+    if (results != null) {
+      if (results.length > 0) {
+        const searchForm = {
+          destination: results[0].city_en,
+          startDate: startDate,
+          endDate: endDate,
+          adults: adultsNbr,
+          children: childrenNbr,
+          rooms: roomsNbr,
+        };
+
+        push({
+          pathname: "hotels",
+          query: searchForm,
+        });
+      } else if (error) {
+        toast.error(destinationinvalidError);
+        setOpenSearchInput(true);
+        inputRef.current!.focus();
+      } else {
+        const searchForm = {
+          destination: inputSearch || locationPlaceholder || "",
+          startDate: startDate,
+          endDate: endDate,
+          adults: adultsNbr,
+          children: childrenNbr,
+          rooms: roomsNbr,
+        };
+        if (searchForm.destination == "") {
+          toast.error(destinationNullError);
+          setOpenSearchInput(true);
+          inputRef.current!.focus();
+        } else {
+          push({
+            pathname: "hotels",
+            query: searchForm,
+          });
+        }
+      }
+    } else {
       toast.error(destinationNullError);
       setOpenSearchInput(true);
       inputRef.current!.focus();
-    } else {
-      push({
-        pathname: "hotels",
-        query: searchForm,
-      });
     }
   };
 
@@ -289,6 +384,109 @@ function HotelSearchbar({
                 d="m439.897 706.359 106.257-106.256L652.41 706.359l24.77-24.256L570.257 576l106.102-106.103-24.256-24.256-105.949 106.256-106.257-106.256-24.256 24.256L522.051 576l-106.41 106.103 24.256 24.256ZM164.615 576l141.949-200.821q12.846-18.359 31.902-28.769Q357.523 336 380.034 336h356.889q23.911 0 41.186 17.275 17.276 17.276 17.276 41.186v363.078q0 23.91-17.276 41.186Q760.834 816 736.923 816H380q-22.616 0-41.218-11.179-18.603-11.18-32.218-29.539L164.615 576Zm41.641 0L338.38 762.154q6.153 8.462 16.538 14.231 10.384 5.769 21.923 5.769h360.082q9.231 0 16.923-7.692 7.693-7.692 7.693-16.923V394.461q0-9.231-7.693-16.923-7.692-7.692-16.923-7.692H376.769q-11.538 0-21.923 5.769-10.385 5.769-16.538 14.231L206.256 576Zm555.283 0V369.846v412.308V576Z"
               />
             </svg>
+          </div>
+          <div className={styles.searchresult} open-state={open ? "open" : ""}>
+            {loading ? (
+              <div className={styles.loading}>
+                <CircularProgress sx={{ color: "grey" }} />
+              </div>
+            ) : (
+              <>
+                {error ? (
+                  <div className={styles.loading}>
+                    <span className={robotoBold.className}>
+                      {destinationinvalid}
+                    </span>
+                  </div>
+                ) : (
+                  <>
+                    {results != null && (
+                      <>
+                        {results.map((result: any) => (
+                          <div key={result._id}>
+                            {locale == "en" && (
+                              <div
+                                className={styles.result}
+                                onClick={() =>
+                                  setInputSearch(
+                                    result.city_en + ", " + result.country_en
+                                  )
+                                }
+                              >
+                                <svg
+                                  height="32"
+                                  viewBox="0 96 960 960"
+                                  width="32"
+                                  className={styles.icon}
+                                >
+                                  <path
+                                    fill="currentColor"
+                                    d="M480 550q23 0 38.5-15.5T534 496q0-23-15.5-38.5T480 442q-23 0-38.5 15.5T426 496q0 23 15.5 38.5T480 550Zm0 367q126-108 196-222.5T746 504q0-121-77-197.5T480 230q-112 0-189 76.5T214 504q0 76 70 190.5T480 917Zm0 39Q331 822 258.5 707.5T186 504q0-138 89-220t205-82q116 0 205 82t89 220q0 89-72.5 203.5T480 956Zm0-452Z"
+                                  />
+                                </svg>
+                                <span className={robotoBold.className}>
+                                  {result.city_en}, {result.country_en}
+                                </span>
+                              </div>
+                            )}
+                            {locale == "fr" && (
+                              <div
+                                className={styles.result}
+                                onClick={() =>
+                                  setInputSearch(
+                                    result.city_fr + ", " + result.country_fr
+                                  )
+                                }
+                              >
+                                <svg
+                                  height="32"
+                                  viewBox="0 96 960 960"
+                                  width="32"
+                                  className={styles.icon}
+                                >
+                                  <path
+                                    fill="currentColor"
+                                    d="M480 550q23 0 38.5-15.5T534 496q0-23-15.5-38.5T480 442q-23 0-38.5 15.5T426 496q0 23 15.5 38.5T480 550Zm0 367q126-108 196-222.5T746 504q0-121-77-197.5T480 230q-112 0-189 76.5T214 504q0 76 70 190.5T480 917Zm0 39Q331 822 258.5 707.5T186 504q0-138 89-220t205-82q116 0 205 82t89 220q0 89-72.5 203.5T480 956Zm0-452Z"
+                                  />
+                                </svg>
+                                <span className={robotoBold.className}>
+                                  {result.city_fr}, {result.country_fr}
+                                </span>
+                              </div>
+                            )}
+                            {locale == "ar" && (
+                              <div
+                                className={styles.result}
+                                onClick={() =>
+                                  setInputSearch(
+                                    result.city_ar + ", " + result.country_ar
+                                  )
+                                }
+                              >
+                                <svg
+                                  height="32"
+                                  viewBox="0 96 960 960"
+                                  width="32"
+                                  className={styles.icon}
+                                >
+                                  <path
+                                    fill="currentColor"
+                                    d="M480 550q23 0 38.5-15.5T534 496q0-23-15.5-38.5T480 442q-23 0-38.5 15.5T426 496q0 23 15.5 38.5T480 550Zm0 367q126-108 196-222.5T746 504q0-121-77-197.5T480 230q-112 0-189 76.5T214 504q0 76 70 190.5T480 917Zm0 39Q331 822 258.5 707.5T186 504q0-138 89-220t205-82q116 0 205 82t89 220q0 89-72.5 203.5T480 956Zm0-452Z"
+                                  />
+                                </svg>
+                                <span className={robotoBold.className}>
+                                  {result.city_ar}, {result.country_ar}
+                                </span>
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </>
+                    )}
+                  </>
+                )}
+              </>
+            )}
           </div>
         </div>
       </div>

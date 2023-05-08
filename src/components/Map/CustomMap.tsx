@@ -285,7 +285,7 @@ function CustomMap({ searchResult, hovered }: any) {
       className={styles.container}
       data-aos="fade-in"
       data-aos-duration="400"
-      data-aos-delay="200"
+      data-aos-delay="400"
     >
       <Map
         mapboxAccessToken={process.env.NEXT_PUBLIC_MB_ACCESS_KEY}

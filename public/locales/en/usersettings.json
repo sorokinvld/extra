@@ -1,0 +1,22 @@
+{
+  "pp": "Change your profile picture :",
+  "ppsucc": "Picture updated!",
+  "dd": "Drag & drop your picture,",
+  "ch": "or click here",
+  "un": "Change your username :",
+  "unsucc": "Username updated!",
+  "em": "Change your email :",
+  "emsucc": "Email updated!",
+  "cn": "Change your country :",
+  "cnsucc": "Country updated!",
+  "ph": "Change your phone :",
+  "phsucc": "Phone updated",
+  "pw": "Change your password :",
+  "pwd": "Password",
+  "cpwd": "Confirm password",
+  "pwde": "Password must be between 8 and 14 characters",
+  "cpwde": "Passwords must match!",
+  "pwda": "Passwords are not matching!",
+  "pwdsucc": "Password updated!",
+  "up": "Update"
+}

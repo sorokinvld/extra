@@ -23,6 +23,8 @@ interface Props {
   guestRooms: string;
   destinationNullError: string;
   searchLocation: string;
+  destinationinvalid: string;
+  destinationinvalidError: string;
 }
 
 const lora = Lora({
@@ -50,6 +52,8 @@ function Banner({
   guestRooms,
   destinationNullError,
   searchLocation,
+  destinationinvalid,
+  destinationinvalidError,
 }: Props) {
   return (
     <div className={styles.bannerwrapper}>
@@ -80,6 +84,8 @@ function Banner({
             guestRooms={guestRooms}
             destinationNullError={destinationNullError}
             searchLocation={searchLocation}
+            destinationinvalid={destinationinvalid}
+            destinationinvalidError={destinationinvalidError}
           />
         </div>
       </div>

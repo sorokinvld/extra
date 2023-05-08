@@ -90,7 +90,9 @@
   padding-left: 15px;
   padding-right: 15px;
   padding-bottom: 15px;
+  overflow-y: scroll;
   width: 500px;
+  max-height: 500px;
 }
 .filteroption {
   display: flex;
@@ -104,8 +106,14 @@
 .staroptions {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   padding-top: 15px;
+}
+.amenities {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+  margin-top: 20px;
 }
 .filterbutton {
   display: flex;
@@ -155,14 +163,30 @@
   .rightsection[show-state="false"] {
     display: none;
   }
+  .loading {
+    top: 90%;
+  }
+  .amenities {
+    grid-template-columns: 1fr;
+  }
 }
 @media screen and (max-width: 500px) {
   .filteroptions {
-    width: 100%;
+    width: 400px;
   }
   .staroptions {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 40px;
+  }
+}
+@media screen and (max-width: 400px) {
+  .filteroptions {
+    width: 350px;
+  }
+}
+@media screen and (max-width: 350px) {
+  .filteroptions {
+    width: 300px;
   }
 }

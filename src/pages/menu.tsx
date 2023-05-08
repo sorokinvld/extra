@@ -30,12 +30,21 @@ export default function Menu() {
         login={nav("login")}
         menu={nav("menu")}
         signup={nav("signup")}
+        welcome={nav("welcome")}
+        ph={nav("ph")}
+        fav={nav("fav")}
+        rev={nav("rev")}
+        lg={nav("lg")}
       >
         <MobileOptions
           languages={t("languages")}
           currencies={t("currencies")}
           login={t("login")}
           signup={t("signup")}
+          ph={nav("ph")}
+          fav={nav("fav")}
+          rev={nav("rev")}
+          lg={nav("lg")}
         />
       </Layout>
     </>

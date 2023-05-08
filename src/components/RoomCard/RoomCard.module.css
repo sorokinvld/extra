@@ -1,0 +1,70 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  border: 1px solid #eaeaea;
+  border-radius: 5px;
+  gap: 5px;
+  min-height: 80px;
+}
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eaeaea;
+}
+.details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.price {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.price > span:nth-child(2) {
+  font-size: 15px;
+}
+.details > button {
+  border: none;
+  outline: none;
+  color: white;
+  background: var(--normal-color);
+  padding: 10px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  transform: scale(1);
+  transition: transform 200ms ease-in-out;
+}
+.details > button:active {
+  transform: scale(0.9);
+}
+.amenities {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eaeaea;
+}
+.amenitieslist {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  font-size: 13px;
+  padding-bottom: 5px;
+}
+.amenitiesitem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}

@@ -36,6 +36,11 @@ export default function Error() {
         login={nav("login")}
         menu={nav("menu")}
         signup={nav("signup")}
+        welcome={nav("welcome")}
+        ph={nav("ph")}
+        fav={nav("fav")}
+        rev={nav("rev")}
+        lg={nav("lg")}
       >
         <div className={styles.error}>
           <h1 className={roboto.className}>404 - Page not found.</h1>

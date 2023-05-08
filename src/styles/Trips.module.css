@@ -1,0 +1,95 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1rem;
+  max-width: 1150px;
+}
+.container > h1 {
+  text-align: center;
+  margin-top: 40px;
+}
+.planes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 25px;
+}
+.flippedsvg {
+  transform: rotate(180deg);
+}
+.container > p {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 40px;
+}
+.searchcontainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 30px;
+}
+.search {
+  display: flex;
+  align-items: center;
+  width: 300px;
+  height: 50px;
+  background-color: white;
+  border: 1px solid #eaeaea;
+}
+.search > svg {
+  padding-left: 10px;
+  cursor: pointer;
+}
+.search > input {
+  border: none;
+  outline: none;
+  height: 100%;
+  width: 70%;
+  padding-left: 10px;
+  font-size: 15px;
+}
+.search > input::placeholder {
+  font-size: 15px;
+}
+.search > .backspace {
+  margin-left: auto;
+  margin-right: 5px;
+}
+.tripslist {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+  width: 100%;
+  margin-bottom: 40px;
+}
+.loading {
+  position: absolute;
+  top: 70%;
+  right: 50%;
+}
+.item[showcase-position="right"] {
+  margin-left: auto;
+}
+.tripslistmobile {
+  display: none;
+}
+@media screen and (max-width: 1150px) {
+  .tripslist {
+    display: none;
+  }
+  .tripslistmobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    gap: 25px;
+    margin-top: 30px;
+    margin-bottom: 40px;
+  }
+}

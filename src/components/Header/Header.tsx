@@ -13,6 +13,11 @@ interface Props {
   login: string;
   menu: string;
   signup: string;
+  welcome: string;
+  ph: string;
+  fav: string;
+  rev: string;
+  lg: string;
 }
 
 function Header({
@@ -25,6 +30,11 @@ function Header({
   login,
   menu,
   signup,
+  welcome,
+  ph,
+  fav,
+  rev,
+  lg,
 }: Props) {
   return (
     <header className={styles.header}>
@@ -37,6 +47,11 @@ function Header({
         contact={contact}
         login={login}
         signup={signup}
+        welcome={welcome}
+        ph={ph}
+        fav={fav}
+        rev={rev}
+        lg={lg}
       />
       <NavbarMobile
         currentPage={currentPage}
