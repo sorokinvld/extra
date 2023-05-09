@@ -38,6 +38,7 @@
   z-index: 9999;
   border-radius: 15px;
   max-height: 800px;
+  overflow: hidden;
   opacity: 0;
   transform: translateY(50%);
   transition: opacity 200ms ease-in-out, transform 200ms ease-in-out;

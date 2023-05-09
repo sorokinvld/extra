@@ -60,10 +60,10 @@ export default function Trip({ trip, events, params }: any) {
         menu={nav("menu")}
         signup={nav("signup")}
         welcome={nav("welcome")}
-        ph={nav("welcome")}
-        fav={nav("welcome")}
-        rev={nav("welcome")}
-        lg={nav("welcome")}
+        ph={nav("ph")}
+        fav={nav("fav")}
+        rev={nav("rev")}
+        lg={nav("lg")}
       >
         <div className={styles.bannerwrapper}>
           <Image src={trip.image} alt={trip.title_en} fill priority />
