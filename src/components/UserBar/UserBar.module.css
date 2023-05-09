@@ -28,7 +28,7 @@
   border-radius: 5px;
   overflow: hidden;
   pointer-events: none;
-  margin-top: 250px;
+  margin-top: 295px;
   background: white;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.26);
   opacity: 0;
@@ -49,7 +49,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 30px;
+  height: 40px;
   width: 100%;
 }
 .options > span:hover {
