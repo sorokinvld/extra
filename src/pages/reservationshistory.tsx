@@ -16,6 +16,7 @@ import { fetchProducts } from "@/queries/fetchProduct";
 import { CircularProgress } from "@mui/material";
 import format from "date-fns/format";
 import { useCurrency } from "@/lib/currencyProvider";
+import { useRouter } from "next/router";
 
 const robotoBold = Roboto({
   subsets: ["latin"],
@@ -35,21 +36,26 @@ const lora = Lora({
   display: "swap",
 });
 
-export default function Purchasehistory() {
+export default function ReservationsHistory() {
   const { t: nav } = useTranslation("navbar");
-  const { t } = useTranslation("purchasehistory");
+  const { t } = useTranslation("reservationhistory");
   const [mounted, setMounted] = useState(false);
   const { user } = useUser();
+  const finished = t("finishedb");
+  const ongoing = t("ongoingb");
+  const upcoming = t("upcomingb");
   const state = [
-    { id: 1, name: "Finished" },
-    { id: 2, name: "On going" },
-    { id: 3, name: "Upcoming" },
+    { id: 1, name: finished },
+    { id: 2, name: ongoing },
+    { id: 3, name: upcoming },
   ];
+  const [selectedUnderline, setSelectedUnderline] = useState(finished);
   const [selectedState, setSelectedState] = useState("Finished");
   const [selectedType, setSelectedType] = useState("Room");
   const [data, setData] = useState<any[]>();
   const [loading, setLoading] = useState(false);
   const { currency } = useCurrency();
+  const { locale } = useRouter();
 
   useEffect(() => {
     setMounted(true);
@@ -57,7 +63,14 @@ export default function Purchasehistory() {
   }, []);
 
   const handleStateChange = (state: string) => {
-    setSelectedState(state);
+    if (state == finished) {
+      setSelectedState("Finished");
+    } else if (state == ongoing) {
+      setSelectedState("On going");
+    } else {
+      setSelectedState("Upcoming");
+    }
+    setSelectedUnderline(state);
     setSelectedType("Room");
     setLoading(true);
     fetchRooms(user._id, setData, setLoading);
@@ -280,7 +293,7 @@ export default function Purchasehistory() {
       >
         {user && (
           <div className={styles.container}>
-            <h1 className={roboto.className}>Purchase history</h1>
+            <h1 className={roboto.className}>{t("header")}</h1>
             <div className={styles.header}>
               <div className={styles.userimage}>
                 <Image
@@ -301,11 +314,11 @@ export default function Purchasehistory() {
                   key={state.id}
                   onClick={() => handleStateChange(state.name)}
                   className={
-                    state.name === selectedState ? styles.activeli : ""
+                    state.name === selectedUnderline ? styles.activeli : ""
                   }
                 >
                   {state.name}
-                  {state.name === selectedState ? (
+                  {state.name === selectedUnderline ? (
                     <motion.div
                       className={styles.underline}
                       layoutId="underline"
@@ -323,7 +336,7 @@ export default function Purchasehistory() {
                   data-aos-duration="400"
                   id="parent"
                 >
-                  Finished bookings :
+                  {t("finished")}
                 </h2>
               )}
               {selectedState == "On going" && (
@@ -333,7 +346,7 @@ export default function Purchasehistory() {
                   data-aos-duration="400"
                   data-aos-anchor="parent"
                 >
-                  On going bookings :
+                  {t("ongoing")}
                 </h2>
               )}
               {selectedState == "Upcoming" && (
@@ -343,7 +356,7 @@ export default function Purchasehistory() {
                   data-aos-duration="400"
                   data-aos-anchor="parent"
                 >
-                  Upcoming bookings :
+                  {t("upcoming")}
                 </h2>
               )}
               <div className={styles.search}>
@@ -353,7 +366,7 @@ export default function Purchasehistory() {
                     d="M783.282 902 529.077 647.795q-29.798 26.398-69.174 40.456-39.376 14.057-79.185 14.057-95.757 0-162.084-66.196-66.327-66.195-66.327-161.525 0-95.331 66.196-161.651 66.195-66.321 161.486-66.321 95.29 0 161.907 66.232t66.617 161.529q0 41.368-14.769 80.778-14.77 39.41-40.411 68.384l254.36 253.539L783.282 902ZM380.564 668.462q81.645 0 137.874-56.09t56.229-137.911q0-81.82-56.229-137.91t-137.874-56.09q-81.773 0-138.092 56.09-56.318 56.09-56.318 137.91 0 81.821 56.318 137.911 56.319 56.09 138.092 56.09Z"
                   />
                 </svg>
-                <input placeholder="Search by name..." />
+                <input />
                 <svg
                   height="35"
                   viewBox="0 96 960 960"
@@ -385,7 +398,7 @@ export default function Purchasehistory() {
                     data-aos-duration="400"
                     data-aos-anchor="parent"
                   >
-                    Rooms
+                    {t("rooms")}
                   </span>
                 )}
                 {selectedType == "Product" && (
@@ -395,7 +408,7 @@ export default function Purchasehistory() {
                     data-aos-duration="400"
                     data-aos-anchor="parent"
                   >
-                    Trips | Tours
+                    {t("product")}
                   </span>
                 )}
                 <svg
@@ -446,12 +459,12 @@ export default function Purchasehistory() {
                                       </div>
                                       <div className={styles.room}>
                                         <span className={robotoBold.className}>
-                                          Room{" "}
+                                          {t("room")}{" "}
                                           {result.Room_purchase[0].room_number}
                                         </span>
                                         <div className={styles.date}>
                                           <span className={lora.className}>
-                                            Check in:{" "}
+                                            {t("checkin")}:{" "}
                                             {format(
                                               new Date(
                                                 result.Room_purchase[0].start_date
@@ -460,7 +473,7 @@ export default function Purchasehistory() {
                                             )}
                                           </span>
                                           <span className={lora.className}>
-                                            Check out:{" "}
+                                            {t("checkout")}:{" "}
                                             {format(
                                               new Date(
                                                 result.Room_purchase[0].end_date
@@ -473,14 +486,14 @@ export default function Purchasehistory() {
                                           <button
                                             className={robotoBold.className}
                                           >
-                                            Give a review
+                                            {t("review")}
                                           </button>
                                         )}
                                         {selectedState == "On going" && (
                                           <button
                                             className={robotoBold.className}
                                           >
-                                            Give a review
+                                            {t("review")}
                                           </button>
                                         )}
                                       </div>
@@ -527,11 +540,11 @@ export default function Purchasehistory() {
                               })}
                             </>
                           ) : (
-                            <span>No rooms has been booked!</span>
+                            <span>{t("noroom")}</span>
                           )}
                         </>
                       ) : (
-                        <span>No rooms has been booked!</span>
+                        <span>{t("noproduct")}</span>
                       )}
                     </>
                   )}
@@ -563,12 +576,33 @@ export default function Purchasehistory() {
                                         />
                                       </div>
                                       <div className={styles.room}>
-                                        <span className={roboto.className}>
-                                          {result.Product_purchase[0].title_en}
-                                        </span>
+                                        {locale == "en" && (
+                                          <span className={roboto.className}>
+                                            {
+                                              result.Product_purchase[0]
+                                                .title_en
+                                            }
+                                          </span>
+                                        )}
+                                        {locale == "fr" && (
+                                          <span className={roboto.className}>
+                                            {
+                                              result.Product_purchase[0]
+                                                .title_fr
+                                            }
+                                          </span>
+                                        )}
+                                        {locale == "ar" && (
+                                          <span className={roboto.className}>
+                                            {
+                                              result.Product_purchase[0]
+                                                .title_ar
+                                            }
+                                          </span>
+                                        )}
                                         <div className={styles.date}>
                                           <span className={lora.className}>
-                                            Check in:{" "}
+                                            {t("checkin")}:{" "}
                                             {format(
                                               new Date(
                                                 result.Product_purchase[0].daystart
@@ -577,7 +611,7 @@ export default function Purchasehistory() {
                                             )}
                                           </span>
                                           <span className={lora.className}>
-                                            Check out:{" "}
+                                            {t("checkout")}:{" "}
                                             {format(
                                               new Date(
                                                 result.Product_purchase[0].dayend
@@ -605,11 +639,11 @@ export default function Purchasehistory() {
                               })}
                             </>
                           ) : (
-                            <span>No product has been booked!</span>
+                            <span>{t("noproduct")}</span>
                           )}
                         </>
                       ) : (
-                        <span>No product has been booked!</span>
+                        <span>{t("noproduct")}</span>
                       )}
                     </>
                   )}
@@ -631,7 +665,10 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   }
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["navbar", "purchasehistory"])),
+      ...(await serverSideTranslations(locale, [
+        "navbar",
+        "reservationhistory",
+      ])),
     },
   };
 };

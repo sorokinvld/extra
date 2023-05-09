@@ -1,0 +1,17 @@
+{
+  "header": "Reservations history",
+  "finished": "Finished reservations :",
+  "finishedb": "Finished",
+  "ongoing": "On going reservations :",
+  "ongoingb": "On going",
+  "upcoming": "Upcoming reservations :",
+  "upcomingb": "Upcoming",
+  "review": "Give a review",
+  "checkin": "Check in",
+  "checkout": "Check out",
+  "room": "Room",
+  "rooms": "Rooms",
+  "product": "Trips | Tours",
+  "noroom": "No rooms has been booked!",
+  "noproduct": "No product has been booked!"
+}

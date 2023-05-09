@@ -1,0 +1,17 @@
+{
+  "header": "Historique des réservations",
+  "finished": "Réservations terminées :",
+  "finishedb": "Terminé",
+  "ongoing": "Réservations en cours :",
+  "ongoingb": "En cours",
+  "upcoming": "Réservations à venir :",
+  "upcomingb": "À venir",
+  "review": "Donner un avis",
+  "checkin": "Arrivée",
+  "checkout": "Départ",
+  "room": "Chambre",
+  "rooms": "Chambres",
+  "product": "Voyages | Excursions",
+  "noroom": "Aucune chambre n'a été réservée",
+  "noproduct": "Aucun produit n'a été réservé!"
+}

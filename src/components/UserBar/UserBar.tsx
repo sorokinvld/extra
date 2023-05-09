@@ -101,7 +101,7 @@ function UserBar({ welcome, ph, fav, rev, lg }: Props) {
           <div className={styles.options}>
             <span
               className={roboto.className}
-              onClick={() => push("/purchasehistory")}
+              onClick={() => push("/reservationshistory")}
             >
               {ph}
             </span>
