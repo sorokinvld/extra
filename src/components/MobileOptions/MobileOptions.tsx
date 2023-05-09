@@ -2,8 +2,8 @@ import React from "react";
 import styles from "./MobileOptions.module.css";
 import { Roboto, Lora } from "@next/font/google";
 import { useRouter } from "next/router";
-import { useCurrency } from "@/lib/currencyProvider";
-import { useUser } from "@/lib/userProvider";
+import { useCurrency } from "@/utils/currencyProvider";
+import { useUser } from "@/utils/userProvider";
 import Image from "next/image";
 import axios from "axios";
 

@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useEffect } from "react";
-import { closeOpenedComponent } from "../lib/closeOpenedComponent";
+import { closeOpenedComponent } from "../utils/closeOpenedComponent";
 
 export function useCloseOnClickOutside(
   ref: React.RefObject<HTMLDivElement>,

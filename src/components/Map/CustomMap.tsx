@@ -10,7 +10,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import getCenter from "geolib/es/getCenter";
 import { Roboto, Lora } from "@next/font/google";
 import Image from "next/image";
-import { useCurrency } from "@/lib/currencyProvider";
+import { useCurrency } from "@/utils/currencyProvider";
 import image from "public/images/greece.jpg";
 import Aos from "aos";
 

@@ -4,7 +4,7 @@ import { useDropzone } from "react-dropzone";
 import styles from "./Dropzone.module.css";
 import { Roboto } from "@next/font/google";
 import axios from "axios";
-import { useUser } from "@/lib/userProvider";
+import { useUser } from "@/utils/userProvider";
 import { toast } from "react-toastify";
 import { fetchUser } from "@/queries/fetchUser";
 import CircularProgress from "@mui/material/CircularProgress";

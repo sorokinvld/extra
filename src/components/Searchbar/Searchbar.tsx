@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import { RangeSchemaType } from "@/types/dateRangeType";
 import add from "date-fns/add";
 import format from "date-fns/format";
-import { useDebouceQuery } from "@/lib/debounceQuery";
+import { useDebouceQuery } from "@/utils/debounceQuery";
 import axios from "axios";
 import { CircularProgress } from "@mui/material";
 

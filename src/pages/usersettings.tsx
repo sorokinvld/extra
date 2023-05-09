@@ -6,7 +6,7 @@ import { Layout } from "@/components/Layout";
 import styles from "@/styles/Usersettings.module.css";
 import errorstyles from "@/styles/Error.module.css";
 import { Roboto, Lora } from "@next/font/google";
-import { useUser } from "@/lib/userProvider";
+import { useUser } from "@/utils/userProvider";
 import Image from "next/image";
 import Dropzone from "@/components/ui/Dropzone/Dropzone";
 import { useEffect, useState } from "react";

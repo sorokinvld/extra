@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./TripCard.module.css";
 import Image from "next/image";
 import { Roboto, Lora } from "@next/font/google";
-import { useCurrency } from "@/lib/currencyProvider";
+import { useCurrency } from "@/utils/currencyProvider";
 import { useRouter } from "next/router";
 
 const robotoBold = Roboto({

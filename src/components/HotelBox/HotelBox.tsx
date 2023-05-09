@@ -4,9 +4,9 @@ import Image from "next/image";
 import { useState } from "react";
 import { Roboto, Lora } from "@next/font/google";
 import { useRouter } from "next/router";
-import { useCurrency } from "@/lib/currencyProvider";
+import { useCurrency } from "@/utils/currencyProvider";
 import Link from "next/link";
-import { useUser } from "@/lib/userProvider";
+import { useUser } from "@/utils/userProvider";
 
 interface Props {
   id: string;

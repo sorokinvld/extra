@@ -3,9 +3,9 @@ import styles from "./HotelCard.module.css";
 import Image from "next/image";
 import { Roboto, Lora } from "@next/font/google";
 import { useState } from "react";
-import { useCurrency } from "@/lib/currencyProvider";
+import { useCurrency } from "@/utils/currencyProvider";
 import Link from "next/link";
-import { useUser } from "@/lib/userProvider";
+import { useUser } from "@/utils/userProvider";
 
 const robotoBold = Roboto({
   subsets: ["latin"],

@@ -1,13 +1,13 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { appWithTranslation } from "next-i18next";
-import { CurrencyProvider } from "@/lib/currencyProvider";
+import { CurrencyProvider } from "@/utils/currencyProvider";
 import NextNProgress from "@/components/ui/ProgressBar";
 import { ParallaxProvider } from "react-scroll-parallax";
 import "aos/dist/aos.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { UserProvider } from "@/lib/userProvider";
+import { UserProvider } from "@/utils/userProvider";
 
 function App({ Component, pageProps }: AppProps) {
   return (

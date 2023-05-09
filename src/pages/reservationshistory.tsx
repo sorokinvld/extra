@@ -6,7 +6,7 @@ import { Layout } from "@/components/Layout";
 import styles from "@/styles/Purchasehistory.module.css";
 import errorstyles from "@/styles/Error.module.css";
 import { Roboto, Lora } from "@next/font/google";
-import { useUser } from "@/lib/userProvider";
+import { useUser } from "@/utils/userProvider";
 import Image from "next/image";
 import { useEffect, useState, useMemo } from "react";
 import { motion } from "framer-motion";
@@ -15,7 +15,7 @@ import { fetchRooms } from "@/queries/fetchRooms";
 import { fetchProducts } from "@/queries/fetchProduct";
 import { CircularProgress } from "@mui/material";
 import format from "date-fns/format";
-import { useCurrency } from "@/lib/currencyProvider";
+import { useCurrency } from "@/utils/currencyProvider";
 import { useRouter } from "next/router";
 
 const robotoBold = Roboto({

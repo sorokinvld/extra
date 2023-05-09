@@ -11,7 +11,7 @@ import image from "public/images/greece.jpg";
 import { useEffect } from "react";
 import Aos from "aos";
 import { useRouter } from "next/router";
-import { useCurrency } from "@/lib/currencyProvider";
+import { useCurrency } from "@/utils/currencyProvider";
 
 const robotoBold = Roboto({
   subsets: ["latin"],

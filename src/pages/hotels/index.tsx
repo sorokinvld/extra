@@ -14,7 +14,7 @@ import axios from "axios";
 import Modal from "@/components/Modal/Modal";
 import Slider from "@mui/material/Slider";
 import CircularProgress from "@mui/material/CircularProgress";
-import { useCurrency } from "@/lib/currencyProvider";
+import { useCurrency } from "@/utils/currencyProvider";
 import Aos from "aos";
 import StarCheckbox from "@/components/ui/StarCheckBox/StarCheckbox";
 import Checkbox from "@/components/ui/Checkbox/Checkbox";

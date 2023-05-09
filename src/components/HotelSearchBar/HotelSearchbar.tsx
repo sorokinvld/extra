@@ -12,7 +12,7 @@ import { RangeSchemaType } from "@/types/dateRangeType";
 import add from "date-fns/add";
 import parse from "date-fns/parse";
 import format from "date-fns/format";
-import { useDebouceQuery } from "@/lib/debounceQuery";
+import { useDebouceQuery } from "@/utils/debounceQuery";
 import axios from "axios";
 import { CircularProgress } from "@mui/material";
 

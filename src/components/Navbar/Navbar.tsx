@@ -6,7 +6,7 @@ import { Lora } from "@next/font/google";
 import { useRouter } from "next/router";
 import Button from "../ui/Button/Button";
 import Dropdown from "../Dropdown/Dropdown";
-import { useUser } from "@/lib/userProvider";
+import { useUser } from "@/utils/userProvider";
 import { fetchUser } from "@/queries/fetchUser";
 import UserBar from "../UserBar/UserBar";
 

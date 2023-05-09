@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import styles from "./UserBar.module.css";
 import { Roboto } from "@next/font/google";
 import { useRouter } from "next/router";
-import { useUser } from "@/lib/userProvider";
-import { closeOpenedComponent } from "@/lib/closeOpenedComponent";
+import { useUser } from "@/utils/userProvider";
+import { closeOpenedComponent } from "@/utils/closeOpenedComponent";
 import Image from "next/image";
 import axios from "axios";
 

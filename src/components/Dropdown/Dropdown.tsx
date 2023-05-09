@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import styles from "./Dropdown.module.css";
 import { Roboto } from "@next/font/google";
 import { useRouter } from "next/router";
-import { useCurrency } from "@/lib/currencyProvider";
-import { closeOpenedComponent } from "@/lib/closeOpenedComponent";
+import { useCurrency } from "@/utils/currencyProvider";
+import { closeOpenedComponent } from "@/utils/closeOpenedComponent";
 
 const roboto = Roboto({
   subsets: ["latin"],
