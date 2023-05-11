@@ -171,3 +171,12 @@
 .room > button:active {
   transform: scale(0.9);
 }
+@media screen and (max-width: 400px) {
+  .roomwrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  .room > button {
+    margin-top: 5px;
+  }
+}

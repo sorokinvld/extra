@@ -1,0 +1,102 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-bottom: 35px;
+  border-bottom: 1px solid #eaeaea;
+  gap: 15px;
+}
+.userimage {
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+  width: 100px;
+  height: 100px;
+  margin-top: 15px;
+}
+.details {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  justify-content: center;
+  text-align: center;
+}
+.results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  margin-top: 40px;
+}
+.reviewcontainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 15px;
+  max-width: 400px;
+}
+.image {
+  width: 150px;
+  height: 150px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.review {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 10px;
+  max-width: 400px;
+}
+.review > h2 {
+  font-size: 17px;
+}
+.review > span:nth-child(3) {
+  font-size: 17px;
+  margin-bottom: 10px;
+  max-width: 200px;
+  overflow-wrap: break-word;
+}
+.review > button {
+  border: none;
+  outline: none;
+  color: white;
+  background: var(--normal-color);
+  width: 150px;
+  padding: 5px 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  transform: scale(1);
+  transition: transform 250ms ease-in-out;
+}
+.review > button:active {
+  transform: scale(0.9);
+}
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 50px;
+}
+@media screen and (max-width: 400px) {
+  .reviewcontainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .review {
+    align-items: center;
+  }
+}

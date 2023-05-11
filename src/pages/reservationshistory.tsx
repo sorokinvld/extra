@@ -55,7 +55,7 @@ export default function ReservationsHistory() {
   const [data, setData] = useState<any[]>();
   const [loading, setLoading] = useState(false);
   const { currency } = useCurrency();
-  const { locale } = useRouter();
+  const { locale, push } = useRouter();
 
   useEffect(() => {
     setMounted(true);
@@ -485,6 +485,12 @@ export default function ReservationsHistory() {
                                         {selectedState == "Finished" && (
                                           <button
                                             className={robotoBold.className}
+                                            onClick={() => {
+                                              push({
+                                                pathname: "reviewhotel",
+                                                query: { id: result._id },
+                                              });
+                                            }}
                                           >
                                             {t("review")}
                                           </button>
@@ -492,6 +498,12 @@ export default function ReservationsHistory() {
                                         {selectedState == "On going" && (
                                           <button
                                             className={robotoBold.className}
+                                            onClick={() => {
+                                              push({
+                                                pathname: "reviewhotel",
+                                                query: { id: result._id },
+                                              });
+                                            }}
                                           >
                                             {t("review")}
                                           </button>
@@ -499,31 +511,37 @@ export default function ReservationsHistory() {
                                       </div>
                                       <div className={styles.price}>
                                         <span className={roboto.className}>
-                                          {Number(
-                                            result.Room_purchase[0]
-                                              .numberofnight
-                                          ) *
+                                          {(Number(
+                                            result.Room_purchase[0].priceofroom
+                                          ) +
                                             Number(
                                               result.Room_purchase[0]
-                                                .priceofnight
-                                            ) +
-                                            Number(
-                                              result.Room_purchase[0].adult
+                                                .priceperadult
                                             ) *
                                               Number(
-                                                result.Room_purchase[0]
-                                                  .priceperadult
-                                              ) +
-                                            Number(
-                                              result.Room_purchase[0].child
-                                            ) *
-                                              Number(
-                                                result.Room_purchase[0]
-                                                  .priceperchild
+                                                result.Room_purchase[0].adult
                                               ) +
                                             Number(
                                               result.Room_purchase[0]
-                                                .priceofroom
+                                                .priceperchild
+                                            ) *
+                                              Number(
+                                                result.Room_purchase[0].child
+                                              )) *
+                                            Number(
+                                              (new Date(
+                                                String(
+                                                  result.Room_purchase[0]
+                                                    .end_date
+                                                )
+                                              ).setHours(0, 0, 0, 0) -
+                                                new Date(
+                                                  String(
+                                                    result.Room_purchase[0]
+                                                      .start_date
+                                                  )
+                                                ).setHours(0, 0, 0, 0)) /
+                                                (1000 * 60 * 60 * 24)
                                             )}
                                           {currency == "Euro" && <span>€</span>}
                                           {currency == "Dollar" && (

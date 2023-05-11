@@ -106,7 +106,9 @@ function UserBar({ welcome, ph, fav, rev, lg }: Props) {
               {ph}
             </span>
             <span className={roboto.className}>{fav}</span>
-            <span className={roboto.className}>{rev}</span>
+            <span className={roboto.className} onClick={() => push("/reviews")}>
+              {rev}
+            </span>
             <span className={roboto.className} onClick={handleLogout}>
               {lg}
             </span>

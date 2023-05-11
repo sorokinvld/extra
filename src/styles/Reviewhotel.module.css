@@ -1,0 +1,109 @@
+.loading {
+  width: 100%;
+  margin-top: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.image {
+  position: relative;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.rating {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 20px;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.select {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  text-align: center;
+}
+.select > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 3px;
+  min-width: 80px;
+}
+.select > svg {
+  cursor: pointer;
+}
+.rating > button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background: var(--normal-color);
+  color: white;
+  border-radius: 5px;
+  transform: scale(1);
+  overflow: hidden;
+  position: relative;
+  width: 100px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 13px;
+}
+.rating > button:active {
+  transform: scale(0.9);
+}
+.review {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 20px;
+}
+.review > textarea {
+  height: 200px;
+  width: 300px;
+  outline: none;
+  padding-left: 20px;
+  padding-top: 12px;
+  font-size: 15px;
+  border: 1px solid #e1e1e1;
+  resize: none;
+  margin-bottom: 9px;
+  border-radius: 4px;
+}
+.review > button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background: var(--normal-color);
+  color: white;
+  border-radius: 5px;
+  transform: scale(1);
+  overflow: hidden;
+  position: relative;
+  width: 100px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 13px;
+}
+.review > button:active {
+  transform: scale(0.9);
+}
