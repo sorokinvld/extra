@@ -81,10 +81,10 @@ export default function Contact() {
       >
         <section className={styles.contact}>
           <div className={styles.contactheading}>
-            <h2 className={robotoBold.className}>
+            <h1 className={robotoBold.className}>
               <span className={styles.spanleft}>-</span> {t("get-in-touch")}{" "}
               <span className={styles.spanright}>-</span>
-            </h2>
+            </h1>
           </div>
           <div className={styles.container}>
             <div className={styles.row}>
@@ -104,7 +104,7 @@ export default function Contact() {
                       </svg>
                     </div>
                     <div className={styles.text}>
-                      <h3 className={robotoBold.className}>{t("address")}</h3>
+                      <h2 className={robotoBold.className}>{t("address")}</h2>
                       <p className={robotoBold.className}>
                         Imm Jebli Centre, Av de Carthage, Rte de Gremda km 0.5,
                         <br />
@@ -126,7 +126,7 @@ export default function Contact() {
                       </svg>
                     </div>
                     <div className={styles.text}>
-                      <h3 className={robotoBold.className}>{t("call-us")}</h3>
+                      <h2 className={robotoBold.className}>{t("call-us")}</h2>
                       <p className={robotoBold.className}>+216 72 032 183</p>
                     </div>
                   </div>
@@ -144,7 +144,7 @@ export default function Contact() {
                       </svg>
                     </div>
                     <div className={styles.text}>
-                      <h3 className={robotoBold.className}>{t("mail")}</h3>
+                      <h2 className={robotoBold.className}>{t("mail")}</h2>
                       <p className={robotoBold.className}>
                         extravirgintravel@gmail.com
                       </p>
