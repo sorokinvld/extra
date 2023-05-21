@@ -22,8 +22,8 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      - name: Tests
-        run: npm cypress
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
 
       - name: Print Environment Variable
         run: echo $MY_ENV_VAR

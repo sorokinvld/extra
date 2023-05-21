@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
+    "cypress-headless": "cypress run",
     "cypress": "cypress open"
   },
   "dependencies": {
