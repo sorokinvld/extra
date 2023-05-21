@@ -5,8 +5,8 @@ import "mapbox-gl/dist/mapbox-gl.css";
 function HotelMap({ hotel }: any) {
   const coordinates = React.useMemo(() => {
     return {
-      longitude: hotel.long,
-      latitude: hotel.lat,
+      longitude: hotel.longitude,
+      latitude: hotel.latitude,
     };
   }, [hotel]);
 

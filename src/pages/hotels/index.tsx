@@ -52,57 +52,35 @@ export default function Hotels() {
 
   React.useEffect(() => {
     Aos.init();
-    setMaxPrice(-1);
+    setMaxPrice(30000);
   }, []);
 
   React.useEffect(() => {
     setLoading(true);
+
     const data = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/hotels?location=${query.destination}`
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/Hotels?page=1&search=${query.destination}`
         );
-        const amenities = await axios.get(
+        const amenitiesdata = await axios.get(
           `${process.env.NEXT_PUBLIC_SERVER_URL}/api/getAmenities`
         );
         setData(res.data);
-        setAmenities(amenities.data);
+        setAmenities(amenitiesdata.data);
         setLoading(false);
       } catch (error: any) {
         console.log(error);
       }
     };
-    data();
+    if (query.destination) {
+      data();
+    }
   }, [query.destination]);
 
   React.useMemo(() => {
     if (data) setMaxPrice(-1);
   }, [data]);
-
-  React.useMemo(() => {
-    if (data) {
-      if (currency == "Euro") {
-        data.map((hotel: any) => {
-          if (Number(hotel.priceineuro) > maxPrice) {
-            setMaxPrice(Number(hotel.priceineuro));
-          }
-        });
-      } else if (currency == "Dollar") {
-        data.map((hotel: any) => {
-          if (Number(hotel.priceindollar) > maxPrice) {
-            setMaxPrice(Number(hotel.priceindollar));
-          }
-        });
-      } else {
-        data.map((hotel: any) => {
-          if (Number(hotel.priceindinar) > maxPrice) {
-            setMaxPrice(Number(hotel.priceindinar));
-          }
-        });
-      }
-    }
-    setPriceRange([0, maxPrice]);
-  }, [currency, data, maxPrice]);
 
   const onStarFilter = (star: any) => {
     if (stars.includes(star)) {
@@ -230,7 +208,7 @@ export default function Hotels() {
                   </div>
                 ) : (
                   <>
-                    {data.map((hotel: any, index: any) => (
+                    {data.Hotel.map((hotel: any, index: any) => (
                       <div
                         key={index}
                         onMouseOver={() => setHoveredLocation(hotel)}
@@ -242,15 +220,15 @@ export default function Hotels() {
                       >
                         <HotelBox
                           id={hotel.id}
-                          image={image.src}
-                          rating={hotel.rating}
-                          name={hotel.name}
-                          desc={hotel.desc}
-                          location={hotel.location}
-                          stars={hotel.stars}
-                          priceindinar={hotel.priceindinar}
-                          priceineuro={hotel.priceineuro}
-                          priceindollar={hotel.priceindollar}
+                          image={hotel.image}
+                          rating={"9"}
+                          name={hotel.name_en}
+                          desc={hotel.desc_en}
+                          location={hotel.Hotel_Destination[0].city_en}
+                          stars={hotel.star}
+                          priceindinar={"300"}
+                          priceineuro={"300"}
+                          priceindollar={"300"}
                           night={t("night")}
                           total={t("total")}
                         />
@@ -260,8 +238,7 @@ export default function Hotels() {
                 )}
                 {loading ? null : (
                   <>
-                    {" "}
-                    {data == "" && (
+                    {data.Hotel.length == 0 && (
                       <span className={robotoBold.className}>
                         {t("searcherror")}
                       </span>
@@ -308,12 +285,15 @@ export default function Hotels() {
               </div>
             ) : (
               <>
-                {data.length == 0 ? (
+                {data.Hotel.length == 0 ? (
                   <div className={styles.loading}>
                     <CircularProgress sx={{ color: "grey" }} />
                   </div>
                 ) : (
-                  <CustomMap searchResult={data} hovered={hoveredLocation} />
+                  <CustomMap
+                    searchResult={data.Hotel}
+                    hovered={hoveredLocation}
+                  />
                 )}
               </>
             )}

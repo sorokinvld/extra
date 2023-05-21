@@ -36,7 +36,7 @@ export default function Hotel({ data, params }: any) {
   const { t: ft } = useTranslation("footer");
   const { t: nav } = useTranslation("navbar");
   const { t: sb } = useTranslation("searchbar");
-  const { query, isFallback } = useRouter();
+  const { query, isFallback, locale } = useRouter();
   const images = ["1", "2", "3", "4", "5", "6"];
   const rooms = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
   const reviews = 7;
@@ -51,14 +51,14 @@ export default function Hotel({ data, params }: any) {
     return <div>Loading please wait...</div>;
   }
 
-  const stars = Number(data.stars);
+  const stars = Number(data.star);
   return (
     <>
       <Head>
-        <title>{data.name}</title>
+        <title>{data.name_en}</title>
         <meta
           name="description"
-          content={data.name + " hotel page. " + data.desc}
+          content={data.name_en + " hotel page. " + data.desc_en}
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
@@ -101,7 +101,15 @@ export default function Hotel({ data, params }: any) {
               {data.location}
             </Link>
           </p>
-          <h1 className={robotoBold.className}>{data.name}</h1>
+          {locale == "en" && (
+            <h1 className={robotoBold.className}>{data.name_en}</h1>
+          )}
+          {locale == "fr" && (
+            <h1 className={robotoBold.className}>{data.name_fr}</h1>
+          )}
+          {locale == "ar" && (
+            <h1 className={robotoBold.className}>{data.name_ar}</h1>
+          )}
           <div className={styles.stars}>
             {Array.from({ length: stars }).map((_, index: number) => (
               <svg height="20" viewBox="0 96 960 960" width="20" key={index}>
@@ -187,12 +195,20 @@ export default function Hotel({ data, params }: any) {
           <section className={styles.hoteldetails}>
             <h2 className={robotoBold.className}>{t("know")}</h2>
             <div className={styles.hoteldesc}>
-              <span className={lora.className}>{data.desc}</span>
+              {locale == "en" && (
+                <span className={lora.className}>{data.desc_en}</span>
+              )}
+              {locale == "fr" && (
+                <span className={lora.className}>{data.desc_fr}</span>
+              )}
+              {locale == "ar" && (
+                <span className={lora.className}>{data.desc_ar}</span>
+              )}
             </div>
             <div className={styles.amenities}>
               <span className={robotoBold.className}>{t("amenities")}</span>
               <div className={styles.amenitieslist}>
-                {amenities.map((amenity: any, index: number) => (
+                {data.amentites.map((amenity: any, index: number) => (
                   <div key={index} className={styles.amenitiesitem}>
                     <svg
                       height="24"
@@ -204,7 +220,15 @@ export default function Hotel({ data, params }: any) {
                         d="m9.55 18-5.7-5.7 1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4Z"
                       />
                     </svg>
-                    <span className={lora.className}>{amenity}</span>
+                    {locale == "en" && (
+                      <span className={lora.className}>{amenity.title_en}</span>
+                    )}
+                    {locale == "fr" && (
+                      <span className={lora.className}>{amenity.title_fr}</span>
+                    )}
+                    {locale == "ar" && (
+                      <span className={lora.className}>{amenity.title_ar}</span>
+                    )}
                   </div>
                 ))}
               </div>
@@ -212,7 +236,7 @@ export default function Hotel({ data, params }: any) {
             <div className={styles.amenities}>
               <span className={robotoBold.className}>{t("near")}</span>
               <div className={styles.amenitieslist}>
-                {nearby.map((nearby: any, index: number) => (
+                {data.nearby.map((nearby: any, index: number) => (
                   <div key={index} className={styles.amenitiesitem}>
                     <svg height="24" viewBox="0 96 960 960" width="24">
                       <path
@@ -220,7 +244,15 @@ export default function Hotel({ data, params }: any) {
                         d="M480 550q23 0 38.5-15.5T534 496q0-23-15.5-38.5T480 442q-23 0-38.5 15.5T426 496q0 23 15.5 38.5T480 550Zm0 367q126-108 196-222.5T746 504q0-121-77-197.5T480 230q-112 0-189 76.5T214 504q0 76 70 190.5T480 917Zm0 39Q331 822 258.5 707.5T186 504q0-138 89-220t205-82q116 0 205 82t89 220q0 89-72.5 203.5T480 956Zm0-452Z"
                       />
                     </svg>
-                    <span className={lora.className}>{nearby}</span>
+                    {locale == "en" && (
+                      <span className={lora.className}>{nearby.title_en}</span>
+                    )}
+                    {locale == "fr" && (
+                      <span className={lora.className}>{nearby.title_fr}</span>
+                    )}
+                    {locale == "ar" && (
+                      <span className={lora.className}>{nearby.title_ar}</span>
+                    )}
                   </div>
                 ))}
               </div>
@@ -381,7 +413,7 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
     };
   }
   const data = await axios
-    .get(`http://localhost:5000/hotels/${params.id}`)
+    .get(`http://localhost:3000/api/Hotel/${params.id}`)
     .then((response) => response.data);
   if (!data) {
     return {
@@ -405,12 +437,12 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const data = await axios
-    .get("http://localhost:5000/hotels")
+    .get("http://localhost:3000/api/getHotel")
     .then((response) => response.data);
   if (!locales) {
     const paths = data.flatMap((hotel: any) => {
       return {
-        params: { id: hotel.id },
+        params: { id: hotel._id },
       };
     });
     return {
@@ -421,7 +453,7 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
     const paths = data.flatMap((hotel: any) => {
       return locales.map((locale) => {
         return {
-          params: { id: hotel.id },
+          params: { id: hotel._id },
           locale: locale,
         };
       });

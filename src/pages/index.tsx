@@ -235,23 +235,53 @@ export default function Home({ hotels, destinations, trips, tours }: any) {
             <div className={styles.recommended}>
               {hotels.slice(0, 3).map((hotel: any, index: number) => (
                 <div
-                  key={hotel.id}
+                  key={hotel._id}
                   data-aos="fade-up"
                   data-aos-duration="500"
                   data-aos-delay={((Number(index) + 1) * 100).toString()}
                 >
-                  <HotelCard
-                    id={hotel.id}
-                    rating={hotel.rating}
-                    imageSrc={image.src}
-                    name={hotel.name}
-                    stars={hotel.stars}
-                    location={hotel.location}
-                    priceindinar={hotel.priceindinar}
-                    priceineuro={hotel.priceineuro}
-                    priceindollar={hotel.priceindollar}
-                    pernight={t("pernight")}
-                  />
+                  {locale == "en" && (
+                    <HotelCard
+                      id={hotel._id}
+                      rating={"9"}
+                      imageSrc={hotel.image}
+                      name={hotel.name_en}
+                      stars={hotel.star}
+                      location={"Sousse"}
+                      priceindinar={"300"}
+                      priceineuro={"300"}
+                      priceindollar={"300"}
+                      pernight={t("pernight")}
+                    />
+                  )}
+                  {locale == "fr" && (
+                    <HotelCard
+                      id={hotel._id}
+                      rating={"9"}
+                      imageSrc={hotel.image}
+                      name={hotel.name_fr}
+                      stars={hotel.star}
+                      location={"Sousse"}
+                      priceindinar={"300"}
+                      priceineuro={"300"}
+                      priceindollar={"300"}
+                      pernight={t("pernight")}
+                    />
+                  )}
+                  {locale == "ar" && (
+                    <HotelCard
+                      id={hotel._id}
+                      rating={"9"}
+                      imageSrc={hotel.image}
+                      name={hotel.name_ar}
+                      stars={hotel.star}
+                      location={"Sousse"}
+                      priceindinar={"300"}
+                      priceineuro={"300"}
+                      priceindollar={"300"}
+                      pernight={t("pernight")}
+                    />
+                  )}
                 </div>
               ))}
             </div>
@@ -556,7 +586,7 @@ export default function Home({ hotels, destinations, trips, tours }: any) {
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const hotels = await axios
-    .get(`http://localhost:5000/hotels`)
+    .get(`http://localhost:3000/api/getHotel`)
     .then((response) => response.data);
   const destinations = await axios
     .get(`http://localhost:3000/api/getDestination`)

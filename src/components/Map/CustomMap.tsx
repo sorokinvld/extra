@@ -38,30 +38,30 @@ function CustomMap({ searchResult, hovered }: any) {
   React.useEffect(() => {
     Aos.init();
   }, []);
+
   const coordinates = React.useMemo(
     () =>
       searchResult.map((result: any) => ({
-        longitude: result.long,
-        latitude: result.lat,
+        longitude: result.longitude,
+        latitude: result.latitude,
       })),
     [searchResult]
   );
 
-  const center: any = React.useMemo(
-    () => getCenter(coordinates),
-    [coordinates]
-  );
+  const center: any = React.useMemo(() => {
+    if (coordinates.length > 0) getCenter(coordinates);
+  }, [coordinates]);
 
   const [viewport, setViewport] = React.useState({
-    latitude: center.latitude,
-    longitude: center.longitude,
+    latitude: center?.latitude,
+    longitude: center?.longitude,
     zoom: 13,
   });
 
   React.useMemo(() => {
     setViewport({
-      latitude: center.latitude,
-      longitude: center.longitude,
+      latitude: center?.latitude,
+      longitude: center?.longitude,
       zoom: 13,
     });
   }, [center]);

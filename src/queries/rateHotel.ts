@@ -15,10 +15,23 @@ export const rateHotel = async (
     );
     if (rating.data != "only one rate ") {
       setLoading(false);
-      toast.success("rating successful");
+      return "Success";
     } else {
-      setLoading(false);
-      toast.error("You can only rate once");
+      const deleterating = await axios.delete(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/ratingHotel/${hotelId}/${userId}`
+      );
+      if (deleterating.data == "deleted") {
+        const rating = await axios.post(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/ratingHotel/${hotelId}/${userId}/${rate}`
+        );
+        if (rating.data != "only one rate ") {
+          setLoading(false);
+        } else {
+          return "Error";
+        }
+      } else {
+        return "Error";
+      }
     }
   } catch (error: any) {
     getError(error);
