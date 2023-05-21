@@ -60,7 +60,7 @@ export default function Hotels() {
     const data = async () => {
       try {
         const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/Hotels?page=1&search=${query.destination}`
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/Hotels?page=1&search=${query.destination}&start_date=${query.startDate}&end_date=${query.endDate}&adult=${query.adults}&child=${query.children}`
         );
         const amenitiesdata = await axios.get(
           `${process.env.NEXT_PUBLIC_SERVER_URL}/api/getAmenities`
@@ -75,7 +75,13 @@ export default function Hotels() {
     if (query.destination) {
       data();
     }
-  }, [query.destination]);
+  }, [
+    query.adults,
+    query.children,
+    query.destination,
+    query.endDate,
+    query.startDate,
+  ]);
 
   React.useMemo(() => {
     if (data) setMaxPrice(-1);
@@ -218,7 +224,7 @@ export default function Hotels() {
                         data-aos-anchor="#parent"
                       >
                         <HotelBox
-                          id={hotel.id}
+                          id={hotel._id}
                           image={hotel.image}
                           rating={"9"}
                           name={hotel.name_en}
@@ -398,8 +404,8 @@ export default function Hotels() {
                 {t("filterbyamenities")}
               </span>
               <div className={styles.amenities}>
-                {amenities?.map((amenity: any) => (
-                  <div key={amenity._id}>
+                {amenities?.map((amenity: any, index: any) => (
+                  <div key={index}>
                     {locale == "en" && (
                       <Checkbox
                         label={amenity.title_en}
