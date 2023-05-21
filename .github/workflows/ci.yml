@@ -22,5 +22,8 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Tests
+        run: npm cypress
+
       - name: Print Environment Variable
         run: echo $MY_ENV_VAR
