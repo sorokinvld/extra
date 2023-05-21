@@ -45,4 +45,4 @@ jobs:
 
     steps:
       - name: Deploying
-        uses: echo "Deployement in progress..."
+        run: echo "Deployement in progress..."
