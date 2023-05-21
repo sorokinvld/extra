@@ -22,8 +22,27 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Print Environment Variable
+        run: echo $MY_ENV_VAR
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Cypress run
         uses: cypress-io/github-action@v5
 
-      - name: Print Environment Variable
-        run: echo $MY_ENV_VAR
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build, test]
+
+    steps:
+      - name: Deploying
+        uses: echo "Deployement in progress..."
