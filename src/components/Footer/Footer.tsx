@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Roboto } from "@next/font/google";
 import { Lora } from "@next/font/google";
 import Image from "next/image";
-import payment from "public/images/paiement.png";
 
 const roboto = Roboto({
   subsets: ["latin"],

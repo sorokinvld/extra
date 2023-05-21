@@ -7,7 +7,6 @@ import axios from "axios";
 import { Roboto, Lora } from "@next/font/google";
 import styles from "@/styles/Trip.module.css";
 import Image from "next/image";
-import image from "public/images/greece.jpg";
 import { useEffect } from "react";
 import Aos from "aos";
 import { useRouter } from "next/router";

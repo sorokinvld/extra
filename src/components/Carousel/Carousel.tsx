@@ -1,7 +1,5 @@
 import React, { ReactNode } from "react";
 import styles from "./Carousel.module.css";
-import Image from "next/image";
-import image from "public/images/greece.jpg";
 
 interface Prop {
   children: ReactNode;

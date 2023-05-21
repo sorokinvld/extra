@@ -11,7 +11,6 @@ import getCenter from "geolib/es/getCenter";
 import { Roboto, Lora } from "@next/font/google";
 import Image from "next/image";
 import { useCurrency } from "@/utils/currencyProvider";
-import image from "public/images/greece.jpg";
 import Aos from "aos";
 
 const robotoveryBold = Roboto({
@@ -122,8 +121,8 @@ function CustomMap({ searchResult, hovered }: any) {
                     </svg>
                   </div>
                   <Image
-                    src={image.src}
-                    alt={result.name}
+                    src={result.image}
+                    alt={result.name_en}
                     fill
                     sizes="100%"
                     priority
@@ -131,7 +130,7 @@ function CustomMap({ searchResult, hovered }: any) {
                 </div>
                 <div className={styles.details}>
                   <div className={styles.title}>
-                    <h2 className={robotoBold.className}>{result.name}</h2>
+                    <h2 className={robotoBold.className}>{result.name_en}</h2>
                     <div className={styles.stars}>
                       <svg height="20" viewBox="0 96 960 960" width="20">
                         <path
@@ -145,7 +144,9 @@ function CustomMap({ searchResult, hovered }: any) {
                     </div>
                   </div>
                   <div className={styles.location}>
-                    <span className={lora.className}>{result.location}</span>
+                    <span className={lora.className}>
+                      {result.destination.title_en}
+                    </span>
                   </div>
 
                   <div className={styles.pricedetails}>
