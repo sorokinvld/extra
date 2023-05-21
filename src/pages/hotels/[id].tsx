@@ -6,7 +6,6 @@ import { Layout } from "@/components/Layout";
 import styles from "@/styles/Hotel.module.css";
 import axios from "axios";
 import { Roboto, Lora } from "@next/font/google";
-import image from "public/images/greece.jpg";
 import Image from "next/image";
 import { useState } from "react";
 import ReserveBar from "@/components/Reservebar/Reservebar";
@@ -40,8 +39,6 @@ export default function Hotel({ data, params }: any) {
   const images = ["1", "2", "3", "4", "5", "6"];
   const rooms = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
   const reviews = 7;
-  const amenities = ["Wifi", "Free parking", "On private beach", "Pool"];
-  const nearby = ["Airport", "Beach", "Musuem", "Hospital"];
   const [hovered, setHovered] = useState<number>(-1);
   const [selected, setSelected] = useState<number>(-1);
   const [showReviewsModal, setShowReviewsModal] = useState<boolean>(false);
@@ -142,7 +139,7 @@ export default function Hotel({ data, params }: any) {
                       shown-state={hovered == index ? "true" : ""}
                     />
                     <Image
-                      src={image.src}
+                      src={data.image}
                       alt={mock + "hotel images"}
                       fill
                       priority
@@ -167,7 +164,7 @@ export default function Hotel({ data, params }: any) {
                 return (
                   <div key={index} className={styles.imageshowcase}>
                     <Image
-                      src={image.src}
+                      src={data.image}
                       alt={mock + "hotel images"}
                       width={1000}
                       height={500}
@@ -268,7 +265,7 @@ export default function Hotel({ data, params }: any) {
                   return (
                     <div key={index}>
                       <ReviewCard
-                        image={image.src}
+                        image={data.image}
                         name={"dani"}
                         date={"28/03/2023"}
                         review={"Wow that's really cool!"}
@@ -346,7 +343,7 @@ export default function Hotel({ data, params }: any) {
                 return (
                   <div key={index} className={styles.imageshowcase}>
                     <Image
-                      src={image.src}
+                      src={data.image}
                       alt={mock + "hotel images"}
                       width={1000}
                       height={500}
@@ -368,7 +365,7 @@ export default function Hotel({ data, params }: any) {
                 return (
                   <div key={index}>
                     <ReviewCard
-                      image={image.src}
+                      image={data.image}
                       name={"dani"}
                       date={"28/03/2023"}
                       review={"Wow that's really cool!"}

@@ -16,8 +16,6 @@ import TourRight from "@/components/TourShowCaseRight/TourRight";
 import TourLeft from "@/components/TourShowCaseLeft/TourLeft";
 import AOS from "aos";
 import { z } from "zod";
-import image from "public/images/greece.jpg";
-import bgimage from "public/images/mountain-cutout.webp";
 import CircularProgress from "@mui/material/CircularProgress";
 import axios from "axios";
 import MailchimpSubscribe from "react-mailchimp-subscribe";
@@ -485,7 +483,11 @@ export default function Home({ hotels, destinations, trips, tours }: any) {
               return (
                 <section className={styles.imagesection}>
                   <div className={styles.imagecontainer} ref={ref}>
-                    <Image src={bgimage} alt="parallax background image" fill />
+                    <Image
+                      src="https://res.cloudinary.com/db57xeoce/image/upload/v1678365301/mountain-cutout-2_hd8mmu.jpg"
+                      alt="parallax background image"
+                      fill
+                    />
                   </div>
                   <div className={styles.imagecontainer}>
                     <Image

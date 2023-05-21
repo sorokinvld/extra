@@ -5,7 +5,6 @@ import { Roboto } from "@next/font/google";
 import { Lora } from "@next/font/google";
 import Image from "next/image";
 import payment from "public/images/paiement.png";
-import iata from "public/images/logo-iata.png";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -77,11 +76,21 @@ function Footer({
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Image src={iata} alt={"iata"} />
+              <Image
+                src="https://res.cloudinary.com/db57xeoce/image/upload/v1684683210/logo-iata_uarpog.png"
+                alt="iata"
+                width={126}
+                height={52}
+              />
             </a>
             <p className={roboto.className}>{paymentdesc}</p>
             <div className={styles.paymentimage}>
-              <Image src={payment} alt={"payment methods"} />
+              <Image
+                src="https://res.cloudinary.com/db57xeoce/image/upload/v1684682994/paiement_mhmnqr.png"
+                alt="payment methods"
+                width={174}
+                height={37}
+              />
             </div>
           </div>
         </div>
