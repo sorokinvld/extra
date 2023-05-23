@@ -24,12 +24,12 @@ interface Props {
 }
 
 function ReviewCard({ image, name, date, review }: Props) {
-  const formatedDate = format(new Date(date), "dd/MM/yyyy");
+  const formatedDate = format(new Date(date), "PPP");
   return (
     <div className={styles.container}>
       <div className={styles.user}>
         <div className={styles.userimage}>
-          <Image src={image} alt={name + "picture"} width={50} height={50} />
+          <Image src={image} alt={name + "picture"} width={45} height={45} />
         </div>
         <div className={styles.userdetails}>
           <div className={robotoBold.className}>{name}</div>
