@@ -37,6 +37,7 @@ export default function Reviewhotel() {
   const [loadingRate, setLoadingRate] = useState(false);
   const [review, setReview] = useState<string>("");
   const [loadingReview, setLoadingReview] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const { user } = useUser();
   const { query, locale } = useRouter();
   const [rate, setRate] = useState(0);
@@ -53,15 +54,24 @@ export default function Reviewhotel() {
     }
   };
 
-  const handleRate = () => {
-    rateHotel(hotel._id, user._id, rate, setLoadingRate);
-  };
-
-  const handleReview = () => {
-    if (review != "") {
+  const handleSubmit = () => {
+    setSubmitting(true);
+    if (rate > 0 && review != "") {
+      rateHotel(hotel._id, user._id, rate, setLoadingRate);
       reviewHotel(hotel._id, user._id, review, setLoadingReview);
-    } else {
-      toast.error("Please provide a review first!");
+      if (!loadingRate && !loadingReview) {
+        setSubmitting(false);
+        toast.success("Success!");
+      } else {
+        setSubmitting(false);
+        toast.error("There was a error, try again later!");
+      }
+    } else if (rate == 0) {
+      toast.error("Please provide a rate!");
+      setSubmitting(false);
+    } else if (review == "") {
+      toast.error("Please provide a review!");
+      setSubmitting(false);
     }
   };
 
@@ -169,15 +179,6 @@ export default function Reviewhotel() {
                     height={300}
                   />
                 </div>
-                {locale == "en" && (
-                  <p className={lora.className}>{hotel.desc_en}</p>
-                )}
-                {locale == "fr" && (
-                  <p className={lora.className}>{hotel.desc_fr}</p>
-                )}
-                {locale == "ar" && (
-                  <p className={lora.className}>{hotel.desc_ar}</p>
-                )}
                 <div className={styles.rating}>
                   <h2 className={roboto.className}>{t("rating")}</h2>
                   <div className={styles.select}>
@@ -213,11 +214,6 @@ export default function Reviewhotel() {
                       )}
                     </svg>
                   </div>
-                  {loadingRate ? (
-                    <CircularProgress sx={{ color: "grey" }} />
-                  ) : (
-                    <button onClick={handleRate}>{t("submit")}</button>
-                  )}
                 </div>
                 <div className={styles.review}>
                   <h2 className={roboto.className}>{t("review")}</h2>
@@ -226,10 +222,10 @@ export default function Reviewhotel() {
                     onChange={(e) => setReview(e.target.value)}
                     required
                   />
-                  {loadingReview ? (
+                  {submitting ? (
                     <CircularProgress sx={{ color: "grey" }} />
                   ) : (
-                    <button onClick={handleReview}>{t("submit")}</button>
+                    <button onClick={handleSubmit}>{t("submit")}</button>
                   )}
                 </div>
               </div>

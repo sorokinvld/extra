@@ -6,11 +6,11 @@ export const fetchCountries = async (
   setCountryState: (arg0: countriesTypes) => void
 ) => {
   try {
-    const dataUrl = `https://restcountries.com/v3.1/all`;
+    const dataUrl = `/api/staticdata`;
     const response = await axios.get(dataUrl);
     setCountryState({
       ...countryState,
-      countries: response.data,
+      countries: JSON.parse(response.data),
       loading: false,
     });
   } catch (error) {

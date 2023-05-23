@@ -1,6 +1,5 @@
 import axios from "axios";
 import { getError } from "./errors";
-import { toast } from "react-toastify";
 
 export const reviewHotel = async (
   hotelId: string | string[],
@@ -16,10 +15,10 @@ export const reviewHotel = async (
     );
     if (rating.data) {
       setLoading(false);
-      toast.success("Review successful");
+      return "success";
     } else {
       setLoading(false);
-      toast.error("Review failed");
+      return "error";
     }
   } catch (error: any) {
     getError(error);

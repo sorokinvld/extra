@@ -277,6 +277,7 @@ export default function Hotel({ data, params }: any) {
           </section>
           <section className={styles.reviewsection}>
             <h2 className={robotoBold.className} id="reviews">
+              {Math.round(data[0].avgRating * 10) / 10}/10 .{" "}
               {data[0].reviews.length} {t("reviews")}
             </h2>
             <div className={styles.reviews}>

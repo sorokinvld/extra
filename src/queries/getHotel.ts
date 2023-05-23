@@ -9,7 +9,7 @@ export const getHotel = async (
   setLoading(true);
   try {
     const hotel = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/Hotel/` + hotelId
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/Hotel/${hotelId}`
     );
     if (hotel.data != "Not Found") {
       setHotel(hotel.data);
