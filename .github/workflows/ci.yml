@@ -6,7 +6,7 @@ env:
   CI: true
 
 jobs:
-  buildntest:
+  buildandtest:
     runs-on: ubuntu-latest
 
     steps:
@@ -33,11 +33,3 @@ jobs:
 
       - name: Print Environment Variable
         run: echo $MY_ENV_VAR
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: [buildntest]
-
-    steps:
-      - name: Deploying
-        run: echo "Deployement in progress..."

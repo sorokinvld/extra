@@ -41,7 +41,9 @@ export default function Tours() {
     const data = async () => {
       try {
         setTimeout(async () => {
-          const res = await axios.get(`http://localhost:3000/api/getTours`);
+          const res = await axios.get(
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/api/getTours`
+          );
           setData(res.data);
           setLoading(false);
         }, 1000);

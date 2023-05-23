@@ -191,9 +191,7 @@ export default function Reviews() {
                                   {review.comment}
                                 </span>
                                 <button
-                                  onClick={() =>
-                                    handleDelete(review.Hotelreviewed[0]._id)
-                                  }
+                                  onClick={() => handleDelete(review._id)}
                                 >
                                   {t("delete")}
                                 </button>

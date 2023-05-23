@@ -226,10 +226,12 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
     };
   }
   const tour = await axios
-    .get(`http://localhost:3000/api/getProductwithEvent/${params.id}`)
+    .get(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/getProductwithEvent/${params.id}`
+    )
     .then((response) => response.data[0]);
   const events = await axios
-    .get(`http://localhost:3000/api/Events/${params.id}`)
+    .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/Events/${params.id}`)
     .then((response) => response.data);
   if (!tour) {
     return {
@@ -248,7 +250,7 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
 };
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const data = await axios
-    .get("http://localhost:3000/api/getTours")
+    .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/getTours`)
     .then((response) => response.data);
   if (!locales) {
     const paths = data.flatMap((tour: any) => {

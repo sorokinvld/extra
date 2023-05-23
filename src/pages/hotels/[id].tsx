@@ -38,7 +38,6 @@ export default function Hotel({ data, params }: any) {
   const { query, isFallback, locale } = useRouter();
   const images = ["1", "2", "3", "4", "5", "6"];
   const rooms = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
-  const reviews = 7;
   const [hovered, setHovered] = useState<number>(-1);
   const [selected, setSelected] = useState<number>(-1);
   const [showReviewsModal, setShowReviewsModal] = useState<boolean>(false);
@@ -48,14 +47,14 @@ export default function Hotel({ data, params }: any) {
     return <div>Loading please wait...</div>;
   }
 
-  const stars = Number(data.star);
+  const stars = Number(data[0].star);
   return (
     <>
       <Head>
-        <title>{data.name_en}</title>
+        <title>{data[0].name_en}</title>
         <meta
           name="description"
-          content={data.name_en + " hotel page. " + data.desc_en}
+          content={data[0].name_en + " hotel page. " + data[0].desc_en}
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
@@ -85,7 +84,7 @@ export default function Hotel({ data, params }: any) {
               offset={-100}
               duration={500}
             >
-              {reviews} {t("reviews")}
+              {data[0].reviews.length} {t("reviews")}
             </Link>{" "}
             ·{" "}
             <Link
@@ -95,17 +94,38 @@ export default function Hotel({ data, params }: any) {
               offset={-230}
               duration={500}
             >
-              {data.location}
-            </Link>
+              {locale == "en" && (
+                <>
+                  {" "}
+                  {data[0].destinationhotel[0].city_en},{" "}
+                  {data[0].destinationhotel[0].country_en}
+                </>
+              )}
+              {locale == "fr" && (
+                <>
+                  {" "}
+                  {data[0].destinationhotel[0].city_fr},{" "}
+                  {data[0].destinationhotel[0].country_fr}
+                </>
+              )}
+              {locale == "ar" && (
+                <>
+                  {" "}
+                  {data[0].destinationhotel[0].city_ar},{" "}
+                  {data[0].destinationhotel[0].country_ar}
+                </>
+              )}
+            </Link>{" "}
+            · {Math.round(data[0].avgRating * 10) / 10}/10 {t("rating")}
           </p>
           {locale == "en" && (
-            <h1 className={robotoBold.className}>{data.name_en}</h1>
+            <h1 className={robotoBold.className}>{data[0].name_en}</h1>
           )}
           {locale == "fr" && (
-            <h1 className={robotoBold.className}>{data.name_fr}</h1>
+            <h1 className={robotoBold.className}>{data[0].name_fr}</h1>
           )}
           {locale == "ar" && (
-            <h1 className={robotoBold.className}>{data.name_ar}</h1>
+            <h1 className={robotoBold.className}>{data[0].name_ar}</h1>
           )}
           <div className={styles.stars}>
             {Array.from({ length: stars }).map((_, index: number) => (
@@ -139,7 +159,7 @@ export default function Hotel({ data, params }: any) {
                       shown-state={hovered == index ? "true" : ""}
                     />
                     <Image
-                      src={data.image}
+                      src={data[0].image}
                       alt={mock + "hotel images"}
                       fill
                       priority
@@ -164,7 +184,7 @@ export default function Hotel({ data, params }: any) {
                 return (
                   <div key={index} className={styles.imageshowcase}>
                     <Image
-                      src={data.image}
+                      src={data[0].image}
                       alt={mock + "hotel images"}
                       width={1000}
                       height={500}
@@ -193,19 +213,19 @@ export default function Hotel({ data, params }: any) {
             <h2 className={robotoBold.className}>{t("know")}</h2>
             <div className={styles.hoteldesc}>
               {locale == "en" && (
-                <span className={lora.className}>{data.desc_en}</span>
+                <span className={lora.className}>{data[0].desc_en}</span>
               )}
               {locale == "fr" && (
-                <span className={lora.className}>{data.desc_fr}</span>
+                <span className={lora.className}>{data[0].desc_fr}</span>
               )}
               {locale == "ar" && (
-                <span className={lora.className}>{data.desc_ar}</span>
+                <span className={lora.className}>{data[0].desc_ar}</span>
               )}
             </div>
             <div className={styles.amenities}>
               <span className={robotoBold.className}>{t("amenities")}</span>
               <div className={styles.amenitieslist}>
-                {data.amentites.map((amenity: any, index: number) => (
+                {data[0].amentites.map((amenity: any, index: number) => (
                   <div key={index} className={styles.amenitiesitem}>
                     <svg
                       height="24"
@@ -233,7 +253,7 @@ export default function Hotel({ data, params }: any) {
             <div className={styles.amenities}>
               <span className={robotoBold.className}>{t("near")}</span>
               <div className={styles.amenitieslist}>
-                {data.nearby.map((nearby: any, index: number) => (
+                {data[0].nearby.map((nearby: any, index: number) => (
                   <div key={index} className={styles.amenitiesitem}>
                     <svg height="24" viewBox="0 96 960 960" width="24">
                       <path
@@ -257,23 +277,23 @@ export default function Hotel({ data, params }: any) {
           </section>
           <section className={styles.reviewsection}>
             <h2 className={robotoBold.className} id="reviews">
-              9.0/10 · {reviews} {t("reviews")}
+              {data[0].reviews.length} {t("reviews")}
             </h2>
             <div className={styles.reviews}>
-              {Array.from({ length: reviews }).map((_, index: number) => {
+              {data[0].reviews.map((review: any, index: number) => {
                 if (index < 6)
                   return (
                     <div key={index}>
                       <ReviewCard
-                        image={data.image}
-                        name={"dani"}
-                        date={"28/03/2023"}
-                        review={"Wow that's really cool!"}
+                        image={review.user.imageurl}
+                        name={review.user.username}
+                        date={review.createdDate}
+                        review={review.comment}
                       />
                     </div>
                   );
               })}
-              {reviews > 6 ? (
+              {data[0].reviews.length > 6 ? (
                 <button
                   className={styles.reviewbtn}
                   onClick={() => setShowReviewsModal(true)}
@@ -324,9 +344,26 @@ export default function Hotel({ data, params }: any) {
           </section>
           <section className={styles.mapsection} id="map">
             <h2 className={robotoBold.className}>{t("location")}</h2>
-            <p className={lora.className}>{data.location}</p>
+            {locale == "en" && (
+              <p className={lora.className}>
+                {data[0].destinationhotel[0].city_en},{" "}
+                {data[0].destinationhotel[0].country_en}
+              </p>
+            )}
+            {locale == "fr" && (
+              <p className={lora.className}>
+                {data[0].destinationhotel[0].city_fr},{" "}
+                {data[0].destinationhotel[0].country_fr}
+              </p>
+            )}
+            {locale == "ar" && (
+              <p className={lora.className}>
+                {data[0].destinationhotel[0].city_ar},{" "}
+                {data[0].destinationhotel[0].country_ar}
+              </p>
+            )}
             <div className={styles.map}>
-              <HotelMap hotel={data} />
+              <HotelMap hotel={data[0]} />
             </div>
           </section>
           <Modal
@@ -343,7 +380,7 @@ export default function Hotel({ data, params }: any) {
                 return (
                   <div key={index} className={styles.imageshowcase}>
                     <Image
-                      src={data.image}
+                      src={data[0].image}
                       alt={mock + "hotel images"}
                       width={1000}
                       height={500}
@@ -361,17 +398,18 @@ export default function Hotel({ data, params }: any) {
             title={t("reviews")}
           >
             <div className={styles.allreviews}>
-              {Array.from({ length: reviews }).map((_, index: number) => {
-                return (
-                  <div key={index}>
-                    <ReviewCard
-                      image={data.image}
-                      name={"dani"}
-                      date={"28/03/2023"}
-                      review={"Wow that's really cool!"}
-                    />
-                  </div>
-                );
+              {data[0].reviews.map((review: any, index: number) => {
+                if (index < 6)
+                  return (
+                    <div key={index}>
+                      <ReviewCard
+                        image={review.user.imageurl}
+                        name={review.user.username}
+                        date={review.createdDate}
+                        review={review.comment}
+                      />
+                    </div>
+                  );
               })}
             </div>
           </Modal>
@@ -410,7 +448,9 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
     };
   }
   const data = await axios
-    .get(`http://localhost:3000/api/Hotel/${params.id}`)
+    .get(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/getdetailHotel/${params.id}`
+    )
     .then((response) => response.data);
   if (!data) {
     return {
@@ -434,7 +474,7 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const data = await axios
-    .get("http://localhost:3000/api/getHotel")
+    .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/getHotel`)
     .then((response) => response.data);
   if (!locales) {
     const paths = data.flatMap((hotel: any) => {

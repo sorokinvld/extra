@@ -11,5 +11,6 @@
   "location": "Where you’ll be",
   "reserve": "Reserve",
   "night": "night",
-  "images": "Photos"
+  "images": "Photos",
+  "rating": "average rating"
 }

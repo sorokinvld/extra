@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./ReviewCard.module.css";
 import Image from "next/image";
 import { Roboto, Lora } from "@next/font/google";
+import format from "date-fns/format";
 
 const robotoBold = Roboto({
   subsets: ["latin"],
@@ -23,6 +24,7 @@ interface Props {
 }
 
 function ReviewCard({ image, name, date, review }: Props) {
+  const formatedDate = format(new Date(date), "dd/MM/yyyy");
   return (
     <div className={styles.container}>
       <div className={styles.user}>
@@ -31,7 +33,7 @@ function ReviewCard({ image, name, date, review }: Props) {
         </div>
         <div className={styles.userdetails}>
           <div className={robotoBold.className}>{name}</div>
-          <div className={lora.className}>{date}</div>
+          <div className={lora.className}>{formatedDate}</div>
         </div>
       </div>
       <div className={styles.review}>

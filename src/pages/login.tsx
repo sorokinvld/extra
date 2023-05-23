@@ -6,7 +6,7 @@ import styles from "@/styles/Login.module.css";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Roboto, Lora } from "@next/font/google";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginFormSchemaType, loginFormSchema } from "@/types/loginFormSchema";
@@ -50,10 +50,10 @@ export default function Login() {
       if (res.message == "success") {
         toast.success(t("success"));
         back();
-      } else if (res == "invalid email") {
+      } else if (res == "invalid email ") {
         toast.error(t("emailnotfound"));
         resolve();
-      } else if (res == "invalid password") {
+      } else if (res == "invalid password ") {
         toast.error(t("incorrectpassword"));
         resolve();
       } else {
@@ -256,7 +256,10 @@ export default function Login() {
                   data-aos-delay="500"
                   data-aos-anchor="#parent"
                 >
-                  <span className={robotoBold.className}>
+                  <span
+                    className={robotoBold.className}
+                    onClick={() => push("/forgotpassword")}
+                  >
                     {t("forgotpassword")}
                   </span>
                 </div>

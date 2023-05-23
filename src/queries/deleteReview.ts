@@ -11,9 +11,9 @@ export const deleteReviews = async (
   setLoading(true);
   try {
     const reviews = await axios.delete(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/reviewsHotel/${reviewId}/${userId}`
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/reviewsHotel/${reviewId}`
     );
-    if (reviews.data == "OK") {
+    if (reviews.data == "deleted") {
       getReviews(userId, setReviews, setLoading);
     } else {
       setLoading(false);

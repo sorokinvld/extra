@@ -588,16 +588,16 @@ export default function Home({ hotels, destinations, trips, tours }: any) {
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const hotels = await axios
-    .get(`http://localhost:3000/api/getHotel`)
+    .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/getHotel`)
     .then((response) => response.data);
   const destinations = await axios
-    .get(`http://localhost:3000/api/getDestination`)
+    .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/getDestination`)
     .then((response) => response.data);
   const trips = await axios
-    .get(`http://localhost:3000/api/getTrips`)
+    .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/getTrips`)
     .then((response) => response.data);
   const tours = await axios
-    .get(`http://localhost:3000/api/getTours`)
+    .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/getTours`)
     .then((response) => response.data);
   if (!locale) {
     return {

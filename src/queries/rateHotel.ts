@@ -1,6 +1,5 @@
 import axios from "axios";
 import { getError } from "./errors";
-import { toast } from "react-toastify";
 
 export const rateHotel = async (
   hotelId: string | string[],
