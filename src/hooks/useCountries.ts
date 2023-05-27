@@ -7,8 +7,8 @@ export const useCountries = () => {
     countriesDefaultValues
   );
   useEffect(() => {
-    fetchCountries(countryState, setCountryState);
-  }, [countryState]);
+    fetchCountries(setCountryState);
+  }, []);
   const { loading, errorMessage, countries } = countryState;
 
   let sortedCountries = countries.sort(function (a: any, b: any) {
@@ -23,7 +23,6 @@ export const useCountries = () => {
   return {
     loading,
     errorMessage,
-    countries,
     sortedCountries,
   };
 };

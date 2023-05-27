@@ -124,11 +124,15 @@ function Navbar({
           <UserBar welcome={welcome} ph={ph} fav={fav} rev={rev} lg={lg} />
         </div>
       ) : (
-        <div className={styles.buttons}>
+        <div className={styles.buttons} data-e2e="login-button">
           <div onClick={() => push("/login")}>
             <Button label={login} />
           </div>
-          <div className={styles.signup} onClick={() => push("/signup")}>
+          <div
+            className={styles.signup}
+            onClick={() => push("/signup")}
+            data-e2e="signup-button"
+          >
             {signup}
           </div>
         </div>

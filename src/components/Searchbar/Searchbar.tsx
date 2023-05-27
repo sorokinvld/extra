@@ -750,6 +750,7 @@ function Searchbar({
         className={styles.button}
         onClick={handleSubmit}
         aria-label="search"
+        data-e2e="searchbar-button"
       >
         <svg name="search icon" height="48" width="48">
           <path

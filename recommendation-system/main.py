@@ -1,11 +1,11 @@
 import requests
 from pymongo.mongo_client import MongoClient
 from flask import Flask, request
-uri = "mongodb+srv://pfeprojects2023:12345azerty@cluster0.9fnocaw.mongodb.net/?retryWrites=true&w=majority"
-API_URL = "https://api-inference.huggingface.co/models/atowey01/hostel-reviews-sentiment-model"
-headers = {"Authorization": f"Bearer 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"}
+
 
 # Sentiment function API
+API_URL = "https://api-inference.huggingface.co/models/atowey01/hostel-reviews-sentiment-model"
+headers = {"Authorization": f"Bearer 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"}
 
 
 def query(payload):
@@ -14,6 +14,7 @@ def query(payload):
 
 
 # Connect to MongoDB
+uri = "mongodb+srv://pfeprojects2023:12345azerty@cluster0.9fnocaw.mongodb.net/?retryWrites=true&w=majority"
 client = MongoClient(uri)
 try:
     client.admin.command('ping')
@@ -49,7 +50,7 @@ for review in user_reviews:
         'userid': userid,
         'review': preprocessed_comment,
         'rating': rate,
-        'sentiment': sentiment[0][0]["label"],
+        'sentiment': sentiment,
     }
     preprocessed_reviews.append(processed_review)
 
@@ -78,8 +79,17 @@ for review in preprocessed_reviews:
 app = Flask(__name__)
 
 
+@app.route('/')
+def greetings():
+    return 'Welcome, have a nice stay c: !'
+
+
 @app.route('/api/recommendation')
 def recommendation():
     id = request.args["id"]
     # Do the recommendation algorithm using the id
     return 'Recommended hotels'
+
+
+if __name__ == '__main__':
+    app.run()

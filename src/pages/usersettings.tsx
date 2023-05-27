@@ -42,7 +42,7 @@ export default function Usersettings() {
   const [mounted, setMounted] = useState(false);
   const { user, setUser } = useUser();
 
-  const { loading, errorMessage, countries, sortedCountries } = useCountries();
+  const { loading, errorMessage, sortedCountries } = useCountries();
 
   const usernameType = z.object({
     username: z.string().min(5).max(14),
@@ -126,7 +126,7 @@ export default function Usersettings() {
     }
   }, [confirmPassword, confirmPasswordError, cpwde, password, passwordError]);
 
-  const searchSelectedCountry: any = countries.find((obj: any) => {
+  const searchSelectedCountry: any = sortedCountries.find((obj: any) => {
     if (country != null) {
       if (obj.name.common === country.country) {
         return true;

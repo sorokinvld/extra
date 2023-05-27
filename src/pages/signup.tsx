@@ -40,7 +40,7 @@ export default function Signup() {
   const confirmpassworderrort = t("confirmpassworderror");
   const { push, back } = useRouter();
 
-  const { loading, errorMessage, countries, sortedCountries } = useCountries();
+  const { loading, errorMessage, sortedCountries } = useCountries();
 
   const {
     watch,
@@ -82,7 +82,7 @@ export default function Signup() {
     errors.password,
   ]);
 
-  const searchSelectedCountry: any = countries.find((obj: any) => {
+  const searchSelectedCountry: any = sortedCountries.find((obj: any) => {
     if (obj.name.common === watch("country")) {
       return true;
     }
@@ -337,6 +337,9 @@ export default function Signup() {
                             data-aos-duration="400"
                             data-aos-delay="50"
                           >
+                            <option value="none" selected disabled hidden>
+                              - - -
+                            </option>
                             {sortedCountries.map((country: any) => {
                               return (
                                 <option key={country.name.common}>
