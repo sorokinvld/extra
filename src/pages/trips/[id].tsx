@@ -88,12 +88,12 @@ export default function Trip({ trip, events, params }: any) {
             {locale == "ar" && <p className={lora.className}>{trip.desc_ar}</p>}
             {currency === "Euro" && (
               <span className={lora.className}>
-                {t("from")} €{trip.priceDt}
+                {t("from")} €{Math.round(trip.priceEuro)}
               </span>
             )}
             {currency === "Dollar" && (
               <span className={lora.className}>
-                {t("from")} ${trip.priceDt}
+                {t("from")} ${Math.round(trip.priceDollar)}
               </span>
             )}
             {currency === "Dinar" && (

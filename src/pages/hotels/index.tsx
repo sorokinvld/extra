@@ -48,6 +48,7 @@ export default function Hotels() {
   const filterStars = ["2", "3", "4", "5"];
   const { currency } = useCurrency();
   const { query, locale } = useRouter();
+  const night = t("night");
 
   React.useEffect(() => {
     Aos.init();
@@ -234,8 +235,7 @@ export default function Hotels() {
                           priceindinar={"300"}
                           priceineuro={"300"}
                           priceindollar={"300"}
-                          night={t("night")}
-                          total={t("total")}
+                          night={night}
                         />
                       </div>
                     ))}

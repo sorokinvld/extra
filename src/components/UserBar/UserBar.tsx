@@ -105,7 +105,12 @@ function UserBar({ welcome, ph, fav, rev, lg }: Props) {
             >
               {ph}
             </span>
-            <span className={roboto.className}>{fav}</span>
+            <span
+              className={roboto.className}
+              onClick={() => push("/favorites")}
+            >
+              {fav}
+            </span>
             <span className={roboto.className} onClick={() => push("/reviews")}>
               {rev}
             </span>

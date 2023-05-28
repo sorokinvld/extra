@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./HotelCard.module.css";
 import Image from "next/image";
 import { Roboto, Lora } from "@next/font/google";
@@ -6,6 +6,8 @@ import { useState } from "react";
 import { useCurrency } from "@/utils/currencyProvider";
 import Link from "next/link";
 import { useUser } from "@/utils/userProvider";
+import { checkFavoriteState } from "@/queries/checkFavoriteState";
+import { toggleFavorite } from "@/queries/toggleFavorite";
 
 const robotoBold = Roboto({
   subsets: ["latin"],
@@ -48,6 +50,19 @@ function HotelCard({
   const { currency } = useCurrency();
   const { user } = useUser();
 
+  useEffect(() => {
+    if (user) {
+      checkFavoriteState(user._id, id, setLiked);
+    }
+  }, [id, user, user?._id]);
+
+  const handleLike = async () => {
+    const favorite = await toggleFavorite(user._id, id);
+    if (favorite == "success") {
+      setLiked(!liked);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.imagecontainer}>
@@ -56,7 +71,7 @@ function HotelCard({
         </div>
         {user != null ? (
           <div className={styles.heart} heart-active={liked ? "true" : ""}>
-            <div className={styles.heartbtn} onClick={() => setLiked(!liked)} />
+            <div className={styles.heartbtn} onClick={handleLike} />
           </div>
         ) : null}
         <Link href={`/hotels/${id}`}>
