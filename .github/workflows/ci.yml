@@ -3,7 +3,8 @@ name: CI
 on: [push, pull_request]
 
 env:
-  CI: true
+  VERCEL_ORG_ID: ${{ secrets.VERCELORGID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCELPROJECTID }}
 
 jobs:
   buildandtest:
@@ -37,9 +38,6 @@ jobs:
 
   deploy:
     name: deployment
-    env:
-      VERCEL_ORG_ID: ${{ secrets.VERCELORGID }}
-      VERCEL_PROJECT_ID: ${{ secrets.VERCELPROJECTID }}
     run-on: ubuntu-latest
     needs: [buildandtest]
 
