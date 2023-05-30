@@ -38,3 +38,4 @@ next-env.d.ts
 
 # python cache
 /recommendation-system/__pycache__
+.vercel
