@@ -49,7 +49,7 @@ for review in user_reviews:
     sentimentQuery = query({
         "inputs": preprocessed_comment,
     })
-    sentiment = sentimentQuery[0][0]["label"]
+    sentiment = sentimentQuery[0][0].get("label")
     if (sentiment == "POSITIVE"):
         sentiment_value = 1
     else:
@@ -59,11 +59,9 @@ for review in user_reviews:
         'userid': userid,
         'hotelid':  hotelid,
         'rating': rate,
-        'sentiment_value': sentiment_value
+        'sentiment': sentiment,
     }
     preprocessed_reviews.append(processed_review)
-
-print(preprocessed_reviews)
 
 
 def recommend_hotels(user_id):
@@ -72,7 +70,6 @@ def recommend_hotels(user_id):
     df = pd.DataFrame(preprocessed_reviews)
     # Remove duplicate entries
     df = df.drop_duplicates(subset=['hotelid', 'userid'])
-    print(df)
     # Pivot the data to create a user-item matrix
     user_item_matrix = df.pivot(
         index='userid', columns='hotelid', values=['rating']).fillna(0)
@@ -84,7 +81,7 @@ def recommend_hotels(user_id):
     target_user_similarity_scores = user_similarity[target_user_index]
     # Sort the similarity scores and get the indices of the most similar users
     similar_user_indices = target_user_similarity_scores.argsort()[::-1]
-    # Get the top 5 similar users
+    # Get the top 3 similar users
     top_similar_users = similar_user_indices[1:4]
     # Get the hotels that the top similar users have rated highly
     recommended_hotels = user_item_matrix.iloc[top_similar_users].mean(
