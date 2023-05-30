@@ -29,6 +29,13 @@ const lora = Lora({
   display: "swap",
 });
 
+type center =
+  | false
+  | {
+      latitude: number;
+      longitude: number;
+    };
+
 function CustomMap({ searchResult, hovered }: any) {
   const [selectedLocation, setSelectedLocation] = React.useState<any>();
   const [hoveredonMapMarker, sethoveredonMapMarker] = React.useState<any>();
@@ -47,29 +54,30 @@ function CustomMap({ searchResult, hovered }: any) {
     [searchResult]
   );
 
-  const center: any = React.useMemo(() => {
-    if (coordinates.length > 0) getCenter(coordinates);
+  const center: center = React.useMemo(() => {
+    return getCenter(coordinates);
   }, [coordinates]);
 
   const [viewport, setViewport] = React.useState({
-    latitude: center?.latitude,
-    longitude: center?.longitude,
+    latitude: 0,
+    longitude: 0,
     zoom: 13,
   });
 
   React.useMemo(() => {
-    setViewport({
-      latitude: center?.latitude,
-      longitude: center?.longitude,
-      zoom: 13,
-    });
+    if (center)
+      setViewport({
+        latitude: center?.latitude,
+        longitude: center?.longitude,
+        zoom: 13,
+      });
   }, [center]);
 
   const markers = React.useMemo(
     () =>
       searchResult.map((result: any) => (
         <div key={result.name}>
-          <Marker longitude={result.long} latitude={result.lat}>
+          <Marker longitude={result.longitude} latitude={result.latitude}>
             <div
               className={styles.price}
               onClick={() => setSelectedLocation(result)}
@@ -77,25 +85,25 @@ function CustomMap({ searchResult, hovered }: any) {
             >
               {currency === "Euro" && (
                 <span className={robotoveryBold.className}>
-                  €{result.priceineuro}
+                  €{result.minPrice}
                 </span>
               )}
               {currency === "Dollar" && (
                 <span className={robotoveryBold.className}>
-                  ${result.priceindollar}
+                  ${result.minPrice}
                 </span>
               )}
               {currency === "Dinar" && (
                 <span className={robotoveryBold.className}>
-                  {result.priceindinar}DT
+                  {result.minPrice}DT
                 </span>
               )}
             </div>
           </Marker>
-          {selectedLocation?.long == result.long ? (
+          {selectedLocation?.longitude == result?.longitude ? (
             <Popup
-              longitude={result.long}
-              latitude={result.lat}
+              longitude={result.longitude}
+              latitude={result.latitude}
               maxWidth="400px"
               style={{
                 borderRadius: "10px",
@@ -152,17 +160,17 @@ function CustomMap({ searchResult, hovered }: any) {
                   <div className={styles.pricedetails}>
                     {currency === "Euro" && (
                       <span className={robotoveryBold.className}>
-                        €{result.priceineuro}
+                        €{result.minPrice}
                       </span>
                     )}
                     {currency === "Dollar" && (
                       <span className={robotoveryBold.className}>
-                        ${result.priceindollar}
+                        ${result.minPrice}
                       </span>
                     )}
                     {currency === "Dinar" && (
                       <span className={robotoveryBold.className}>
-                        {result.priceindinar}DT
+                        {result.minPrice}DT
                       </span>
                     )}
                     <span className={lora.className}>night</span>
@@ -173,15 +181,15 @@ function CustomMap({ searchResult, hovered }: any) {
           ) : null}
         </div>
       )),
-    [currency, searchResult, selectedLocation?.long]
+    [currency, searchResult, selectedLocation?.longitude]
   );
 
   const selectedMarker = React.useMemo(
     () =>
       selectedLocation != null ? (
         <Marker
-          latitude={selectedLocation?.lat}
-          longitude={selectedLocation?.long}
+          latitude={selectedLocation.latitude}
+          longitude={selectedLocation.longitude}
           style={{ zIndex: 4 }}
         >
           <div
@@ -191,17 +199,17 @@ function CustomMap({ searchResult, hovered }: any) {
           >
             {currency === "Euro" && (
               <span className={robotoveryBold.className}>
-                €{selectedLocation.priceineuro}
+                €{selectedLocation.minPrice}
               </span>
             )}
             {currency === "Dollar" && (
               <span className={robotoveryBold.className}>
-                ${selectedLocation.priceindollar}
+                ${selectedLocation.minPrice}
               </span>
             )}
             {currency === "Dinar" && (
               <span className={robotoveryBold.className}>
-                {selectedLocation.priceindinar}DT
+                {selectedLocation.minPrice}DT
               </span>
             )}
           </div>
@@ -214,8 +222,8 @@ function CustomMap({ searchResult, hovered }: any) {
     () =>
       hovered != null ? (
         <Marker
-          latitude={hovered?.lat}
-          longitude={hovered?.long}
+          latitude={hovered?.latitude}
+          longitude={hovered?.longitude}
           style={{ zIndex: 4 }}
         >
           <div
@@ -225,17 +233,17 @@ function CustomMap({ searchResult, hovered }: any) {
           >
             {currency === "Euro" && (
               <span className={robotoveryBold.className}>
-                €{hovered.priceineuro}
+                €{hovered.minPrice}
               </span>
             )}
             {currency === "Dollar" && (
               <span className={robotoveryBold.className}>
-                ${hovered.priceindollar}
+                ${hovered.minPrice}
               </span>
             )}
             {currency === "Dinar" && (
               <span className={robotoveryBold.className}>
-                {hovered.priceindinar}DT
+                {hovered.minPrice}DT
               </span>
             )}
           </div>
@@ -248,8 +256,8 @@ function CustomMap({ searchResult, hovered }: any) {
     () =>
       hoveredonMapMarker != null ? (
         <Marker
-          latitude={hoveredonMapMarker?.lat}
-          longitude={hoveredonMapMarker?.long}
+          latitude={hoveredonMapMarker?.latitude}
+          longitude={hoveredonMapMarker?.longitude}
           style={{ zIndex: 4 }}
         >
           <div
@@ -257,28 +265,30 @@ function CustomMap({ searchResult, hovered }: any) {
             onClick={() => setSelectedLocation(hoveredonMapMarker)}
             onMouseLeave={() => sethoveredonMapMarker(null)}
             selected-state={
-              hoveredonMapMarker.long === selectedLocation?.long ? "true" : ""
+              hoveredonMapMarker.longitude === selectedLocation?.longitude
+                ? "true"
+                : ""
             }
           >
             {currency === "Euro" && (
               <span className={robotoveryBold.className}>
-                €{hoveredonMapMarker.priceineuro}
+                €{hoveredonMapMarker.minPrice}
               </span>
             )}
             {currency === "Dollar" && (
               <span className={robotoveryBold.className}>
-                ${hoveredonMapMarker.priceindollar}
+                ${hoveredonMapMarker.minPrice}
               </span>
             )}
             {currency === "Dinar" && (
               <span className={robotoveryBold.className}>
-                {hoveredonMapMarker.priceindinar}DT
+                {hoveredonMapMarker.minPrice}DT
               </span>
             )}
           </div>
         </Marker>
       ) : null,
-    [currency, hoveredonMapMarker, selectedLocation?.long]
+    [currency, hoveredonMapMarker, selectedLocation?.longitude]
   );
 
   return (

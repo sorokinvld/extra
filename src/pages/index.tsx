@@ -246,10 +246,7 @@ export default function Home({ hotels, destinations, trips, tours }: any) {
                       name={hotel.name_en}
                       stars={hotel.star}
                       location={"Sousse"}
-                      priceindinar={"300"}
-                      priceineuro={"300"}
-                      priceindollar={"300"}
-                      pernight={t("pernight")}
+                      country={"Tunisia"}
                     />
                   )}
                   {locale == "fr" && (
@@ -260,10 +257,7 @@ export default function Home({ hotels, destinations, trips, tours }: any) {
                       name={hotel.name_fr}
                       stars={hotel.star}
                       location={"Sousse"}
-                      priceindinar={"300"}
-                      priceineuro={"300"}
-                      priceindollar={"300"}
-                      pernight={t("pernight")}
+                      country={"Tunisia"}
                     />
                   )}
                   {locale == "ar" && (
@@ -274,10 +268,7 @@ export default function Home({ hotels, destinations, trips, tours }: any) {
                       name={hotel.name_ar}
                       stars={hotel.star}
                       location={"Sousse"}
-                      priceindinar={"300"}
-                      priceineuro={"300"}
-                      priceindollar={"300"}
-                      pernight={t("pernight")}
+                      country={"Tunisia"}
                     />
                   )}
                 </div>
@@ -328,7 +319,7 @@ export default function Home({ hotels, destinations, trips, tours }: any) {
                 </span>
               </div>
               <div className={styles.tripcards}>
-                {trips.map((trip: any, index: any) => (
+                {trips.Product.map((trip: any, index: any) => (
                   <div
                     key={trip._id}
                     data-aos="fade-left"
@@ -342,7 +333,9 @@ export default function Home({ hotels, destinations, trips, tours }: any) {
                         location={trip.location}
                         name={trip.title_en}
                         description={trip.desc_en}
-                        price={trip.priceDt}
+                        priceDt={trip.priceDt}
+                        priceEuro={trip.priceEuro}
+                        priceDollar={trip.priceEuro}
                         discover={t("discover")}
                         from={t("from")}
                       />
@@ -354,7 +347,9 @@ export default function Home({ hotels, destinations, trips, tours }: any) {
                         location={trip.location}
                         name={trip.title_fr}
                         description={trip.desc_fr}
-                        price={trip.priceDt}
+                        priceDt={trip.priceDt}
+                        priceEuro={trip.priceEuro}
+                        priceDollar={trip.priceEuro}
                         discover={t("discover")}
                         from={t("from")}
                       />
@@ -366,7 +361,9 @@ export default function Home({ hotels, destinations, trips, tours }: any) {
                         location={trip.location}
                         name={trip.title_ar}
                         description={trip.desc_ar}
-                        price={trip.priceDt}
+                        priceDt={trip.priceDt}
+                        priceEuro={trip.priceEuro}
+                        priceDollar={trip.priceEuro}
                         discover={t("discover")}
                         from={t("from")}
                       />
@@ -408,7 +405,7 @@ export default function Home({ hotels, destinations, trips, tours }: any) {
                 {t("toursec")}
               </h2>
             </div>
-            {tours.map((tour: any, index: any) => {
+            {tours.Product.map((tour: any, index: any) => {
               if (index % 2 == 0) {
                 return (
                   <div key={tour._id}>
@@ -594,10 +591,10 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/getDestination`)
     .then((response) => response.data);
   const trips = await axios
-    .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/getTrips`)
+    .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/getProductwithEvents/Trips`)
     .then((response) => response.data);
   const tours = await axios
-    .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/getTours`)
+    .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/getProductwithEvents/Tours`)
     .then((response) => response.data);
   if (!locale) {
     return {

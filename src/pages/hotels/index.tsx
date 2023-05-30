@@ -42,8 +42,7 @@ export default function Hotels() {
   const [showModal, setShowModal] = React.useState<boolean>(false);
   const [stars, setStars] = React.useState<number[]>([]);
   const [amenitiesFilter, setAmenitiesFilter] = React.useState<string[]>([]);
-  const [priceRange, setPriceRange] = React.useState<number[]>([0, 1000]);
-  const [maxPrice, setMaxPrice] = React.useState<number>(-1);
+  const [priceRange, setPriceRange] = React.useState<number[]>([0, 30000]);
   const [loading, setLoading] = React.useState(true);
   const filterStars = ["2", "3", "4", "5"];
   const { currency } = useCurrency();
@@ -52,12 +51,10 @@ export default function Hotels() {
 
   React.useEffect(() => {
     Aos.init();
-    setMaxPrice(30000);
   }, []);
 
   React.useEffect(() => {
     setLoading(true);
-
     const data = async () => {
       try {
         const res = await axios.get(
@@ -83,10 +80,6 @@ export default function Hotels() {
     query.endDate,
     query.startDate,
   ]);
-
-  React.useMemo(() => {
-    if (data) setMaxPrice(-1);
-  }, [data]);
 
   const onStarFilter = (star: any) => {
     if (stars.includes(star)) {
@@ -119,6 +112,27 @@ export default function Hotels() {
       setAmenitiesFilter(newArray);
     } else {
       setAmenitiesFilter([...amenitiesFilter, amenity]);
+    }
+  };
+
+  const applyFilter = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/Hotels?page=1&search=${
+          query.destination
+        }&start_date=${query.startDate}&end_date=${query.endDate}&adult=${
+          query.adults
+        }&child=${query.children}&&${stars.map(
+          (star: number, index: number) => `star[${index}]=${star}`
+        )}&min=${priceRange[0]}&max=${priceRange[1]}&${amenitiesFilter.map(
+          (amenity: string, index: number) => `amenities[${index}]=${amenity}`
+        )}`
+      );
+      setData(res.data);
+      setLoading(false);
+    } catch (error: any) {
+      console.log(error);
     }
   };
 
@@ -232,9 +246,9 @@ export default function Hotels() {
                           desc={hotel.desc_en}
                           location={hotel.Hotel_Destination[0].city_en}
                           stars={hotel.star}
-                          priceindinar={"300"}
-                          priceineuro={"300"}
-                          priceindollar={"300"}
+                          priceindinar={hotel.minPrice}
+                          priceineuro={hotel.minPrice}
+                          priceindollar={hotel.minPrice}
                           night={night}
                         />
                       </div>
@@ -315,74 +329,42 @@ export default function Hotels() {
               <span className={robotoBold.className}>{t("filterbyprice")}</span>
               <div className={styles.pricerange}>
                 <div className={styles.prices}>
-                  {priceRange[1] != -1 ? (
-                    <>
-                      <div>
-                        <span className={robotoBold.className}>
-                          {priceRange[0]}
-                        </span>
-                        {currency === "Euro" && (
-                          <span className={robotoBold.className}>€</span>
-                        )}
-                        {currency === "Dollar" && (
-                          <span className={robotoBold.className}>$</span>
-                        )}
-                        {currency === "Dinar" && (
-                          <span className={robotoBold.className}>DT</span>
-                        )}
-                      </div>
-                      <div className={robotoBold.className}>-</div>
-                      <div>
-                        <span className={robotoBold.className}>
-                          {priceRange[1]}
-                        </span>
-                        {currency === "Euro" && (
-                          <span className={robotoBold.className}>€</span>
-                        )}
-                        {currency === "Dollar" && (
-                          <span className={robotoBold.className}>$</span>
-                        )}
-                        {currency === "Dinar" && (
-                          <span className={robotoBold.className}>DT</span>
-                        )}
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div>
-                        <span className={robotoBold.className}>0</span>
-                        {currency === "Euro" && (
-                          <span className={robotoBold.className}>€</span>
-                        )}
-                        {currency === "Dollar" && (
-                          <span className={robotoBold.className}>$</span>
-                        )}
-                        {currency === "Dinar" && (
-                          <span className={robotoBold.className}>DT</span>
-                        )}
-                      </div>
-                      <div className={robotoBold.className}>-</div>
-                      <div>
-                        <span className={robotoBold.className}>0</span>
-                        {currency === "Euro" && (
-                          <span className={robotoBold.className}>€</span>
-                        )}
-                        {currency === "Dollar" && (
-                          <span className={robotoBold.className}>$</span>
-                        )}
-                        {currency === "Dinar" && (
-                          <span className={robotoBold.className}>DT</span>
-                        )}
-                      </div>
-                    </>
-                  )}
+                  <div>
+                    <span className={robotoBold.className}>
+                      {priceRange[0]}
+                    </span>
+                    {currency === "Euro" && (
+                      <span className={robotoBold.className}>€</span>
+                    )}
+                    {currency === "Dollar" && (
+                      <span className={robotoBold.className}>$</span>
+                    )}
+                    {currency === "Dinar" && (
+                      <span className={robotoBold.className}>DT</span>
+                    )}
+                  </div>
+                  <div className={robotoBold.className}>-</div>
+                  <div>
+                    <span className={robotoBold.className}>
+                      {priceRange[1]}
+                    </span>
+                    {currency === "Euro" && (
+                      <span className={robotoBold.className}>€</span>
+                    )}
+                    {currency === "Dollar" && (
+                      <span className={robotoBold.className}>$</span>
+                    )}
+                    {currency === "Dinar" && (
+                      <span className={robotoBold.className}>DT</span>
+                    )}
+                  </div>
                 </div>
                 <Slider
                   sx={{ color: "#243c50", maxWidth: "100%" }}
                   value={priceRange}
                   onChange={handlePriceChange}
                   min={0}
-                  max={maxPrice}
+                  max={30000}
                 />
               </div>
             </div>
@@ -429,7 +411,7 @@ export default function Hotels() {
               </div>
             </div>
             <div className={styles.filterbutton}>
-              <button onClick={() => {}}>
+              <button onClick={applyFilter}>
                 <span className={robotoBold.className}>{t("apply")}</span>
               </button>
             </div>

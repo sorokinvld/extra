@@ -62,8 +62,10 @@ function HotelBox({
   const { user } = useUser();
 
   useEffect(() => {
-    checkFavoriteState(user._id, id, setLiked);
-  }, [id, user._id]);
+    if (user) {
+      checkFavoriteState(user._id, id, setLiked);
+    }
+  }, [id, user, user?._id]);
 
   const handleLike = async () => {
     const favorite = await toggleFavorite(user._id, id);

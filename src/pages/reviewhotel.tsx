@@ -34,9 +34,7 @@ export default function Reviewhotel() {
   const [mounted, setMounted] = useState(false);
   const [hotel, setHotel] = useState<any>();
   const [loading, setLoading] = useState(false);
-  const [loadingRate, setLoadingRate] = useState(false);
   const [review, setReview] = useState<string>("");
-  const [loadingReview, setLoadingReview] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const { user } = useUser();
   const { query, locale } = useRouter();
@@ -54,12 +52,12 @@ export default function Reviewhotel() {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setSubmitting(true);
     if (rate > 0 && review != "") {
-      rateHotel(hotel._id, user._id, rate, setLoadingRate);
-      reviewHotel(hotel._id, user._id, review, setLoadingReview);
-      if (!loadingRate && !loadingReview) {
+      const rating = await rateHotel(hotel._id, user._id, rate);
+      const reviewing = await reviewHotel(hotel._id, user._id, review);
+      if (rating == "success" && reviewing == "success") {
         setSubmitting(false);
         toast.success("Success!");
       } else {

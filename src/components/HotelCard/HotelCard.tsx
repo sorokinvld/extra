@@ -28,10 +28,7 @@ interface Props {
   name: string;
   stars: string;
   location: string;
-  priceindinar: string;
-  priceineuro: string;
-  priceindollar: string;
-  pernight: string;
+  country: string;
 }
 
 function HotelCard({
@@ -41,13 +38,9 @@ function HotelCard({
   name,
   stars,
   location,
-  priceindinar,
-  priceineuro,
-  priceindollar,
-  pernight,
+  country,
 }: Props) {
   const [liked, setLiked] = useState<boolean>(false);
-  const { currency } = useCurrency();
   const { user } = useUser();
 
   useEffect(() => {
@@ -93,20 +86,14 @@ function HotelCard({
             </div>
           </div>
           <div className={styles.location}>
-            <span className={robotoBold.className}>{location}</span>
+            <span className={lora.className}>
+              {location}, {country}
+            </span>
           </div>
           <div className={styles.options}>
             <div className={styles.price}>
-              {currency === "Euro" && (
-                <span className={robotoBold.className}>€{priceineuro}</span>
-              )}
-              {currency === "Dollar" && (
-                <span className={robotoBold.className}>${priceindollar}</span>
-              )}
-              {currency === "Dinar" && (
-                <span className={robotoBold.className}>{priceindinar}DT</span>
-              )}
-              <span className={lora.className}>{pernight}</span>
+              <span className={robotoBold.className}></span>
+              <span className={lora.className}></span>
             </div>
           </div>
         </div>

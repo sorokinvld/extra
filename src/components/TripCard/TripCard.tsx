@@ -19,7 +19,9 @@ interface Props {
   location: string;
   name: string;
   description: string;
-  price: string;
+  priceDt: number;
+  priceEuro: number;
+  priceDollar: number;
   discover: string;
   from: string;
 }
@@ -30,7 +32,9 @@ function TripCard({
   location,
   name,
   description,
-  price,
+  priceDt,
+  priceEuro,
+  priceDollar,
   discover,
   from,
 }: Props) {
@@ -63,13 +67,19 @@ function TripCard({
             <div className={styles.price}>
               <span className={lora.className}>{from}</span>
               {currency === "Euro" && (
-                <span className={robotoBold.className}>€{price}</span>
+                <span className={robotoBold.className}>
+                  €{Math.round(priceEuro)}
+                </span>
               )}
               {currency === "Dollar" && (
-                <span className={robotoBold.className}>${price}</span>
+                <span className={robotoBold.className}>
+                  ${Math.round(priceDollar)}
+                </span>
               )}
               {currency === "Dinar" && (
-                <span className={robotoBold.className}>{price}DT</span>
+                <span className={robotoBold.className}>
+                  {Math.round(priceDt)}DT
+                </span>
               )}
             </div>
           </div>
