@@ -3,7 +3,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { GetStaticProps } from "next";
 import { Layout } from "@/components/Layout";
-import styles from "@/styles/favorites.module.css";
+import styles from "@/styles/Favorites.module.css";
 import errorstyles from "@/styles/Error.module.css";
 import { Roboto, Lora } from "@next/font/google";
 import { useUser } from "@/utils/userProvider";
