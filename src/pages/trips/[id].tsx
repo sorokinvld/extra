@@ -245,7 +245,8 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
   }
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["navbar", "trip"])),
+      ...(await serverSideTranslations(locale, ["navbar", "trip"],
+      require("../../../i18next.config"))),
       trip,
       events,
       params,

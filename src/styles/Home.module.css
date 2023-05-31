@@ -91,6 +91,8 @@
   display: flex;
   width: 100%;
   height: 100px;
+  margin-left: 100%;
+  margin-top: 50%;
   justify-content: center;
   align-items: center;
 }
@@ -385,8 +387,9 @@
   .recommendationsection > span {
     display: none;
   }
-  .recommended > div:nth-child(2) {
-    margin-top: 0;
+  .recommended > .loading {
+    margin-left: 40%;
+    margin-top: 150%;
   }
 }
 @media screen and (max-width: 935px) {
@@ -427,6 +430,12 @@
   }
   .imagecontainer > h2 {
     font-size: 25px;
+  }
+}
+@media screen and (max-width: 400px) {
+  .recommended > .loading {
+    margin-left: 2%;
+    margin-top: 150%;
   }
 }
 @media screen and (max-width: 330px) {

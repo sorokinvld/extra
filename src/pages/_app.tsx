@@ -22,4 +22,4 @@ function App({ Component, pageProps }: AppProps) {
     </UserProvider>
   );
 }
-export default appWithTranslation(App);
+export default appWithTranslation(App, require("../../i18next.config"));

@@ -85,13 +85,13 @@ export default function Home({ hotels, destinations, trips, tours }: any) {
           `${process.env.NEXT_PUBLIC_AI_URL}/api/recommendation?id=${user._id}`
         );
         setRecommendations(hotels.data);
+        setLoading(false);
       } catch (error: any) {
         console.log(error);
       }
     };
     if (user != undefined) {
       recommend();
-      setLoading(false);
     } else {
       setLoading(false);
     }
@@ -707,11 +707,11 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   }
   return {
     props: {
-      ...(await serverSideTranslations(locale, [
-        "navbar",
-        "home",
-        "searchbar",
-      ])),
+      ...(await serverSideTranslations(
+        locale,
+        ["navbar", "home", "searchbar"],
+        require("../../i18next.config")
+      )),
       hotels,
       destinations,
       trips,
