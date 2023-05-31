@@ -33,5 +33,5 @@ jobs:
         uses: zeet-co/zeet-deploy-action@v2
         with:
           deploy_key: ${{ secrets.ZEETTOKEN }}
-          project-name: extra-recommendation-api
+          project: extra-recommendation-api
           image: nginx:1.20
