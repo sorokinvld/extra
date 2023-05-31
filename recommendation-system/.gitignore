@@ -1,4 +1,4 @@
 # vercel
 .vercel
 # python cache
-__pycache__
+api/__pycache__

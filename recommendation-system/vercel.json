@@ -1,5 +1,5 @@
 {
-  "routes": [{ "src": "/(.*)", "dest": "main.py" }],
+  "routes": [{ "src": "/(.*)", "dest": "api/main.py" }],
   "env": {
     "FLASK_APP": "api/main.py",
     "FLASK_ENV": "production"
