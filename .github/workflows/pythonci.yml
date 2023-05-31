@@ -26,8 +26,8 @@ jobs:
 
       - name: Build
         run: |
-          export FLASK_APP=api/main.py
-          run flask run --host=0.0.0.0 --port=5000 &
+          export FLASK_APP=index.py
+          nohup flask run --host=0.0.0.0 --port=5000 &
 
       - name: Wait for Flask to start
         run: sleep 5
