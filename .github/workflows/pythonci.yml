@@ -12,7 +12,6 @@ jobs:
     defaults:
       run:
         working-directory: "./recommendation-system"
-    needs: [build]
 
     steps:
       - name: Checkout code
