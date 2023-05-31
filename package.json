@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit",
     "cypress-headless": "cypress run",
     "cypress": "cypress open",
-    "ai": "python -m flask --app recommendation-system/api/main.py run"
+    "ai": "python -m flask --app recommendation-system/main.py run"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
