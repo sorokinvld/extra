@@ -12,16 +12,5 @@
   },
   "install": {
     "ignoreScripts": true
-  },
-  "headers": [
-    {
-      "source": "../public/favicon.ico",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=3600"
-        }
-      ]
-    }
-  ]
+  }
 }
