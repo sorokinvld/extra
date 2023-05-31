@@ -4,3 +4,4 @@ flask
 Gunicorn
 pandas
 sklearn
+flask-cors

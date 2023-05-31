@@ -36,6 +36,5 @@ next-env.d.ts
 # vscode
 .vscode
 
-# python cache
-/recommendation-system/__pycache__
+# vercel
 .vercel

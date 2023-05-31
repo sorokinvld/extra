@@ -20,6 +20,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import axios from "axios";
 import MailchimpSubscribe from "react-mailchimp-subscribe";
 import { useRouter } from "next/router";
+import { useUser } from "@/utils/userProvider";
 
 const robotoBold = Roboto({
   subsets: ["latin"],
@@ -44,7 +45,10 @@ export default function Home({ hotels, destinations, trips, tours }: any) {
   const [email, setEmail] = useState<SubcriptionSchemaType>({
     email: "",
   });
+  const [loading, setLoading] = useState(false);
+  const [recommendation, setRecommendations] = useState<Object[]>();
   const MAILCHIMP_URL = process.env.NEXT_PUBLIC_MAILCHIMP_URL;
+  const { user } = useUser();
 
   const subscriptionSchema = z.object({
     email: z.string().email(),
@@ -72,6 +76,26 @@ export default function Home({ hotels, destinations, trips, tours }: any) {
   useEffect(() => {
     AOS.init();
   }, []);
+
+  useEffect(() => {
+    setLoading(true);
+    const recommend = async () => {
+      try {
+        const hotels = await axios.get(
+          `${process.env.NEXT_PUBLIC_AI_URL}/api/recommendation?id=${user._id}`
+        );
+        setRecommendations(hotels.data);
+      } catch (error: any) {
+        console.log(error);
+      }
+    };
+    if (user != undefined) {
+      recommend();
+      setLoading(false);
+    } else {
+      setLoading(false);
+    }
+  }, [user]);
 
   const { ref } = useParallax<HTMLDivElement>({ speed: 20 });
 
@@ -230,50 +254,113 @@ export default function Home({ hotels, destinations, trips, tours }: any) {
               <span>{t("recfirstquote")}</span>
               <span>{t("recsecondquote")}</span>
             </span>
-            <div className={styles.recommended}>
-              {hotels.slice(0, 3).map((hotel: any, index: number) => (
-                <div
-                  key={hotel._id}
-                  data-aos="fade-up"
-                  data-aos-duration="500"
-                  data-aos-delay={((Number(index) + 1) * 100).toString()}
-                >
-                  {locale == "en" && (
-                    <HotelCard
-                      id={hotel._id}
-                      rating={"9"}
-                      imageSrc={hotel.image}
-                      name={hotel.name_en}
-                      stars={hotel.star}
-                      location={"Sousse"}
-                      country={"Tunisia"}
-                    />
-                  )}
-                  {locale == "fr" && (
-                    <HotelCard
-                      id={hotel._id}
-                      rating={"9"}
-                      imageSrc={hotel.image}
-                      name={hotel.name_fr}
-                      stars={hotel.star}
-                      location={"Sousse"}
-                      country={"Tunisia"}
-                    />
-                  )}
-                  {locale == "ar" && (
-                    <HotelCard
-                      id={hotel._id}
-                      rating={"9"}
-                      imageSrc={hotel.image}
-                      name={hotel.name_ar}
-                      stars={hotel.star}
-                      location={"Sousse"}
-                      country={"Tunisia"}
-                    />
-                  )}
-                </div>
-              ))}
-            </div>
+            {user ? (
+              <div className={styles.recommended}>
+                {loading ? (
+                  <div className={styles.loading}>
+                    <CircularProgress />
+                  </div>
+                ) : (
+                  <>
+                    {recommendation?.map((hotel: any, index: number) => (
+                      <div
+                        key={JSON.parse(JSON.stringify(hotel._id)).$oid}
+                        data-aos="fade-up"
+                        data-aos-duration="500"
+                        data-aos-delay={((Number(index) + 1) * 100).toString()}
+                      >
+                        {locale == "en" && (
+                          <HotelCard
+                            id={hotel._id}
+                            rating={"9"}
+                            imageSrc={hotel.image}
+                            name={hotel.name_en}
+                            stars={hotel.star}
+                            location={"Sousse"}
+                            country={"Tunisia"}
+                          />
+                        )}
+                        {locale == "fr" && (
+                          <HotelCard
+                            id={hotel._id}
+                            rating={"9"}
+                            imageSrc={hotel.image}
+                            name={hotel.name_fr}
+                            stars={hotel.star}
+                            location={"Sousse"}
+                            country={"Tunisia"}
+                          />
+                        )}
+                        {locale == "ar" && (
+                          <HotelCard
+                            id={hotel._id}
+                            rating={"9"}
+                            imageSrc={hotel.image}
+                            name={hotel.name_ar}
+                            stars={hotel.star}
+                            location={"Sousse"}
+                            country={"Tunisia"}
+                          />
+                        )}
+                      </div>
+                    ))}
+                  </>
+                )}
+              </div>
+            ) : (
+              <>
+                {loading ? (
+                  <div className={styles.loading}>
+                    <CircularProgress />
+                  </div>
+                ) : (
+                  <div className={styles.recommended}>
+                    {hotels.slice(0, 3).map((hotel: any, index: number) => (
+                      <div
+                        key={hotel._id}
+                        data-aos="fade-up"
+                        data-aos-duration="500"
+                        data-aos-delay={((Number(index) + 1) * 100).toString()}
+                      >
+                        {locale == "en" && (
+                          <HotelCard
+                            id={hotel._id}
+                            rating={"9"}
+                            imageSrc={hotel.image}
+                            name={hotel.name_en}
+                            stars={hotel.star}
+                            location={"Sousse"}
+                            country={"Tunisia"}
+                          />
+                        )}
+                        {locale == "fr" && (
+                          <HotelCard
+                            id={hotel._id}
+                            rating={"9"}
+                            imageSrc={hotel.image}
+                            name={hotel.name_fr}
+                            stars={hotel.star}
+                            location={"Sousse"}
+                            country={"Tunisia"}
+                          />
+                        )}
+                        {locale == "ar" && (
+                          <HotelCard
+                            id={hotel._id}
+                            rating={"9"}
+                            imageSrc={hotel.image}
+                            name={hotel.name_ar}
+                            stars={hotel.star}
+                            location={"Sousse"}
+                            country={"Tunisia"}
+                          />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </>
+            )}
           </section>
           <section className={styles.tripsection}>
             <div className={styles.tripbackground} />

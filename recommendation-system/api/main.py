@@ -1,5 +1,6 @@
 import json
 from bson import ObjectId
+from flask_cors import CORS
 import requests
 from pymongo.mongo_client import MongoClient
 from flask import Flask, request
@@ -29,6 +30,7 @@ except Exception as e:
 db = client['db']
 reviewcollection = db['reviewsHotel']
 ratingcollection = db['ratingHotel']
+hotelscollection = db['hotels']
 # Retrieve user reviews
 user_reviews = reviewcollection.find()
 # Preprocessing and feature extraction
@@ -82,10 +84,12 @@ def recommend_hotels(user_id):
     # Sort the similarity scores and get the indices of the most similar users
     similar_user_indices = target_user_similarity_scores.argsort()[::-1]
     # Get the top 3 similar users
-    top_similar_users = similar_user_indices[1:4]
+    top_similar_users = similar_user_indices[1:6]
     # Get the hotels that the top similar users have rated highly
     recommended_hotels = user_item_matrix.iloc[top_similar_users].mean(
     ).sort_values(ascending=False)
+    # Select top 3 recommended hotels
+    recommended_hotels = recommended_hotels[:3]
     # Convert the Pandas Series to a list
     recommended_hotels_list = recommended_hotels.reset_index().values.tolist()
 
@@ -93,6 +97,7 @@ def recommend_hotels(user_id):
 
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route('/')
@@ -103,9 +108,13 @@ def greetings():
 @app.route('/api/recommendation')
 def recommendation():
     id = request.args["id"]
+    hotels = []
     recommended_hotels = recommend_hotels(id)
+    for recommendation in recommended_hotels:
+        for hotel in hotelscollection.find({"_id": recommendation[1]}):
+            hotels.append(hotel)
     # Do the recommendation algorithm using the id
-    return json.loads(json_util.dumps(recommended_hotels))
+    return json.loads(json_util.dumps(hotels))
 
 
 if __name__ == '__main__':

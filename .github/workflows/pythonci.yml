@@ -1,0 +1,49 @@
+name: CI/CD Python Pipeline
+
+on: [push, pull_request]
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCELORGID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCELPYTHONPROJECTID }}
+  working-directory: ./recommendation-system
+
+jobs:
+  build:
+    name: buildandtest
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        working-directory: ${{env.working-directory}}
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        working-directory: ${{env.working-directory}}
+        with:
+          python-version: 3.11.3
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+        working-directory: ${{env.working-directory}}
+
+  deploy:
+    name: deployment
+    runs-on: ubuntu-latest
+    needs: [buildandtest]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+        working-directory: ${{env.working-directory}}
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCELTOKEN }}
+        working-directory: ${{env.working-directory}}
+      - name: Build Project Artifacts
+        run: vercel build --prod --token=${{ secrets.VERCELTOKEN }}
+        working-directory: ${{env.working-directory}}
+      - name: Deploy Project Artifacts to Vercel
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCELTOKEN }}
+        working-directory: ${{env.working-directory}}

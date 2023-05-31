@@ -87,6 +87,13 @@
 .recommended > div:nth-child(2) {
   margin-top: 85px;
 }
+.recommended > .loading {
+  display: flex;
+  width: 100%;
+  height: 100px;
+  justify-content: center;
+  align-items: center;
+}
 .link {
   display: flex;
   width: 100%;

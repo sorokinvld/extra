@@ -19,7 +19,7 @@
   width: 100%;
   height: 350px;
 }
-.imagecontainer > a {
+.imagecontainer > .image {
   position: absolute;
   width: 100%;
   height: 100%;

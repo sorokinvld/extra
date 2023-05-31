@@ -1,7 +1,7 @@
-name: CI
+name: CI/CD Nextjs Pipeline
 
 on: [push, pull_request]
-
+paths-ignore: "recommendation-system"
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCELORGID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCELPROJECTID }}

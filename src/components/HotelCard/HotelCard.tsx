@@ -3,8 +3,7 @@ import styles from "./HotelCard.module.css";
 import Image from "next/image";
 import { Roboto, Lora } from "@next/font/google";
 import { useState } from "react";
-import { useCurrency } from "@/utils/currencyProvider";
-import Link from "next/link";
+import { useRouter } from "next/router";
 import { useUser } from "@/utils/userProvider";
 import { checkFavoriteState } from "@/queries/checkFavoriteState";
 import { toggleFavorite } from "@/queries/toggleFavorite";
@@ -42,10 +41,19 @@ function HotelCard({
 }: Props) {
   const [liked, setLiked] = useState<boolean>(false);
   const { user } = useUser();
+  const { push } = useRouter();
 
   useEffect(() => {
     if (user) {
-      checkFavoriteState(user._id, id, setLiked);
+      if (JSON.parse(JSON.stringify(id)).$oid != undefined) {
+        checkFavoriteState(
+          user._id,
+          JSON.parse(JSON.stringify(id)).$oid,
+          setLiked
+        );
+      } else {
+        checkFavoriteState(user._id, id, setLiked);
+      }
     }
   }, [id, user, user?._id]);
 
@@ -53,6 +61,14 @@ function HotelCard({
     const favorite = await toggleFavorite(user._id, id);
     if (favorite == "success") {
       setLiked(!liked);
+    }
+  };
+
+  const handlePush = () => {
+    if (JSON.parse(JSON.stringify(id)).$oid != undefined) {
+      push(`hotels/${JSON.parse(JSON.stringify(id)).$oid}`);
+    } else {
+      push(`hotels/${id}`);
     }
   };
 
@@ -67,37 +83,35 @@ function HotelCard({
             <div className={styles.heartbtn} onClick={handleLike} />
           </div>
         ) : null}
-        <Link href={`/hotels/${id}`}>
+        <div className={styles.image} onClick={handlePush}>
           <Image src={imageSrc} alt={name} fill sizes={"100%"} />
-        </Link>
+        </div>
       </div>
-      <Link href={`/hotels/${id}`}>
-        <div className={styles.details}>
-          <div className={styles.title}>
-            <span className={robotoBold.className}>{name}</span>
-            <div className={styles.stars}>
-              <span className={robotoBold.className}>{stars}</span>
-              <svg height="20" viewBox="0 96 960 960" width="20">
-                <path
-                  fill="currentColor"
-                  d="m233 976 65-281L80 506l288-25 112-265 112 265 288 25-218 189 65 281-247-149-247 149Z"
-                />
-              </svg>
-            </div>
-          </div>
-          <div className={styles.location}>
-            <span className={lora.className}>
-              {location}, {country}
-            </span>
-          </div>
-          <div className={styles.options}>
-            <div className={styles.price}>
-              <span className={robotoBold.className}></span>
-              <span className={lora.className}></span>
-            </div>
+      <div className={styles.details}>
+        <div className={styles.title}>
+          <span className={robotoBold.className}>{name}</span>
+          <div className={styles.stars}>
+            <span className={robotoBold.className}>{stars}</span>
+            <svg height="20" viewBox="0 96 960 960" width="20">
+              <path
+                fill="currentColor"
+                d="m233 976 65-281L80 506l288-25 112-265 112 265 288 25-218 189 65 281-247-149-247 149Z"
+              />
+            </svg>
           </div>
         </div>
-      </Link>
+        <div className={styles.location}>
+          <span className={lora.className}>
+            {location}, {country}
+          </span>
+        </div>
+        <div className={styles.options}>
+          <div className={styles.price}>
+            <span className={robotoBold.className}></span>
+            <span className={lora.className}></span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
