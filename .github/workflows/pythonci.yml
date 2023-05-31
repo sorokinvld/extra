@@ -30,9 +30,8 @@ jobs:
         run: sleep 5
 
       - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v20
+        uses: vercel/github-action@v22
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCELORGID }}
           vercel-project-id: ${{ secrets.VERCELPYTHONPROJECTID }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
