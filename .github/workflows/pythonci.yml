@@ -5,7 +5,7 @@ on: [push]
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-     defaults:
+    defaults:
       run:
         working-directory: "./recommendation-system"
 
@@ -32,4 +32,3 @@ jobs:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCELORGID }}
           vercel-project-id: ${{ secrets.VERCELPYTHONPROJECTID }}
-
