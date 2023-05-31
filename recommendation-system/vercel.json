@@ -1,5 +1,4 @@
 {
-  "buildCommand": "pip install --disable-pip-version-check --target . werkzeug==1.0.1",
   "builds": [
     {
       "src": "api/main.py",
@@ -11,14 +10,10 @@
     "FLASK_APP": "api/main.py",
     "FLASK_ENV": "production"
   },
-  "dependencies": {
-    "flask": "^2.3.2",
-    "werkzeug": "2.3.4"
-  },
-  "install": {
-    "maxDuration": 300,
-    "ignoreBuildWarnings": true,
-    "alwaysInstall": true,
-    "additionalArgs": ["-r", "requirements.txt"]
+  "build": {
+    "commands": [
+      "pip install --upgrade pip",
+      "pip install --no-cache-dir --disable-pip-version-check -r requirements.txt -t ."
+    ]
   }
 }
