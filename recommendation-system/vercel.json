@@ -10,10 +10,18 @@
     "FLASK_APP": "api/main.py",
     "FLASK_ENV": "production"
   },
-  "build": {
-    "commands": [
-      "pip install --upgrade pip",
-      "pip install --no-cache-dir --disable-pip-version-check -r requirements.txt -t ."
-    ]
-  }
+  "install": {
+    "ignoreScripts": true
+  },
+  "headers": [
+    {
+      "source": "../public/favicon.ico",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
+    }
+  ]
 }
