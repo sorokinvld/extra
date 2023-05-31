@@ -3,5 +3,5 @@ requests
 flask
 Gunicorn
 pandas
-sklearn
+scikit-learn
 flask-cors
