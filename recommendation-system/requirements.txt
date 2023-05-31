@@ -1,6 +1,7 @@
 pymongo
 requests
-flask
+flask==2.3.2
+Werkzeug==2.3.4
 Gunicorn
 pandas
 scikit-learn
