@@ -1,9 +1,6 @@
 name: CI/CD Python Pipeline
 
 on: [push]
-env:
-  VERCEL_ORG_ID: ${{ secrets.VERCELORGID }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCELPYTHONPROJECTID }}
 
 jobs:
   build-and-deploy:
@@ -19,7 +16,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.9
+          python-version: 3.11.3
 
       - name: Install dependencies
         run: pip install -r api/requirements.txt
@@ -32,12 +29,9 @@ jobs:
       - name: Wait for Flask to start
         run: sleep 5
 
-      - uses: actions/checkout@v2
-      - name: Install Vercel CLI
-        run: npm install --global vercel@latest
-
-      - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=production --token=${{ secrets.VERCELTOKEN }}
-
-      - name: Deploy Project Artifacts to Vercel
-        run: vercel deploy --prod --token=${{ secrets.VERCELTOKEN }}
+      - name: Deploy project
+        uses: zeet-co/zeet-deploy-action@v2
+        with:
+          deploy_key: ${{ secrets.ZEETTOKEN }}
+          project-name: extra-recommendation-api
+          image: nginx:1.20
