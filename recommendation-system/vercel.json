@@ -1,7 +1,18 @@
 {
+  "builds": [
+    {
+      "src": "api/main.py",
+      "use": "@vercel/python"
+    }
+  ],
   "routes": [{ "src": "/(.*)", "dest": "api/main.py" }],
   "env": {
     "FLASK_APP": "api/main.py",
     "FLASK_ENV": "production"
+  },
+  "install": {
+    "bins": ["python", "pip"],
+    "command": "pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt -t .",
+    "includeFiles": ["requirements.txt"]
   }
 }

@@ -6,30 +6,6 @@ env:
   VERCEL_PROJECT_ID: ${{ secrets.VERCELPYTHONPROJECTID }}
 
 jobs:
-  build:
-    name: build
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: "./recommendation-system"
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          working-directory: "./recommendation-system"
-
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          working-directory: "./recommendation-system"
-          python-version: 3.11.3
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
   deploy:
     name: deployment
     runs-on: ubuntu-latest
@@ -39,11 +15,21 @@ jobs:
     needs: [build]
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          working-directory: "./recommendation-system"
       - uses: actions/checkout@v2
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCELTOKEN }}
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          working-directory: "./recommendation-system"
+          python-version: 3.11.3
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
