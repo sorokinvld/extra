@@ -6,3 +6,4 @@ Gunicorn
 pandas
 scikit-learn
 flask-cors
+bson
