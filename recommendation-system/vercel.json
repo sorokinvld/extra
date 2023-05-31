@@ -2,7 +2,8 @@
   "builds": [
     {
       "src": "api/main.py",
-      "use": "@vercel/python"
+      "use": "@vercel/python",
+      "buildCommand": "pip install --disable-pip-version-check --target . werkzeug==1.0.1"
     }
   ],
   "routes": [{ "src": "/(.*)", "dest": "api/main.py" }]
