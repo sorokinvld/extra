@@ -17,12 +17,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          working-directory: ${{env.working-directory}}
+          working-directory: "./recommendation-system"
 
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          working-directory: ${{env.working-directory}}
+          working-directory: "./recommendation-system"
           python-version: 3.11.3
 
       - name: Install dependencies
@@ -30,9 +30,21 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Build and deploy
-        run: |
-          echo VERCEL_TOKEN=${{ secrets.VERCELTOKEN }} > .env
-          echo VERCEL_ORG_ID=${{ secrets.VERCELORGID }} >> .env
-          echo VERCEL_PROJECT_ID=${{ secrets.VERCELPYTHONPROJECTID}} >> .env
-          vercel --token ${{ secrets.VERCELTOKEN }} --confirm --env .env
+  deploy:
+    name: deployment
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./recommendation-system"
+    needs: [build]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCELTOKEN }}
+      - name: Build Project Artifacts
+        run: vercel build --prod --token=${{ secrets.VERCELTOKEN }}
+      - name: Deploy Project Artifacts to Vercel
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCELTOKEN }}
