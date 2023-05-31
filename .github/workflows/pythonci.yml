@@ -23,7 +23,7 @@ jobs:
 
       - name: Build
         run: |
-          export FLASK_APP=index.py
+          export FLASK_APP=app.py
           nohup flask run --host=0.0.0.0 --port=5000 &
 
       - name: Wait for Flask to start
@@ -33,4 +33,5 @@ jobs:
         uses: Bounceapp/render-action@0.6.0
         with:
           render-token: ${{ secrets.RENDERTOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           service-id: ${{ secrets.RENDERPROJECTID }}
