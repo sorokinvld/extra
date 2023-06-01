@@ -69,8 +69,8 @@
 }
 .loading {
   position: absolute;
-  top: 70%;
-  right: 50%;
+  top: 50%;
+  right: 45%;
 }
 .item[showcase-position="right"] {
   margin-left: auto;
