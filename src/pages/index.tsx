@@ -258,7 +258,7 @@ export default function Home({ hotels, destinations, trips, tours }: any) {
               <div className={styles.recommended}>
                 {loading ? (
                   <div className={styles.loading}>
-                    <CircularProgress style={{ color: "#2d8172" }} />
+                    <CircularProgress sx={{ color: "#2d8172" }} />
                   </div>
                 ) : (
                   <>
