@@ -12,5 +12,7 @@
   "reserve": "Reserve",
   "night": "night",
   "images": "Photos",
-  "rating": "average rating"
+  "rating": "average rating",
+  "availability": "Rooms available",
+  "roomsearcherror": "Please select the dates and guests."
 }

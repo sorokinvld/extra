@@ -9,7 +9,6 @@ import { Roboto, Lora } from "@next/font/google";
 import React from "react";
 import HotelBox from "@/components/HotelBox/HotelBox";
 import CustomMap from "@/components/Map/CustomMap";
-import axios from "axios";
 import Modal from "@/components/Modal/Modal";
 import Slider from "@mui/material/Slider";
 import CircularProgress from "@mui/material/CircularProgress";

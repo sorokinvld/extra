@@ -22,6 +22,7 @@ const lora = Lora({
 });
 
 interface Props {
+  id: string;
   dates: string;
   checkin: string;
   checkinPlaceholder?: any;
@@ -43,6 +44,7 @@ interface Props {
 }
 
 function ReserveBar({
+  id,
   dates,
   checkin,
   checkinPlaceholder,
@@ -62,7 +64,7 @@ function ReserveBar({
   guestChildren,
   guestRooms,
 }: Props) {
-  const { locale } = useRouter();
+  const { locale, push, asPath } = useRouter();
   const [adultsNbr, setAdultsNbr] = useState<number>(
     Number(adultPlaceholder) || 1
   );
@@ -192,12 +194,16 @@ function ReserveBar({
     const startDate = formatedStartDate();
     const endDate = formatedEndDate();
     const searchForm = {
+      id: id,
       startDate: startDate,
       endDate: endDate,
       adults: adultsNbr,
       children: childrenNbr,
       rooms: roomsNbr,
     };
+    push({
+      query: searchForm,
+    });
   };
 
   return (

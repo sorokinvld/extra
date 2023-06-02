@@ -17,6 +17,8 @@ import RoomCard from "@/components/RoomCard/RoomCard";
 import Footer from "@/components/Footer/Footer";
 import Modal from "@/components/Modal/Modal";
 import Carousel from "@/components/Carousel/Carousel";
+import { useRooms } from "@/hooks/useRooms";
+import { CircularProgress } from "@mui/material";
 
 const robotoBold = Roboto({
   subsets: ["latin"],
@@ -37,11 +39,17 @@ export default function Hotel({ data, params }: any) {
   const { t: sb } = useTranslation("searchbar");
   const { query, isFallback, locale } = useRouter();
   const images = ["1", "2", "3", "4", "5", "6"];
-  const rooms = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
   const [hovered, setHovered] = useState<number>(-1);
   const [selected, setSelected] = useState<number>(-1);
   const [showReviewsModal, setShowReviewsModal] = useState<boolean>(false);
   const [showImagesModal, setShowImagesModal] = useState<boolean>(false);
+  const { rooms, loading, error } = useRooms(
+    query.startDate,
+    query.endDate,
+    query.adults,
+    query.children,
+    params.id
+  );
 
   if (isFallback) {
     return <div>Loading please wait...</div>;
@@ -311,6 +319,7 @@ export default function Hotel({ data, params }: any) {
               {t("chooseroom")}
             </h2>
             <ReserveBar
+              id={params.id}
               dates={sb("dates")}
               checkin={sb("checkin")}
               checkout={sb("checkout")}
@@ -330,18 +339,58 @@ export default function Hotel({ data, params }: any) {
               childrenPlaceholder={query.childrens}
               roomsPlaceholder={query.rooms}
             />
-            <div className={styles.rooms}>
-              {rooms.map((mock: any, index: number) => (
-                <div key={index}>
-                  <RoomCard
-                    name="Single Room"
-                    price="50"
-                    reserve={t("reserve")}
-                    night={t("night")}
-                  />
-                </div>
-              ))}
-            </div>
+            {loading ? (
+              <div className={styles.loading}>
+                <CircularProgress sx={{ color: "grey" }} />
+              </div>
+            ) : (
+              <>
+                {error ? (
+                  <div>{error}</div>
+                ) : (
+                  <>
+                    {rooms ? (
+                      <>
+                        {rooms.Room.length > 0 ? (
+                          <>
+                            <div className={styles.rooms}>
+                              {rooms.countcategoryRoom.map(
+                                (category: any, index: number) => (
+                                  <div key={index}>
+                                    <RoomCard
+                                      name={
+                                        locale == "en"
+                                          ? category._id.title_en
+                                          : locale == "fr"
+                                          ? category._id.title_fr
+                                          : category._id.title_ar
+                                      }
+                                      availabilityt={t("availability")}
+                                      availability={category.availability}
+                                      price="50"
+                                      reserve={t("reserve")}
+                                      night={t("night")}
+                                    />
+                                  </div>
+                                )
+                              )}
+                            </div>
+                          </>
+                        ) : (
+                          <div className={styles.roomsearcherror}>
+                            {t("roomsearcherror")}
+                          </div>
+                        )}
+                      </>
+                    ) : (
+                      <div className={styles.roomsearcherror}>
+                        {t("roomsearcherror")}
+                      </div>
+                    )}
+                  </>
+                )}
+              </>
+            )}
           </section>
           <section className={styles.mapsection} id="map">
             <h2 className={robotoBold.className}>{t("location")}</h2>

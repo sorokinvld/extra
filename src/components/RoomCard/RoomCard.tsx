@@ -22,17 +22,20 @@ const loraBold = Lora({
 interface Props {
   name: string;
   price: string;
+  availability: string;
+  availabilityt: string;
   reserve: string;
   night: string;
 }
 
-function RoomCard({ reserve, night, name, price }: Props) {
-  const amenities = [
-    "Wifi",
-    "Queen bed",
-    "Free breakfast",
-    "Free self-parking",
-  ];
+function RoomCard({
+  reserve,
+  availabilityt,
+  availability,
+  night,
+  name,
+  price,
+}: Props) {
   return (
     <div className={styles.container}>
       <div className={styles.title}>
@@ -40,17 +43,11 @@ function RoomCard({ reserve, night, name, price }: Props) {
       </div>
       <div className={styles.amenities}>
         <div className={styles.amenitieslist}>
-          {amenities.map((amenity: any, index: number) => (
-            <div key={index} className={styles.amenitiesitem}>
-              <svg height="24" width="24" className={robotoBold.className}>
-                <path
-                  fill="currentColor"
-                  d="m9.55 18-5.7-5.7 1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4Z"
-                />
-              </svg>
-              <span className={loraBold.className}>{amenity}</span>
-            </div>
-          ))}
+          <div className={styles.amenitiesitem}>
+            <span className={loraBold.className}>
+              {availabilityt} : {availability}
+            </span>
+          </div>
         </div>
       </div>
       <div className={styles.details}>

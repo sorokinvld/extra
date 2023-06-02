@@ -12,5 +12,7 @@
   "reserve": "Réserver",
   "night": "nuit",
   "images": "Photos",
-  "rating": "évaluation moyenne"
+  "rating": "évaluation moyenne",
+  "availability": "Chambres disponibles",
+  "roomsearcherror": "Veuillez sélectionner les dates et les voyageurs."
 }

@@ -11,7 +11,6 @@ import getCenter from "geolib/es/getCenter";
 import { Roboto, Lora } from "@next/font/google";
 import Image from "next/image";
 import { useCurrency } from "@/utils/currencyProvider";
-import Aos from "aos";
 
 const robotoveryBold = Roboto({
   subsets: ["latin"],
@@ -40,10 +39,6 @@ function CustomMap({ searchResult, hovered }: any) {
   const [selectedLocation, setSelectedLocation] = React.useState<any>();
   const [hoveredonMapMarker, sethoveredonMapMarker] = React.useState<any>();
   const { currency } = useCurrency();
-
-  React.useEffect(() => {
-    Aos.init();
-  }, []);
 
   const coordinates = React.useMemo(
     () =>
@@ -292,28 +287,21 @@ function CustomMap({ searchResult, hovered }: any) {
   );
 
   return (
-    <div
-      className={styles.container}
-      data-aos="fade-in"
-      data-aos-duration="400"
-      data-aos-delay="400"
+    <Map
+      mapboxAccessToken={process.env.NEXT_PUBLIC_MB_ACCESS_KEY}
+      mapStyle="mapbox://styles/extravirgin/clfk4hh3m001301mhearrq7q0"
+      {...viewport}
+      onMove={(e) => setViewport(e.viewState)}
+      reuseMaps={true}
+      attributionControl={false}
     >
-      <Map
-        mapboxAccessToken={process.env.NEXT_PUBLIC_MB_ACCESS_KEY}
-        mapStyle="mapbox://styles/extravirgin/clfk4hh3m001301mhearrq7q0"
-        {...viewport}
-        onMove={(e) => setViewport(e.viewState)}
-        reuseMaps={true}
-        attributionControl={false}
-      >
-        {selectedMarker}
-        {hoveredOnMapMarker}
-        {hoveredMarker}
-        {markers}
-        <NavigationControl showCompass={false} />
-        <AttributionControl customAttribution="Map design by Mohamed Aziz Issaoui" />
-      </Map>
-    </div>
+      {selectedMarker}
+      {hoveredOnMapMarker}
+      {hoveredMarker}
+      {markers}
+      <NavigationControl showCompass={false} />
+      <AttributionControl customAttribution="Map design by Mohamed Aziz Issaoui" />
+    </Map>
   );
 }
 

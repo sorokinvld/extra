@@ -2,5 +2,9 @@
   "header": "Donnez votre avis sur l'hôtel",
   "rating": "Donnez une note :",
   "review": "Donnez votre avis :",
-  "submit": "Soumettre"
+  "submit": "Soumettre",
+  "success": "Succès!",
+  "error": "Une erreur s'est produite, réessayez plus tard!",
+  "rateerror": "Veuillez fournir une note!",
+  "reviewerror": "Veuillez fournir un avis!"
 }

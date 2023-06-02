@@ -12,5 +12,7 @@
   "reserve": "احجز",
   "night": "ليلة",
   "images": "الصور",
-  "rating": "متوسط ​​تقييم"
+  "rating": "متوسط ​​تقييم",
+  "availability": "غرف متوفره",
+  "roomsearcherror": "الرجاء تحديد التواريخ والضيوف"
 }

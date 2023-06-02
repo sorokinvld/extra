@@ -2,5 +2,9 @@
   "header": "Review hotel",
   "rating": "Give a rating :",
   "review": "Give a review :",
-  "submit": "Submit"
+  "submit": "Submit",
+  "success": "Success!",
+  "error": "There was a error, try again later!",
+  "rateerror": "Please provide a rating!",
+  "reviewerror": "Please provide a review!"
 }
