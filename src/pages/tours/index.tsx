@@ -178,7 +178,7 @@ export default function Tours() {
           <div className={styles.tripslistmobile}>
             {loading ? (
               <div className={styles.loading}>
-                <CircularProgress sx={{ color: "grey" }} />
+                <CircularProgress sx={{ color: "#812d3c" }} />
               </div>
             ) : (
               <>

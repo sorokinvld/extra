@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://extra-virgin-travel.vercel.app
+
+# Sitemaps
+Sitemap: https://extra-virgin-travel.vercel.app/sitemap.xml
