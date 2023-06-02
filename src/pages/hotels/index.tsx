@@ -18,6 +18,9 @@ import Aos from "aos";
 import StarCheckbox from "@/components/ui/StarCheckBox/StarCheckbox";
 import Checkbox from "@/components/ui/Checkbox/Checkbox";
 import { useRouter } from "next/router";
+import { getHotels } from "@/queries/getHotels";
+import { useAmenities } from "@/hooks/useAmenities";
+import { getFilteredHotels } from "@/queries/getFilteredHotels";
 
 const robotoBold = Roboto({
   subsets: ["latin"],
@@ -36,7 +39,6 @@ export default function Hotels() {
   const { t: nav } = useTranslation("navbar");
   const { t: sb } = useTranslation("searchbar");
   const [data, setData] = React.useState<any>();
-  const [amenities, setAmenities] = React.useState<any>();
   const [hoveredLocation, setHoveredLocation] = React.useState<any>();
   const [shown, setShown] = React.useState<boolean>(true);
   const [showModal, setShowModal] = React.useState<boolean>(false);
@@ -55,23 +57,16 @@ export default function Hotels() {
 
   React.useEffect(() => {
     setLoading(true);
-    const data = async () => {
-      try {
-        const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/Hotels?page=1&search=${query.destination}&start_date=${query.startDate}&end_date=${query.endDate}&adult=${query.adults}&child=${query.children}`
-        );
-        const amenitiesdata = await axios.get(
-          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/getAmenities`
-        );
-        setData(res.data);
-        setAmenities(amenitiesdata.data);
-        setLoading(false);
-      } catch (error: any) {
-        console.log(error);
-      }
-    };
     if (query.destination) {
-      data();
+      getHotels(
+        setData,
+        query.destination,
+        query.startDate,
+        query.endDate,
+        query.adults,
+        query.children,
+        setLoading
+      );
     }
   }, [
     query.adults,
@@ -80,6 +75,8 @@ export default function Hotels() {
     query.endDate,
     query.startDate,
   ]);
+
+  const { amenities, loading: loadingAmenities, error } = useAmenities();
 
   const onStarFilter = (star: any) => {
     if (stars.includes(star)) {
@@ -117,23 +114,18 @@ export default function Hotels() {
 
   const applyFilter = async () => {
     setLoading(true);
-    try {
-      const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/Hotels?page=1&search=${
-          query.destination
-        }&start_date=${query.startDate}&end_date=${query.endDate}&adult=${
-          query.adults
-        }&child=${query.children}&&${stars.map(
-          (star: number, index: number) => `star[${index}]=${star}`
-        )}&min=${priceRange[0]}&max=${priceRange[1]}&${amenitiesFilter.map(
-          (amenity: string, index: number) => `amenities[${index}]=${amenity}`
-        )}`
-      );
-      setData(res.data);
-      setLoading(false);
-    } catch (error: any) {
-      console.log(error);
-    }
+    getFilteredHotels(
+      setData,
+      query.destination,
+      query.startDate,
+      query.endDate,
+      query.adults,
+      query.children,
+      stars,
+      priceRange,
+      amenitiesFilter,
+      setLoading
+    );
   };
 
   return (
@@ -388,23 +380,41 @@ export default function Hotels() {
               <div className={styles.amenities}>
                 {amenities?.map((amenity: any, index: any) => (
                   <div key={index}>
-                    {locale == "en" && (
-                      <Checkbox
-                        label={amenity.title_en}
-                        onChange={() => handleAmenitiesFilter(amenity.title_en)}
-                      />
-                    )}
-                    {locale == "fr" && (
-                      <Checkbox
-                        label={amenity.title_fr}
-                        onChange={() => handleAmenitiesFilter(amenity.title_en)}
-                      />
-                    )}
-                    {locale == "ar" && (
-                      <Checkbox
-                        label={amenity.title_ar}
-                        onChange={() => handleAmenitiesFilter(amenity.title_en)}
-                      />
+                    {loadingAmenities ? (
+                      <div>loading...</div>
+                    ) : (
+                      <>
+                        {error != "" ? (
+                          <div>{error}</div>
+                        ) : (
+                          <>
+                            {locale == "en" && (
+                              <Checkbox
+                                label={amenity.title_en}
+                                onChange={() =>
+                                  handleAmenitiesFilter(amenity.title_en)
+                                }
+                              />
+                            )}
+                            {locale == "fr" && (
+                              <Checkbox
+                                label={amenity.title_fr}
+                                onChange={() =>
+                                  handleAmenitiesFilter(amenity.title_en)
+                                }
+                              />
+                            )}
+                            {locale == "ar" && (
+                              <Checkbox
+                                label={amenity.title_ar}
+                                onChange={() =>
+                                  handleAmenitiesFilter(amenity.title_en)
+                                }
+                              />
+                            )}
+                          </>
+                        )}
+                      </>
                     )}
                   </div>
                 ))}

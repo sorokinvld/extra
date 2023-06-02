@@ -6,12 +6,11 @@ import { Layout } from "@/components/Layout";
 import styles from "@/styles/Trips.module.css";
 import { Roboto, Lora } from "@next/font/google";
 import Aos from "aos";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Showcase from "@/components/Showcase/Showcase";
-import axios from "axios";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useRouter } from "next/router";
-import { getTours } from "@/queries/getTours";
+import { useTours } from "@/hooks/useTours";
 
 const robotoBold = Roboto({
   subsets: ["latin"],
@@ -29,18 +28,12 @@ export default function Tours() {
   const { t } = useTranslation("tours");
   const { t: nav } = useTranslation("navbar");
   const { locale } = useRouter();
-  const [loading, setLoading] = useState(true);
-  const [data, setData] = useState<any>();
-  const [error, setError] = useState("");
 
   useEffect(() => {
     Aos.init();
   }, []);
 
-  useEffect(() => {
-    setLoading(true);
-    getTours(setData, setLoading, setError);
-  }, []);
+  const { data, loading, error } = useTours();
 
   return (
     <>
