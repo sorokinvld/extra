@@ -3,6 +3,7 @@ const { i18n } = require("./i18next.config");
 
 const nextConfig = {
   reactStrictMode: true,
+  output: "standalone",
   i18n,
   images: {
     domains: ["res.cloudinary.com"],
@@ -21,6 +22,7 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  swcMinify: true,
 };
 
 module.exports = nextConfig;

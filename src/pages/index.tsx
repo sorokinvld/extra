@@ -21,6 +21,7 @@ import axios from "axios";
 import MailchimpSubscribe from "react-mailchimp-subscribe";
 import { useRouter } from "next/router";
 import { useUser } from "@/utils/userProvider";
+import { recommendHotels } from "@/queries/recommendHotels";
 
 const robotoBold = Roboto({
   subsets: ["latin"],
@@ -79,19 +80,8 @@ export default function Home({ hotels, destinations, trips, tours }: any) {
 
   useEffect(() => {
     setLoading(true);
-    const recommend = async () => {
-      try {
-        const hotels = await axios.get(
-          `${process.env.NEXT_PUBLIC_AI_URL}/api/recommendation?id=${user._id}`
-        );
-        setRecommendations(hotels.data);
-        setLoading(false);
-      } catch (error: any) {
-        console.log(error);
-      }
-    };
     if (user != undefined) {
-      recommend();
+      recommendHotels(user._id, setRecommendations, setLoading);
     } else {
       setLoading(false);
     }

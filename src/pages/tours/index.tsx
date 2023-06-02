@@ -11,6 +11,7 @@ import Showcase from "@/components/Showcase/Showcase";
 import axios from "axios";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useRouter } from "next/router";
+import { getTours } from "@/queries/getTours";
 
 const robotoBold = Roboto({
   subsets: ["latin"],
@@ -38,20 +39,7 @@ export default function Tours() {
 
   useEffect(() => {
     setLoading(true);
-    const data = async () => {
-      try {
-        setTimeout(async () => {
-          const res = await axios.get(
-            `${process.env.NEXT_PUBLIC_SERVER_URL}/api/getTours`
-          );
-          setData(res.data);
-          setLoading(false);
-        }, 1000);
-      } catch (error: any) {
-        setError(error);
-      }
-    };
-    data();
+    getTours(setData, setLoading, setError);
   }, []);
 
   return (

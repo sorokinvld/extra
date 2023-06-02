@@ -9,8 +9,8 @@ import Aos from "aos";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Showcase from "@/components/Showcase/Showcase";
-import axios from "axios";
 import CircularProgress from "@mui/material/CircularProgress";
+import { getTrips } from "@/queries/getTrips";
 
 const robotoBold = Roboto({
   subsets: ["latin"],
@@ -38,18 +38,7 @@ export default function Trips() {
 
   useEffect(() => {
     setLoading(true);
-    const data = async () => {
-      try {
-        const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/getTrips`
-        );
-        setData(res.data);
-        setLoading(false);
-      } catch (error: any) {
-        setError(error);
-      }
-    };
-    data();
+    getTrips(setData, setLoading, setError);
   }, []);
 
   return (
