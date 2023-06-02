@@ -59,16 +59,16 @@ export default function Reviewhotel() {
       const reviewing = await reviewHotel(hotel._id, user._id, review);
       if (rating == "success" && reviewing == "success") {
         setSubmitting(false);
-        toast.success("Success!");
+        toast.success(t("success"));
       } else {
         setSubmitting(false);
-        toast.error("There was a error, try again later!");
+        toast.error(t("error"));
       }
     } else if (rate == 0) {
-      toast.error("Please provide a rate!");
+      toast.error(t("rateerror"));
       setSubmitting(false);
     } else if (review == "") {
-      toast.error("Please provide a review!");
+      toast.error(t("reviewerror"));
       setSubmitting(false);
     }
   };
