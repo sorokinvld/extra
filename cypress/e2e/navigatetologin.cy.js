@@ -7,6 +7,7 @@ describe("Navigation", () => {
     cy.get("[data-e2e=login-button]").click();
 
     // The new url should include "/login"
+    cy.wait(1000);
     cy.url().should("include", "/login");
 
     // The new page should contain an h1 with "Welcome to Extra Virgin Travel"

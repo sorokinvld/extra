@@ -11,6 +11,7 @@ describe("No destination error handling", () => {
     cy.get("[data-e2e=searchbar-button]").click({ force: true });
 
     // Error message should be displayed
+    cy.wait(1000);
     cy.get(
       ".Toastify > .Toastify__toast-container > .Toastify__toast > .Toastify__toast-body > div"
     ).contains("Please provide a destination!");

@@ -7,6 +7,7 @@ describe("Navigation", () => {
     cy.get('nav > ul > li > a[href*="contact"]').click();
 
     // The new url should include "/contact"
+    cy.wait(1000);
     cy.url().should("include", "/contact");
 
     // The new page should contain an h1 with "Get in touch"

@@ -7,6 +7,7 @@ describe("Navigation", () => {
     cy.get('nav > ul > li > a[href*="trips"]').click();
 
     // The new url should include "/trips"
+    cy.wait(1000);
     cy.url().should("include", "/trips");
 
     // The new page should contain an h1 with "Our trips"
