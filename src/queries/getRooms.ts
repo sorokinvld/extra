@@ -7,7 +7,7 @@ export const getRooms = async (
   endDate: string | string[] | undefined,
   adults: string | string[] | undefined,
   children: string | string[] | undefined,
-  hotelId: string,
+  hotelId: string | string[] | undefined,
   setLoading: (arg0: boolean) => void,
   setError: (arg0: any) => void
 ) => {

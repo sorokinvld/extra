@@ -48,7 +48,7 @@ export default function Hotel({ data, params }: any) {
     query.endDate,
     query.adults,
     query.children,
-    params.id
+    query.id
   );
 
   if (isFallback) {

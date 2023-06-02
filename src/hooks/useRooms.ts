@@ -6,7 +6,7 @@ export const useRooms = (
   endDate: string | string[] | undefined,
   adults: string | string[] | undefined,
   children: string | string[] | undefined,
-  hotelId: string
+  hotelId: string | string[] | undefined
 ) => {
   const [loading, setLoading] = useState(false);
   const [rooms, setRooms] = useState<any>();
