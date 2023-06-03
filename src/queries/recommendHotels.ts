@@ -4,7 +4,8 @@ import { getError } from "./errors";
 export const recommendHotels = async (
   userId: string,
   setRecommendations: (arg0: any) => void,
-  setLoading: (arg0: boolean) => void
+  setLoading: (arg0: boolean) => void,
+  setError: (arg0: any) => void
 ) => {
   try {
     const hotels = await axios.get(
@@ -13,6 +14,6 @@ export const recommendHotels = async (
     setRecommendations(hotels.data);
     setLoading(false);
   } catch (error: any) {
-    getError(error);
+    setError(getError(error));
   }
 };

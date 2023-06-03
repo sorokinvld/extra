@@ -104,21 +104,18 @@ export default function Hotel({ data, params }: any) {
             >
               {locale == "en" && (
                 <>
-                  {" "}
                   {data[0].destinationhotel[0].city_en},{" "}
                   {data[0].destinationhotel[0].country_en}
                 </>
               )}
               {locale == "fr" && (
                 <>
-                  {" "}
                   {data[0].destinationhotel[0].city_fr},{" "}
                   {data[0].destinationhotel[0].country_fr}
                 </>
               )}
               {locale == "ar" && (
                 <>
-                  {" "}
                   {data[0].destinationhotel[0].city_ar},{" "}
                   {data[0].destinationhotel[0].country_ar}
                 </>
@@ -346,7 +343,9 @@ export default function Hotel({ data, params }: any) {
             ) : (
               <>
                 {error ? (
-                  <div>{error}</div>
+                  <div className={styles.roomsearcherror}>
+                    <span className={lora.className}>{error}</span>
+                  </div>
                 ) : (
                   <>
                     {rooms ? (
@@ -378,13 +377,17 @@ export default function Hotel({ data, params }: any) {
                           </>
                         ) : (
                           <div className={styles.roomsearcherror}>
-                            {t("roomsearcherror")}
+                            <span className={lora.className}>
+                              {t("roomsearcherror")}
+                            </span>
                           </div>
                         )}
                       </>
                     ) : (
                       <div className={styles.roomsearcherror}>
-                        {t("roomsearcherror")}
+                        <span className={lora.className}>
+                          {t("roomsearcherror")}
+                        </span>
                       </div>
                     )}
                   </>

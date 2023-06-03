@@ -89,7 +89,7 @@ export default function Tours() {
           </div>
           <p
             className={lora.className}
-            data-aos="fade-up"
+            data-aos="zoom-in"
             data-aos-duration="400"
             data-aos-delay="300"
             data-aos-anchor="parent"

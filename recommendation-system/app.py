@@ -74,7 +74,7 @@ def recommend_hotels(user_id):
     df = df.drop_duplicates(subset=['hotelid', 'userid'])
     # Pivot the data to create a user-item matrix
     user_item_matrix = df.pivot(
-        index='userid', columns='hotelid', values=['rating']).fillna(0)
+        index='userid', columns='hotelid', values=['rating', 'sentiment']).fillna(0)
     # Calculate the cosine similarity between users
     user_similarity = cosine_similarity(user_item_matrix)
     # Get the index of the target user
