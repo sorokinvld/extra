@@ -22,7 +22,7 @@ const lora = Lora({
 
 interface Props {
   id: string;
-  rating: string;
+
   imageSrc: string;
   name: string;
   stars: string;
@@ -32,7 +32,7 @@ interface Props {
 
 function HotelCard({
   id,
-  rating,
+
   imageSrc,
   name,
   stars,
@@ -78,9 +78,6 @@ function HotelCard({
   return (
     <div className={styles.container}>
       <div className={styles.imagecontainer}>
-        <div className={styles.rating}>
-          <span className={robotoBold.className}>{rating}</span>
-        </div>
         {user != null ? (
           <div className={styles.heart} heart-active={liked ? "true" : ""}>
             <div className={styles.heartbtn} onClick={handleLike} />

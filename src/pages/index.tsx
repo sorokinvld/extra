@@ -262,7 +262,6 @@ export default function Home({ hotels, destinations, trips, tours }: any) {
                             {locale == "en" && (
                               <HotelCard
                                 id={hotel._id}
-                                rating={"9"}
                                 imageSrc={hotel.image}
                                 name={hotel.name_en}
                                 stars={hotel.star}
@@ -273,7 +272,6 @@ export default function Home({ hotels, destinations, trips, tours }: any) {
                             {locale == "fr" && (
                               <HotelCard
                                 id={hotel._id}
-                                rating={"9"}
                                 imageSrc={hotel.image}
                                 name={hotel.name_fr}
                                 stars={hotel.star}
@@ -284,7 +282,6 @@ export default function Home({ hotels, destinations, trips, tours }: any) {
                             {locale == "ar" && (
                               <HotelCard
                                 id={hotel._id}
-                                rating={"9"}
                                 imageSrc={hotel.image}
                                 name={hotel.name_ar}
                                 stars={hotel.star}
@@ -317,7 +314,6 @@ export default function Home({ hotels, destinations, trips, tours }: any) {
                         {locale == "en" && (
                           <HotelCard
                             id={hotel._id}
-                            rating={"9"}
                             imageSrc={hotel.image}
                             name={hotel.name_en}
                             stars={hotel.star}
@@ -328,7 +324,6 @@ export default function Home({ hotels, destinations, trips, tours }: any) {
                         {locale == "fr" && (
                           <HotelCard
                             id={hotel._id}
-                            rating={"9"}
                             imageSrc={hotel.image}
                             name={hotel.name_fr}
                             stars={hotel.star}
@@ -339,7 +334,6 @@ export default function Home({ hotels, destinations, trips, tours }: any) {
                         {locale == "ar" && (
                           <HotelCard
                             id={hotel._id}
-                            rating={"9"}
                             imageSrc={hotel.image}
                             name={hotel.name_ar}
                             stars={hotel.star}

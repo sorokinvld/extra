@@ -329,6 +329,7 @@
 }
 .imagecontainer > input:focus {
   border-bottom: 2px solid var(--main-color);
+  border-radius: 0;
 }
 .imagecontainer > .error {
   position: absolute;

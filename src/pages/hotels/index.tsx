@@ -232,7 +232,7 @@ export default function Hotels() {
                         <HotelBox
                           id={hotel._id}
                           image={hotel.image}
-                          rating={"9"}
+                          rating={hotel.avgRate}
                           name={hotel.name_en}
                           desc={hotel.desc_en}
                           location={hotel.Hotel_Destination[0].city_en}

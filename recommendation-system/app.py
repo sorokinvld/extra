@@ -111,6 +111,7 @@ def recommendation():
     id = request.args["id"]
     hotels = []
     recommended_hotels = recommend_hotels(id)
+    print(recommended_hotels)
     for recommendation in recommended_hotels:
         for hotel in hotelscollection.find({"_id": recommendation[1]}):
             hotels.append(hotel)
