@@ -47,11 +47,12 @@ for review in user_reviews:
     userid = review["user_id"]
     for rating in ratingcollection.find({"item_id": hotelid, "user_id": userid}):
         rate = rating["rating"]
-     # Implement sentiment analysis function
+    # Implement sentiment analysis function
     sentimentQuery = query({
         "inputs": preprocessed_comment,
     })
     sentiment = sentimentQuery[0][0].get("label")
+    sentiment_value = 0
     if (sentiment == "POSITIVE"):
         sentiment_value = 1
     else:
@@ -61,7 +62,7 @@ for review in user_reviews:
         'userid': userid,
         'hotelid':  hotelid,
         'rating': rate,
-        'sentiment': sentiment,
+        'sentiment': sentiment_value,
     }
     preprocessed_reviews.append(processed_review)
 

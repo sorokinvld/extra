@@ -18,9 +18,9 @@ interface Props {
   desc: string;
   location?: string;
   stars: string;
-  priceindinar?: string;
-  priceineuro?: string;
-  priceindollar?: string;
+  priceindinar?: number;
+  priceineuro?: number;
+  priceindollar?: number;
   night?: string;
 }
 
@@ -128,7 +128,7 @@ function HotelBox({
                   <>
                     {currency === "Euro" && (
                       <span className={robotoBold.className}>
-                        €{priceineuro}
+                        €{Math.round(priceineuro)}
                       </span>
                     )}
                   </>
@@ -137,7 +137,7 @@ function HotelBox({
                   <>
                     {currency === "Dollar" && (
                       <span className={robotoBold.className}>
-                        ${priceindollar}
+                        ${Math.round(priceindollar)}
                       </span>
                     )}
                   </>

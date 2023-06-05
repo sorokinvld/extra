@@ -58,7 +58,10 @@ function HotelCard({
   }, [id, user, user?._id]);
 
   const handleLike = async () => {
-    const favorite = await toggleFavorite(user._id, id);
+    const favorite = await toggleFavorite(
+      user._id,
+      JSON.parse(JSON.stringify(id)).$oid
+    );
     if (favorite == "success") {
       setLiked(!liked);
     }

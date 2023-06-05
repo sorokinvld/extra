@@ -413,8 +413,8 @@ export default function Home({ hotels, destinations, trips, tours }: any) {
                         name={trip.title_en}
                         description={trip.desc_en}
                         priceDt={trip.priceDt}
-                        priceEuro={trip.priceEuro}
-                        priceDollar={trip.priceEuro}
+                        priceEuro={trip.Priceeuro}
+                        priceDollar={trip.Pricedollar}
                         discover={t("discover")}
                         from={t("from")}
                       />
@@ -427,8 +427,8 @@ export default function Home({ hotels, destinations, trips, tours }: any) {
                         name={trip.title_fr}
                         description={trip.desc_fr}
                         priceDt={trip.priceDt}
-                        priceEuro={trip.priceEuro}
-                        priceDollar={trip.priceEuro}
+                        priceEuro={trip.Priceeuro}
+                        priceDollar={trip.Pricedollar}
                         discover={t("discover")}
                         from={t("from")}
                       />
@@ -441,8 +441,8 @@ export default function Home({ hotels, destinations, trips, tours }: any) {
                         name={trip.title_ar}
                         description={trip.desc_ar}
                         priceDt={trip.priceDt}
-                        priceEuro={trip.priceEuro}
-                        priceDollar={trip.priceEuro}
+                        priceEuro={trip.Priceeuro}
+                        priceDollar={trip.Pricedollar}
                         discover={t("discover")}
                         from={t("from")}
                       />

@@ -88,12 +88,12 @@ export default function Trip({ trip, events, params }: any) {
             {locale == "ar" && <p className={lora.className}>{trip.desc_ar}</p>}
             {currency === "Euro" && (
               <span className={lora.className}>
-                {t("from")} €{Math.round(trip.priceEuro)}
+                {t("from")} €{Math.round(trip.Priceeuro)}
               </span>
             )}
             {currency === "Dollar" && (
               <span className={lora.className}>
-                {t("from")} ${Math.round(trip.priceDollar)}
+                {t("from")} ${Math.round(trip.Pricedollar)}
               </span>
             )}
             {currency === "Dinar" && (
@@ -245,8 +245,11 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
   }
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["navbar", "trip"],
-      require("../../../i18next.config"))),
+      ...(await serverSideTranslations(
+        locale,
+        ["navbar", "trip"],
+        require("../../../i18next.config")
+      )),
       trip,
       events,
       params,

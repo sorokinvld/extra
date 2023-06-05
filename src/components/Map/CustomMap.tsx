@@ -80,17 +80,17 @@ function CustomMap({ searchResult, hovered }: any) {
             >
               {currency === "Euro" && (
                 <span className={robotoveryBold.className}>
-                  €{result.minPrice}
+                  €{Math.round(result.minPriceeuro)}
                 </span>
               )}
               {currency === "Dollar" && (
                 <span className={robotoveryBold.className}>
-                  ${result.minPrice}
+                  ${Math.round(result.minPricedollar)}
                 </span>
               )}
               {currency === "Dinar" && (
                 <span className={robotoveryBold.className}>
-                  {result.minPrice}DT
+                  {result.minPricedinar}DT
                 </span>
               )}
             </div>
@@ -155,17 +155,17 @@ function CustomMap({ searchResult, hovered }: any) {
                   <div className={styles.pricedetails}>
                     {currency === "Euro" && (
                       <span className={robotoveryBold.className}>
-                        €{result.minPrice}
+                        €{Math.round(result.minPriceeuro)}
                       </span>
                     )}
                     {currency === "Dollar" && (
                       <span className={robotoveryBold.className}>
-                        ${result.minPrice}
+                        ${Math.round(result.minPricedollar)}
                       </span>
                     )}
                     {currency === "Dinar" && (
                       <span className={robotoveryBold.className}>
-                        {result.minPrice}DT
+                        {result.minPricedinar}DT
                       </span>
                     )}
                     <span className={lora.className}>night</span>
@@ -194,17 +194,17 @@ function CustomMap({ searchResult, hovered }: any) {
           >
             {currency === "Euro" && (
               <span className={robotoveryBold.className}>
-                €{selectedLocation.minPrice}
+                €{Math.round(selectedLocation.minPriceeuro)}
               </span>
             )}
             {currency === "Dollar" && (
               <span className={robotoveryBold.className}>
-                ${selectedLocation.minPrice}
+                ${Math.round(selectedLocation.minPricedollar)}
               </span>
             )}
             {currency === "Dinar" && (
               <span className={robotoveryBold.className}>
-                {selectedLocation.minPrice}DT
+                {selectedLocation.minPricedinar}DT
               </span>
             )}
           </div>
@@ -228,17 +228,17 @@ function CustomMap({ searchResult, hovered }: any) {
           >
             {currency === "Euro" && (
               <span className={robotoveryBold.className}>
-                €{hovered.minPrice}
+                €{Math.round(hovered.minPriceeuro)}
               </span>
             )}
             {currency === "Dollar" && (
               <span className={robotoveryBold.className}>
-                ${hovered.minPrice}
+                ${Math.round(hovered.minPricedollar)}
               </span>
             )}
             {currency === "Dinar" && (
               <span className={robotoveryBold.className}>
-                {hovered.minPrice}DT
+                {hovered.minPricedinar}DT
               </span>
             )}
           </div>
@@ -267,17 +267,17 @@ function CustomMap({ searchResult, hovered }: any) {
           >
             {currency === "Euro" && (
               <span className={robotoveryBold.className}>
-                €{hoveredonMapMarker.minPrice}
+                €{Math.round(hoveredonMapMarker.minPriceeuro)}
               </span>
             )}
             {currency === "Dollar" && (
               <span className={robotoveryBold.className}>
-                ${hoveredonMapMarker.minPrice}
+                ${Math.round(hoveredonMapMarker.minPricedollar)}
               </span>
             )}
             {currency === "Dinar" && (
               <span className={robotoveryBold.className}>
-                {hoveredonMapMarker.minPrice}DT
+                {hoveredonMapMarker.minPricedinar}DT
               </span>
             )}
           </div>

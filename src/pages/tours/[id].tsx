@@ -88,12 +88,12 @@ export default function Tour({ tour, events, params }: any) {
             {locale == "ar" && <p className={lora.className}>{tour.desc_ar}</p>}
             {currency === "Euro" && (
               <span className={lora.className}>
-                {t("from")} €{Math.round(tour.priceEuro)}
+                {t("from")} €{Math.round(tour.Priceeuro)}
               </span>
             )}
             {currency === "Dollar" && (
               <span className={lora.className}>
-                {t("from")} ${Math.round(tour.priceDollar)}
+                {t("from")} ${Math.round(tour.Pricedollar)}
               </span>
             )}
             {currency === "Dinar" && (
