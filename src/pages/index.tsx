@@ -249,48 +249,116 @@ export default function Home({ hotels, destinations, trips, tours }: any) {
                       </div>
                     ) : (
                       <>
-                        {recommendation?.map((hotel: any, index: number) => (
-                          <div
-                            key={JSON.parse(JSON.stringify(hotel._id)).$oid}
-                            data-aos="fade-up"
-                            data-aos-duration="500"
-                            data-aos-delay={(
-                              (Number(index) + 1) *
-                              100
-                            ).toString()}
-                          >
-                            {locale == "en" && (
-                              <HotelCard
-                                id={hotel._id}
-                                imageSrc={hotel.image}
-                                name={hotel.name_en}
-                                stars={hotel.star}
-                                location={"Sousse"}
-                                country={"Tunisia"}
-                              />
+                        {recommendation && (
+                          <>
+                            {recommendation.length > 0 ? (
+                              <>
+                                {recommendation?.map(
+                                  (hotel: any, index: number) => (
+                                    <div
+                                      key={
+                                        JSON.parse(JSON.stringify(hotel._id))
+                                          .$oid
+                                      }
+                                      data-aos="fade-up"
+                                      data-aos-duration="500"
+                                      data-aos-delay={(
+                                        (Number(index) + 1) *
+                                        100
+                                      ).toString()}
+                                    >
+                                      {locale == "en" && (
+                                        <HotelCard
+                                          id={hotel._id}
+                                          imageSrc={hotel.image}
+                                          name={hotel.name_en}
+                                          stars={hotel.star}
+                                          location={hotel.desc_en}
+                                          seemore={t("seemore")}
+                                        />
+                                      )}
+                                      {locale == "fr" && (
+                                        <HotelCard
+                                          id={hotel._id}
+                                          imageSrc={hotel.image}
+                                          name={hotel.name_fr}
+                                          stars={hotel.star}
+                                          location={hotel.desc_fr}
+                                          seemore={t("seemore")}
+                                        />
+                                      )}
+                                      {locale == "ar" && (
+                                        <HotelCard
+                                          id={hotel._id}
+                                          imageSrc={hotel.image}
+                                          name={hotel.name_ar}
+                                          stars={hotel.star}
+                                          location={hotel.desc_ar}
+                                          seemore={t("seemore")}
+                                        />
+                                      )}
+                                    </div>
+                                  )
+                                )}
+                              </>
+                            ) : (
+                              <>
+                                {loading ? (
+                                  <div className={styles.loading}>
+                                    <CircularProgress />
+                                  </div>
+                                ) : (
+                                  <div className={styles.recommended}>
+                                    {hotels
+                                      .slice(0, 3)
+                                      .map((hotel: any, index: number) => (
+                                        <div
+                                          key={hotel._id}
+                                          data-aos="fade-up"
+                                          data-aos-duration="500"
+                                          data-aos-delay={(
+                                            (Number(index) + 1) *
+                                            100
+                                          ).toString()}
+                                        >
+                                          {locale == "en" && (
+                                            <HotelCard
+                                              id={hotel._id}
+                                              imageSrc={hotel.image}
+                                              name={hotel.name_en}
+                                              stars={hotel.star}
+                                              location={hotel.desc_en}
+                                              seemore={t("seemore")}
+                                            />
+                                          )}
+                                          {locale == "fr" && (
+                                            <HotelCard
+                                              id={hotel._id}
+                                              imageSrc={hotel.image}
+                                              name={hotel.name_fr}
+                                              stars={hotel.star}
+                                              location={hotel.desc_fr}
+                                              seemore={t("seemore")}
+                                            />
+                                          )}
+                                          {locale == "ar" && (
+                                            <HotelCard
+                                              id={hotel._id}
+                                              imageSrc={hotel.image}
+                                              name={hotel.name_ar}
+                                              stars={hotel.star}
+                                              location={hotel.desc_ar}
+                                              seemore={t("seemore")}
+                                            />
+                                          )}
+                                        </div>
+                                      ))}
+                                  </div>
+                                )}
+                              </>
                             )}
-                            {locale == "fr" && (
-                              <HotelCard
-                                id={hotel._id}
-                                imageSrc={hotel.image}
-                                name={hotel.name_fr}
-                                stars={hotel.star}
-                                location={"Sousse"}
-                                country={"Tunisia"}
-                              />
-                            )}
-                            {locale == "ar" && (
-                              <HotelCard
-                                id={hotel._id}
-                                imageSrc={hotel.image}
-                                name={hotel.name_ar}
-                                stars={hotel.star}
-                                location={"Sousse"}
-                                country={"Tunisia"}
-                              />
-                            )}
-                          </div>
-                        ))}
+                          </>
+                        )}
                       </>
                     )}
                   </>
@@ -317,8 +385,8 @@ export default function Home({ hotels, destinations, trips, tours }: any) {
                             imageSrc={hotel.image}
                             name={hotel.name_en}
                             stars={hotel.star}
-                            location={"Sousse"}
-                            country={"Tunisia"}
+                            location={hotel.desc_en}
+                            seemore={t("seemore")}
                           />
                         )}
                         {locale == "fr" && (
@@ -327,8 +395,8 @@ export default function Home({ hotels, destinations, trips, tours }: any) {
                             imageSrc={hotel.image}
                             name={hotel.name_fr}
                             stars={hotel.star}
-                            location={"Sousse"}
-                            country={"Tunisia"}
+                            location={hotel.desc_fr}
+                            seemore={t("seemore")}
                           />
                         )}
                         {locale == "ar" && (
@@ -337,8 +405,8 @@ export default function Home({ hotels, destinations, trips, tours }: any) {
                             imageSrc={hotel.image}
                             name={hotel.name_ar}
                             stars={hotel.star}
-                            location={"Sousse"}
-                            country={"Tunisia"}
+                            location={hotel.desc_ar}
+                            seemore={t("seemore")}
                           />
                         )}
                       </div>

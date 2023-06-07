@@ -77,8 +77,6 @@ export default function Hotels() {
 
   const { amenities, loading: loadingAmenities, error } = useAmenities();
 
-  console.log(data);
-
   const onStarFilter = (star: any) => {
     if (stars.includes(star)) {
       const newArray = [];

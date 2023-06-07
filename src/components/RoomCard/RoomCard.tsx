@@ -2,6 +2,10 @@ import React from "react";
 import styles from "./RoomCard.module.css";
 import { Roboto, Lora } from "@next/font/google";
 import { useCurrency } from "@/utils/currencyProvider";
+import { useUser } from "@/utils/userProvider";
+import { useRouter } from "next/router";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const robotoBold = Roboto({
   subsets: ["latin"],
@@ -21,6 +25,7 @@ const loraBold = Lora({
 });
 
 interface Props {
+  id: string;
   name: string;
   priceineuro: number;
   priceindollar: number;
@@ -28,9 +33,11 @@ interface Props {
   category: string;
   reserve: string;
   total: string;
+  image: string;
 }
 
 function RoomCard({
+  id,
   reserve,
   category,
   total,
@@ -38,8 +45,44 @@ function RoomCard({
   priceineuro,
   priceindollar,
   priceindinar,
+  image,
 }: Props) {
   const { currency } = useCurrency();
+  const { user } = useUser();
+  const { query } = useRouter();
+  const handleBook = () => {
+    if (currency == "Dinar") {
+      toast.error("We don't support payment in Dinar yet!");
+    } else if (currency == "Euro") {
+      const paymentData = {
+        amount: priceineuro,
+        currency: "EUR",
+        roomId: id,
+        userId: user._id,
+        start_date: query.startDate,
+        end_date: query.endDate,
+        image: image,
+      };
+      axios.post(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/create-room-checkout-session`,
+        paymentData
+      );
+    } else {
+      const paymentData = {
+        amount: priceindollar,
+        currency: "USD",
+        roomId: id,
+        userId: user._id,
+        start_date: query.startDate,
+        end_date: query.endDate,
+        image: image,
+      };
+      axios.post(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/create-room-checkout-session`,
+        paymentData
+      );
+    }
+  };
   return (
     <div className={styles.container}>
       <div className={styles.title}>
@@ -81,7 +124,7 @@ function RoomCard({
           )}
           <span className={lora.className}>{total}</span>
         </div>
-        <button>{reserve}</button>
+        <button onClick={handleBook}>{reserve}</button>
       </div>
     </div>
   );

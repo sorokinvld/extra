@@ -91,6 +91,8 @@
 }
 .location {
   font-size: 15px;
+  max-height: 79px;
+  overflow: hidden;
 }
 .options {
   display: flex;

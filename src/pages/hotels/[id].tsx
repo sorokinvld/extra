@@ -356,6 +356,7 @@ export default function Hotel({ data, params }: any) {
                               {rooms.Room.map((room: any, index: number) => (
                                 <div key={index}>
                                   <RoomCard
+                                    id={room._id}
                                     name={room.room_number}
                                     category={
                                       locale == "en"
@@ -369,6 +370,7 @@ export default function Hotel({ data, params }: any) {
                                     priceindinar={room.PriceDt}
                                     reserve={t("reserve")}
                                     total={t("total")}
+                                    image={data[0].image}
                                   />
                                 </div>
                               ))}

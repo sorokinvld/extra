@@ -22,23 +22,14 @@ const lora = Lora({
 
 interface Props {
   id: string;
-
   imageSrc: string;
   name: string;
   stars: string;
   location: string;
-  country: string;
+  seemore: string;
 }
 
-function HotelCard({
-  id,
-
-  imageSrc,
-  name,
-  stars,
-  location,
-  country,
-}: Props) {
+function HotelCard({ id, imageSrc, name, stars, location, seemore }: Props) {
   const [liked, setLiked] = useState<boolean>(false);
   const { user } = useUser();
   const { push } = useRouter();
@@ -101,13 +92,11 @@ function HotelCard({
           </div>
         </div>
         <div className={styles.location}>
-          <span className={lora.className}>
-            {location}, {country}
-          </span>
+          <span className={lora.className}>{location}</span>
         </div>
         <div className={styles.options}>
           <div className={styles.price}>
-            <span className={robotoBold.className}></span>
+            <span className={robotoBold.className}>{seemore}</span>
             <span className={lora.className}></span>
           </div>
         </div>
