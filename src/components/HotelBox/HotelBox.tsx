@@ -21,7 +21,7 @@ interface Props {
   priceindinar?: number;
   priceineuro?: number;
   priceindollar?: number;
-  night?: string;
+  total?: string;
 }
 
 const robotoBold = Roboto({
@@ -47,7 +47,7 @@ function HotelBox({
   priceindinar,
   priceineuro,
   priceindollar,
-  night,
+  total,
 }: Props) {
   const [liked, setLiked] = useState<boolean>(false);
   const { currency } = useCurrency();
@@ -151,7 +151,7 @@ function HotelBox({
                     )}{" "}
                   </>
                 )}
-                {night && <span className={lora.className}>{night}</span>}
+                {total && <span className={lora.className}>{total}</span>}
               </div>
             </div>
           </Link>{" "}
@@ -221,7 +221,7 @@ function HotelBox({
                     )}{" "}
                   </>
                 )}
-                {night && <span className={lora.className}>{night}</span>}
+                {total && <span className={lora.className}>{total}</span>}
               </div>
             </div>
           </Link>{" "}

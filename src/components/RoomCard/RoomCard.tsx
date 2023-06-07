@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./RoomCard.module.css";
 import { Roboto, Lora } from "@next/font/google";
+import { useCurrency } from "@/utils/currencyProvider";
 
 const robotoBold = Roboto({
   subsets: ["latin"],
@@ -21,21 +22,24 @@ const loraBold = Lora({
 
 interface Props {
   name: string;
-  price: string;
-  availability: string;
-  availabilityt: string;
+  priceineuro: number;
+  priceindollar: number;
+  priceindinar: number;
+  category: string;
   reserve: string;
-  night: string;
+  total: string;
 }
 
 function RoomCard({
   reserve,
-  availabilityt,
-  availability,
-  night,
+  category,
+  total,
   name,
-  price,
+  priceineuro,
+  priceindollar,
+  priceindinar,
 }: Props) {
+  const { currency } = useCurrency();
   return (
     <div className={styles.container}>
       <div className={styles.title}>
@@ -44,16 +48,38 @@ function RoomCard({
       <div className={styles.amenities}>
         <div className={styles.amenitieslist}>
           <div className={styles.amenitiesitem}>
-            <span className={loraBold.className}>
-              {availabilityt} : {availability}
-            </span>
+            <span className={loraBold.className}>{category}</span>
           </div>
         </div>
       </div>
       <div className={styles.details}>
         <div className={styles.price}>
-          <span className={robotoBold.className}>{price}</span>
-          <span className={lora.className}>{night}</span>
+          {priceineuro && (
+            <>
+              {currency === "Euro" && (
+                <span className={robotoBold.className}>
+                  €{Math.round(priceineuro)}
+                </span>
+              )}
+            </>
+          )}
+          {priceindollar && (
+            <>
+              {currency === "Dollar" && (
+                <span className={robotoBold.className}>
+                  ${Math.round(priceindollar)}
+                </span>
+              )}
+            </>
+          )}
+          {priceindinar && (
+            <>
+              {currency === "Dinar" && (
+                <span className={robotoBold.className}>{priceindinar}DT</span>
+              )}{" "}
+            </>
+          )}
+          <span className={lora.className}>{total}</span>
         </div>
         <button>{reserve}</button>
       </div>

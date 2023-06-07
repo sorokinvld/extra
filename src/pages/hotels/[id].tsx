@@ -353,26 +353,25 @@ export default function Hotel({ data, params }: any) {
                         {rooms.Room.length > 0 ? (
                           <>
                             <div className={styles.rooms}>
-                              {rooms.countcategoryRoom.map(
-                                (category: any, index: number) => (
-                                  <div key={index}>
-                                    <RoomCard
-                                      name={
-                                        locale == "en"
-                                          ? category._id.title_en
-                                          : locale == "fr"
-                                          ? category._id.title_fr
-                                          : category._id.title_ar
-                                      }
-                                      availabilityt={t("availability")}
-                                      availability={category.availability}
-                                      price="50"
-                                      reserve={t("reserve")}
-                                      night={t("night")}
-                                    />
-                                  </div>
-                                )
-                              )}
+                              {rooms.Room.map((room: any, index: number) => (
+                                <div key={index}>
+                                  <RoomCard
+                                    name={room.room_number}
+                                    category={
+                                      locale == "en"
+                                        ? room.Category_Rooms[0].title_en
+                                        : locale == "fr"
+                                        ? room.Category_Rooms[0].title_fr
+                                        : room.Category_Rooms[0].title_ar
+                                    }
+                                    priceineuro={room.Priceeuro}
+                                    priceindollar={room.Pricedollar}
+                                    priceindinar={room.PriceDt}
+                                    reserve={t("reserve")}
+                                    total={t("total")}
+                                  />
+                                </div>
+                              ))}
                             </div>
                           </>
                         ) : (

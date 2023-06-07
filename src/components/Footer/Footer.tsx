@@ -165,23 +165,14 @@ function Footer({
       </div>
       <div className={styles.dev}>
         <p className={lora.className}>
-          Copyright © 2023. Devs:{" "}
+          Copyright © 2023. Dev:{" "}
           <a
-            href="https://github.com/Muhamedissaoui"
+            href="https://github.com/akatheos"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Issaoui Muhamed Aziz{" "}
+            Issaoui Muhamed Aziz.
           </a>
-          /{" "}
-          <a
-            href="https://github.com/Muhamedissaoui"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Touati Aymen
-          </a>
-          .
         </p>
         <a
           title="facebook page"

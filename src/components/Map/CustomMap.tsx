@@ -71,7 +71,7 @@ function CustomMap({ searchResult, hovered }: any) {
   const markers = React.useMemo(
     () =>
       searchResult.map((result: any) => (
-        <div key={result.name}>
+        <div key={result._id}>
           <Marker longitude={result.longitude} latitude={result.latitude}>
             <div
               className={styles.price}

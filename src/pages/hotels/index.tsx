@@ -48,7 +48,7 @@ export default function Hotels() {
   const filterStars = ["2", "3", "4", "5"];
   const { currency } = useCurrency();
   const { query, locale } = useRouter();
-  const night = t("night");
+  const total = t("total");
 
   React.useEffect(() => {
     Aos.init();
@@ -76,6 +76,8 @@ export default function Hotels() {
   ]);
 
   const { amenities, loading: loadingAmenities, error } = useAmenities();
+
+  console.log(data);
 
   const onStarFilter = (star: any) => {
     if (stars.includes(star)) {
@@ -232,15 +234,14 @@ export default function Hotels() {
                         <HotelBox
                           id={hotel._id}
                           image={hotel.image}
-                          rating={hotel.avgRate}
                           name={hotel.name_en}
                           desc={hotel.desc_en}
                           location={hotel.Hotel_Destination[0].city_en}
                           stars={hotel.star}
-                          priceindinar={hotel.minPricedinar}
-                          priceineuro={hotel.minPricedollar}
-                          priceindollar={hotel.minPriceeuro}
-                          night={night}
+                          priceindinar={hotel.Room_Hotel[0].PriceDt}
+                          priceineuro={hotel.Room_Hotel[0].PriceEuro}
+                          priceindollar={hotel.Room_Hotel[0].PriceDollar}
+                          total={total}
                         />
                       </div>
                     ))}
