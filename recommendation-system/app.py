@@ -75,11 +75,16 @@ def recommend_hotels(user_id):
     df = df.drop_duplicates(subset=['hotelid', 'userid'])
     # Pivot the data to create a user-item matrix
     user_item_matrix = df.pivot(
-        index='userid', columns='hotelid', values=['rating']).fillna(0)
+        index='userid', columns='hotelid', values=['rating', 'sentiment']).fillna(0)
     # Calculate the cosine similarity between users
     user_similarity = cosine_similarity(user_item_matrix)
+    target_user_id = ObjectId(user_id)  # Convert user_id to ObjectId
+    if target_user_id not in df['userid'].values:
+        return []  # User not found
     # Get the index of the target user
-    target_user_index = df[df['userid'] == ObjectId(user_id)].index[0]
+    target_user_index = df[df['userid'] == target_user_id].index[0]
+    if target_user_index >= len(user_similarity):
+        return []  # Invalid target user index
     # Get the similarity scores of the target user compared to other users
     target_user_similarity_scores = user_similarity[target_user_index]
     # Sort the similarity scores and get the indices of the most similar users
