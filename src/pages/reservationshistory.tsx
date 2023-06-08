@@ -466,18 +466,14 @@ export default function ReservationsHistory() {
                                           <span className={lora.className}>
                                             {t("checkin")}:{" "}
                                             {format(
-                                              new Date(
-                                                result.Room_purchase[0].start_date
-                                              ),
+                                              new Date(result.start_date),
                                               "dd/MM/yyyy"
                                             )}
                                           </span>
                                           <span className={lora.className}>
                                             {t("checkout")}:{" "}
                                             {format(
-                                              new Date(
-                                                result.Room_purchase[0].end_date
-                                              ),
+                                              new Date(result.end_date),
                                               "dd/MM/yyyy"
                                             )}
                                           </span>
@@ -511,45 +507,15 @@ export default function ReservationsHistory() {
                                       </div>
                                       <div className={styles.price}>
                                         <span className={roboto.className}>
-                                          {(Number(
-                                            result.Room_purchase[0].priceofroom
-                                          ) +
-                                            Number(
-                                              result.Room_purchase[0]
-                                                .priceperadult
-                                            ) *
-                                              Number(
-                                                result.Room_purchase[0].adult
-                                              ) +
-                                            Number(
-                                              result.Room_purchase[0]
-                                                .priceperchild
-                                            ) *
-                                              Number(
-                                                result.Room_purchase[0].child
-                                              )) *
-                                            Number(
-                                              (new Date(
-                                                String(
-                                                  result.Room_purchase[0]
-                                                    .end_date
-                                                )
-                                              ).setHours(0, 0, 0, 0) -
-                                                new Date(
-                                                  String(
-                                                    result.Room_purchase[0]
-                                                      .start_date
-                                                  )
-                                                ).setHours(0, 0, 0, 0)) /
-                                                (1000 * 60 * 60 * 24)
-                                            )}
-                                          {currency == "Euro" && <span>€</span>}
-                                          {currency == "Dollar" && (
-                                            <span>$</span>
+                                          {result.currency == "EUR" && (
+                                            <span>{result.amount}€</span>
                                           )}
-                                          {currency == "Dinar" && (
+                                          {result.currency == "USD" && (
+                                            <span>{result.amount}$</span>
+                                          )}
+                                          {/* {currency == "Dinar" && (
                                             <span>TND</span>
-                                          )}
+                                          )} */}
                                         </span>
                                       </div>
                                     </div>
@@ -641,13 +607,32 @@ export default function ReservationsHistory() {
                                       </div>
                                       <div className={styles.price}>
                                         <span className={roboto.className}>
-                                          {result.Product_purchase[0].priceDt}
-                                          {currency == "Euro" && <span>€</span>}
+                                          {currency == "Euro" && (
+                                            <span>
+                                              €
+                                              {Math.round(
+                                                result.Product_purchase[0]
+                                                  .priceEuro
+                                              )}
+                                            </span>
+                                          )}
                                           {currency == "Dollar" && (
-                                            <span>$</span>
+                                            <span>
+                                              $
+                                              {Math.round(
+                                                result.Product_purchase[0]
+                                                  .pricedollar
+                                              )}
+                                            </span>
                                           )}
                                           {currency == "Dinar" && (
-                                            <span>TND</span>
+                                            <span>
+                                              {
+                                                result.Product_purchase[0]
+                                                  .priceDt
+                                              }
+                                              TND
+                                            </span>
                                           )}
                                         </span>
                                       </div>
