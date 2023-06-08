@@ -8,5 +8,7 @@
   "camera": "Camera",
   "mobile": "Mobile",
   "luggage": "Valise",
-  "map": "Carte"
+  "map": "Carte",
+  "dinarerror": "Nous ne prenons pas encore en charge le paiement en Dinar!",
+  "somethingwrong": "Quelque chose s'est mal passé essaie encore!"
 }

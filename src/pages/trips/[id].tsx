@@ -30,7 +30,7 @@ const lora = Lora({
 export default function Trip({ trip, events, params }: any) {
   const { t: nav } = useTranslation("navbar");
   const { t } = useTranslation("trip");
-  const { isFallback, locale } = useRouter();
+  const { isFallback, locale, push } = useRouter();
   const { currency } = useCurrency();
   const { user } = useUser();
 
@@ -48,56 +48,60 @@ export default function Trip({ trip, events, params }: any) {
   const handleBook = () => {
     const startDate = formatedStartDate();
     const endDate = formatedEndDate();
-    if (currency == "Dinar") {
-      toast.error("We don't support payment in Dinar yet!");
-    } else if (currency == "Euro") {
-      const paymentData = {
-        amount: trip.Priceeuro,
-        currency: "EUR",
-        productId: trip._id,
-        userId: user._id,
-        start_date: startDate,
-        end_date: endDate,
-        image: trip.image,
-      };
-      axios
-        .post(
-          `${process.env.NEXT_PUBLIC_SERVER_URL}/create-product-checkout-session`,
-          paymentData
-        )
-        .then((res) => {
-          if (res.data.sessionurl) {
-            window.location.href = res.data.sessionurl;
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-          toast.error("Something went wrong try again!");
-        });
+    if (user) {
+      if (currency == "Dinar") {
+        toast.error(t("dinarerror"));
+      } else if (currency == "Euro") {
+        const paymentData = {
+          amount: trip.Priceeuro,
+          currency: "EUR",
+          productId: trip._id,
+          userId: user._id,
+          start_date: startDate,
+          end_date: endDate,
+          image: trip.image,
+        };
+        axios
+          .post(
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/create-product-checkout-session`,
+            paymentData
+          )
+          .then((res) => {
+            if (res.data.sessionurl) {
+              window.location.href = res.data.sessionurl;
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+            toast.error(t("somethingwrong"));
+          });
+      } else {
+        const paymentData = {
+          amount: trip.Pricedollar,
+          currency: "USD",
+          productId: trip._id,
+          userId: user._id,
+          start_date: startDate,
+          end_date: endDate,
+          image: trip.image,
+        };
+        axios
+          .post(
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/create-product-checkout-session`,
+            paymentData
+          )
+          .then((res) => {
+            if (res.data.sessionurl) {
+              window.location.href = res.data.sessionurl;
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+            toast.error(t("somethingwrong"));
+          });
+      }
     } else {
-      const paymentData = {
-        amount: trip.Pricedollar,
-        currency: "USD",
-        productId: trip._id,
-        userId: user._id,
-        start_date: startDate,
-        end_date: endDate,
-        image: trip.image,
-      };
-      axios
-        .post(
-          `${process.env.NEXT_PUBLIC_SERVER_URL}/create-product-checkout-session`,
-          paymentData
-        )
-        .then((res) => {
-          if (res.data.sessionurl) {
-            window.location.href = res.data.sessionurl;
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-          toast.error("Something went wrong try again!");
-        });
+      push("/login");
     }
   };
 

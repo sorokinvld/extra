@@ -8,5 +8,7 @@
   "camera": "Camera",
   "mobile": "Mobile",
   "luggage": "Luggage",
-  "map": "Map"
+  "map": "Map",
+  "dinarerror": "We don't support payment in Dinar yet!",
+  "somethingwrong": "Something went wrong try again!"
 }
