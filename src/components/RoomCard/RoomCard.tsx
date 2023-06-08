@@ -69,8 +69,8 @@ function RoomCard({
           paymentData
         )
         .then((res) => {
-          if (res.data.url) {
-            window.location.href = res.data.url;
+          if (res.data.sessionurl) {
+            window.location.href = res.data.sessionurl;
           }
         })
         .catch((error) => {
@@ -93,8 +93,8 @@ function RoomCard({
           paymentData
         )
         .then((res) => {
-          if (res.data.url) {
-            window.location.href = res.data.url;
+          if (res.data.sessionurl) {
+            window.location.href = res.data.sessionurl;
           }
         })
         .catch((error) => {
