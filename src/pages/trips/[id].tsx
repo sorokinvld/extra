@@ -11,6 +11,9 @@ import { useEffect } from "react";
 import Aos from "aos";
 import { useRouter } from "next/router";
 import { useCurrency } from "@/utils/currencyProvider";
+import { toast } from "react-toastify";
+import { format } from "date-fns";
+import { useUser } from "@/utils/userProvider";
 
 const robotoBold = Roboto({
   subsets: ["latin"],
@@ -29,10 +32,74 @@ export default function Trip({ trip, events, params }: any) {
   const { t } = useTranslation("trip");
   const { isFallback, locale } = useRouter();
   const { currency } = useCurrency();
+  const { user } = useUser();
 
   useEffect(() => {
     Aos.init();
   }, []);
+
+  const formatedStartDate = (): string => {
+    return format(new Date(trip.daystart), "dd/MM/yyyy");
+  };
+  const formatedEndDate = (): string => {
+    return format(new Date(trip.dayend), "dd/MM/yyyy");
+  };
+
+  const handleBook = () => {
+    const startDate = formatedStartDate();
+    const endDate = formatedEndDate();
+    if (currency == "Dinar") {
+      toast.error("We don't support payment in Dinar yet!");
+    } else if (currency == "Euro") {
+      const paymentData = {
+        amount: trip.Priceeuro,
+        currency: "EUR",
+        productId: trip._id,
+        userId: user._id,
+        start_date: startDate,
+        end_date: endDate,
+        image: trip.image,
+      };
+      axios
+        .post(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/create-product-checkout-session`,
+          paymentData
+        )
+        .then((res) => {
+          if (res.data.sessionurl) {
+            window.location.href = res.data.sessionurl;
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.error("Something went wrong try again!");
+        });
+    } else {
+      const paymentData = {
+        amount: trip.Pricedollar,
+        currency: "USD",
+        productId: trip._id,
+        userId: user._id,
+        start_date: startDate,
+        end_date: endDate,
+        image: trip.image,
+      };
+      axios
+        .post(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/create-product-checkout-session`,
+          paymentData
+        )
+        .then((res) => {
+          if (res.data.sessionurl) {
+            window.location.href = res.data.sessionurl;
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.error("Something went wrong try again!");
+        });
+    }
+  };
 
   if (isFallback) {
     return <div>Loading please wait...</div>;
@@ -101,7 +168,7 @@ export default function Trip({ trip, events, params }: any) {
                 {t("from")} {trip.priceDt}DT
               </span>
             )}
-            <button>{t("reserve")}</button>
+            <button onClick={handleBook}>{t("reserve")}</button>
           </div>
 
           <div className={styles.timeline}>

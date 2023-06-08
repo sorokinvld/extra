@@ -16,11 +16,13 @@ export const getFilteredHotels = async (
     const res = await axios.get(
       `${
         process.env.NEXT_PUBLIC_SERVER_URL
-      }/api/Hotels?page=1&search=${destination}&start_date=${startDate}&end_date=${endDate}&adult=${adults}&child=${children}&&${stars.map(
-        (star: number, index: number) => `star[${index}]=${star}`
-      )}&min=${priceRange[0]}&max=${priceRange[1]}&${amenities.map(
-        (amenity: string, index: number) => `amenities[${index}]=${amenity}`
-      )}`
+      }/api/Hotels?page=1&search=${destination}&start_date=${startDate}&end_date=${endDate}&adult=${adults}&child=${children}&&${stars
+        .map((star: number, index: number) => `star[${index}]=${star}`)
+        .join("&")}&min=${priceRange[0]}&max=${priceRange[1]}&${amenities
+        .map(
+          (amenity: string, index: number) => `amenities[${index}]=${amenity}`
+        )
+        .join("&")}`
     );
     setData(res.data);
     setLoading(false);

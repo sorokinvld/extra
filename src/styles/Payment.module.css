@@ -1,0 +1,35 @@
+.success {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10%;
+}
+.success > svg {
+  color: green;
+}
+.success > h1 {
+  font-size: 30px;
+}
+.success > a {
+  font-size: 20px;
+  text-decoration: underline;
+}
+.error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10%;
+}
+.error > svg {
+  color: red;
+  margin-bottom: 6px;
+}
+.error > h1 {
+  font-size: 22px;
+}
+.error > a {
+  font-size: 20px;
+  text-decoration: underline;
+}

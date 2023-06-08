@@ -1,0 +1,6 @@
+{
+  "success": "Your payment was successful.",
+  "navigatesucc": "Check your booking history!",
+  "failure": "Your payment failed, there must be a problem with your payment method or ours services.",
+  "navigatefail": "Try again later!"
+}

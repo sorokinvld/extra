@@ -11,6 +11,9 @@ import { useEffect } from "react";
 import Aos from "aos";
 import { useRouter } from "next/router";
 import { useCurrency } from "@/utils/currencyProvider";
+import { toast } from "react-toastify";
+import { useUser } from "@/utils/userProvider";
+import { add, format } from "date-fns";
 
 const robotoBold = Roboto({
   subsets: ["latin"],
@@ -24,15 +27,79 @@ const lora = Lora({
   display: "swap",
 });
 
-export default function Tour({ tour, events, params }: any) {
+export default function Tour({ tour, events }: any) {
   const { t: nav } = useTranslation("navbar");
   const { t } = useTranslation("trip");
   const { isFallback, locale } = useRouter();
   const { currency } = useCurrency();
+  const { user } = useUser();
 
   useEffect(() => {
     Aos.init();
   }, []);
+
+  const formatedStartDate = (): string => {
+    return format(new Date(tour.daystart), "dd/MM/yyyy");
+  };
+  const formatedEndDate = (): string => {
+    return format(new Date(tour.dayend), "dd/MM/yyyy");
+  };
+
+  const handleBook = () => {
+    const startDate = formatedStartDate();
+    const endDate = formatedEndDate();
+    if (currency == "Dinar") {
+      toast.error("We don't support payment in Dinar yet!");
+    } else if (currency == "Euro") {
+      const paymentData = {
+        amount: tour.Priceeuro,
+        currency: "EUR",
+        productId: tour._id,
+        userId: user._id,
+        start_date: startDate,
+        end_date: endDate,
+        image: tour.image,
+      };
+      axios
+        .post(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/create-product-checkout-session`,
+          paymentData
+        )
+        .then((res) => {
+          if (res.data.sessionurl) {
+            window.location.href = res.data.sessionurl;
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.error("Something went wrong try again!");
+        });
+    } else {
+      const paymentData = {
+        amount: tour.Pricedollar,
+        currency: "USD",
+        productId: tour._id,
+        userId: user._id,
+        start_date: startDate,
+        end_date: endDate,
+        image: tour.image,
+      };
+      axios
+        .post(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/create-product-checkout-session`,
+          paymentData
+        )
+        .then((res) => {
+          if (res.data.sessionurl) {
+            window.location.href = res.data.sessionurl;
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.error("Something went wrong try again!");
+        });
+    }
+  };
 
   if (isFallback) {
     return <div>Loading please wait...</div>;
@@ -101,9 +168,8 @@ export default function Tour({ tour, events, params }: any) {
                 {t("from")} {Math.round(tour.priceDt)}DT
               </span>
             )}
-            <button>{t("reserve")}</button>
+            <button onClick={handleBook}>{t("reserve")}</button>
           </div>
-
           <div className={styles.timeline}>
             {events.map((event: any, index: number) => (
               <div
