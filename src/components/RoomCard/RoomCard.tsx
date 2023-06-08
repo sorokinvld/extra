@@ -49,9 +49,9 @@ function RoomCard({
 }: Props) {
   const { currency } = useCurrency();
   const { user } = useUser();
-  const { query } = useRouter();
+  const { query, push } = useRouter();
   const handleBook = () => {
-    if (currency == "Dinar") {
+   if(user){ if (currency == "Dinar") {
       toast.error("We don't support payment in Dinar yet!");
     } else if (currency == "Euro") {
       const paymentData = {
@@ -101,6 +101,8 @@ function RoomCard({
           console.log(error);
           toast.error("Something went wrong try again!");
         });
+    }}else{
+      push("/login")
     }
   };
   return (
