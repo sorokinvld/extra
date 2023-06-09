@@ -484,7 +484,9 @@ export default function ReservationsHistory() {
                                             onClick={() => {
                                               push({
                                                 pathname: "reviewhotel",
-                                                query: { id: result._id },
+                                                query: {
+                                                  id: result.hotel[0]._id,
+                                                },
                                               });
                                             }}
                                           >
@@ -497,7 +499,9 @@ export default function ReservationsHistory() {
                                             onClick={() => {
                                               push({
                                                 pathname: "reviewhotel",
-                                                query: { id: result._id },
+                                                query: {
+                                                  id: result.hotel[0]._id,
+                                                },
                                               });
                                             }}
                                           >
