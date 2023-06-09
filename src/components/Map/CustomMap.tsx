@@ -142,7 +142,7 @@ function CustomMap({ searchResult, hovered }: any) {
                         />
                       </svg>
                       <span className={robotoBold.className}>
-                        {result.stars}
+                        {result.star}
                       </span>
                     </div>
                   </div>
