@@ -570,9 +570,9 @@ function Searchbar({
                 )}
               </>
             )}{" "}
-            <span className={lora.className}>-</span>{" "}
             {childrenNbr > 0 && (
               <>
+                <span className={lora.className}>-</span>{" "}
                 {childrenNbr == 1 ? (
                   <>
                     {locale == "ar" ? (
@@ -598,7 +598,6 @@ function Searchbar({
                     )}
                   </>
                 )}{" "}
-                <span className={lora.className}>-</span>{" "}
               </>
             )}
             {/* {roomsNbr > 1 ? (
