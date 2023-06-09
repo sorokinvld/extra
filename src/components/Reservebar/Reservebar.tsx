@@ -371,7 +371,7 @@ function ReserveBar({
                 <span className={lora.className}>-</span>{" "}
               </>
             )}
-            {roomsNbr > 1 ? (
+            {/* {roomsNbr > 1 ? (
               <>
                 {locale == "ar" ? (
                   <span className={lora.className}>
@@ -391,7 +391,7 @@ function ReserveBar({
                   <span className={lora.className}>1 {room}</span>
                 )}
               </>
-            )}
+            )} */}
           </div>
         </div>
         <div
@@ -474,7 +474,7 @@ function ReserveBar({
               )}
             </div>
           </div>
-          <div className={styles.guestitem}>
+          {/* <div className={styles.guestitem}>
             <span className={robotoBold.className}>{guestRooms}</span>
             <div className={styles.guestitembtn}>
               {roomsNbr == 1 ? (
@@ -511,7 +511,7 @@ function ReserveBar({
                 </button>
               )}
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
