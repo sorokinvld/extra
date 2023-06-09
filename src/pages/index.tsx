@@ -731,15 +731,9 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const destinations = await axios
     .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/getDestination`)
     .then((response) => response.data);
-  let sortedDestinations = destinations.sort(function (a: any, b: any) {
-    if (a.counter < b.counter) {
-      return -1;
-    }
-    if (a.counter > b.counter) {
-      return 1;
-    }
-    return 0;
-  });
+  let sortedDestinations = destinations.sort((d1: any, d2: any) =>
+    d1.counter < d2.counter ? 1 : d1.counter > d2.counter ? -1 : 0
+  );
   const trips = await axios
     .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/getProductwithEvents/Trips`)
     .then((response) => response.data);
