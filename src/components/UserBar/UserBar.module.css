@@ -18,6 +18,9 @@
 .user:hover {
   color: var(--secondary-color);
 }
+.user > span {
+  width: 150px;
+}
 .useroptions {
   display: flex;
   flex-direction: column;
