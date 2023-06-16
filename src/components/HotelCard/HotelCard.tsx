@@ -49,12 +49,19 @@ function HotelCard({ id, imageSrc, name, stars, location, seemore }: Props) {
   }, [id, user, user?._id]);
 
   const handleLike = async () => {
-    const favorite = await toggleFavorite(
-      user._id,
-      JSON.parse(JSON.stringify(id)).$oid
-    );
-    if (favorite == "success") {
-      setLiked(!liked);
+    if (JSON.parse(JSON.stringify(id)).$oid != undefined) {
+      const favorite = await toggleFavorite(
+        user._id,
+        JSON.parse(JSON.stringify(id)).$oid
+      );
+      if (favorite == "success") {
+        setLiked(!liked);
+      }
+    } else {
+      const favorite = await toggleFavorite(user._id, id);
+      if (favorite == "success") {
+        setLiked(!liked);
+      }
     }
   };
 
