@@ -111,9 +111,30 @@ function MobileOptions({
               </div>
             </div>
             <div className={styles.useroptions}>
-              <span className={lora.className}>{ph}</span>
-              <span className={lora.className}>{fav}</span>
-              <span className={lora.className}>{rev}</span>
+              <span
+                className={lora.className}
+                onClick={() => {
+                  push("/reservationshistory");
+                }}
+              >
+                {ph}
+              </span>
+              <span
+                className={lora.className}
+                onClick={() => {
+                  push("/favorites");
+                }}
+              >
+                {fav}
+              </span>
+              <span
+                className={lora.className}
+                onClick={() => {
+                  push("/reviews");
+                }}
+              >
+                {rev}
+              </span>
             </div>
           </div>
         )}
