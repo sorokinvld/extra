@@ -10,7 +10,7 @@ import Link from "next/link";
 import { useUser } from "@/utils/userProvider";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import axios from "axios";
+import { subscribeToReservationAPI } from "@/queries/subscribeToReservationAPI";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -22,48 +22,13 @@ export default function PaymentSuccessful() {
   const { t: nav } = useTranslation("navbar");
   const { t } = useTranslation("payment");
   const { user } = useUser();
-  const { query, push } = useRouter();
+  const { query } = useRouter();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    subscribeToReservationAPI(query);
   }, []);
-
-  const subscribeToReservationAPI = async () => {
-    if (query.reservationType == "Product") {
-      const details = {
-        item_id: query.item_id,
-        user_id: query.user_id,
-        amount: query.amount,
-        currency: query.currency,
-        start_date: query.start_date,
-        end_date: query.end_date,
-      };
-      axios
-        .post(
-          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/createProductReservation`,
-          details
-        )
-        .then(() => push("/reservationshistory"))
-        .catch((err) => console.log(err));
-    } else {
-      const details = {
-        item_id: query.item_id,
-        user_id: query.user_id,
-        amount: query.amount,
-        currency: query.currency,
-        start_date: query.start_date,
-        end_date: query.end_date,
-      };
-      axios
-        .post(
-          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/createRoomReservation`,
-          details
-        )
-        .then(() => push("/reservationshistory"))
-        .catch((err) => console.log(err));
-    }
-  };
 
   if (mounted && !user) {
     return (
@@ -136,7 +101,12 @@ export default function PaymentSuccessful() {
             />
           </svg>
           <h1 className={roboto.className}>{t("success")}</h1>
-          <p onClick={subscribeToReservationAPI}>{t("navigatesucc")}</p>
+          <Link
+            href={"/reservationshistory"}
+            onClick={subscribeToReservationAPI}
+          >
+            {t("navigatesucc")}
+          </Link>
         </div>
       </Layout>
     </>
