@@ -448,66 +448,46 @@ export default function ReservationsHistory() {
                                     >
                                       <div className={styles.image}>
                                         <Image
-                                          src={result.Room_purchase[0].image}
-                                          alt={
-                                            "Hotel of room " +
-                                            result.Room_purchase[0].room_number
-                                          }
+                                          src={result.hotel[0].image}
+                                          alt={result.hotel[0].name_en}
                                           width={150}
                                           height={100}
                                         />
                                       </div>
                                       <div className={styles.room}>
                                         <span className={robotoBold.className}>
-                                          {t("room")}{" "}
-                                          {result.Room_purchase[0].room_number}
+                                          {locale == "en"
+                                            ? result.hotel[0].name_en
+                                            : locale == "fr"
+                                            ? result.hotel[0].name_fr
+                                            : result.hotel[0].name_ar}{" "}
+                                          {/* {t("room")}{" "}
+                                          {result.Room_purchase[0].room_number} */}
                                         </span>
                                         <div className={styles.date}>
                                           <span className={lora.className}>
-                                            {t("checkin")}:{" "}
-                                            {format(
-                                              new Date(result.start_date),
-                                              "dd/MM/yyyy"
-                                            )}
+                                            {t("checkin")}: {result.start_date}
                                           </span>
                                           <span className={lora.className}>
-                                            {t("checkout")}:{" "}
-                                            {format(
-                                              new Date(result.end_date),
-                                              "dd/MM/yyyy"
-                                            )}
+                                            {t("checkout")}: {result.end_date}
                                           </span>
                                         </div>
-                                        {selectedState == "Finished" && (
-                                          <button
-                                            className={robotoBold.className}
-                                            onClick={() => {
-                                              push({
-                                                pathname: "reviewhotel",
-                                                query: {
-                                                  id: result.hotel[0]._id,
-                                                },
-                                              });
-                                            }}
-                                          >
-                                            {t("review")}
-                                          </button>
-                                        )}
-                                        {selectedState == "On going" && (
-                                          <button
-                                            className={robotoBold.className}
-                                            onClick={() => {
-                                              push({
-                                                pathname: "reviewhotel",
-                                                query: {
-                                                  id: result.hotel[0]._id,
-                                                },
-                                              });
-                                            }}
-                                          >
-                                            {t("review")}
-                                          </button>
-                                        )}
+                                        {selectedState == "Finished" ||
+                                          ("On going" && (
+                                            <button
+                                              className={robotoBold.className}
+                                              onClick={() => {
+                                                push({
+                                                  pathname: "reviewhotel",
+                                                  query: {
+                                                    id: result.hotel[0]._id,
+                                                  },
+                                                });
+                                              }}
+                                            >
+                                              {t("review")}
+                                            </button>
+                                          ))}
                                       </div>
                                       <div className={styles.price}>
                                         <span className={roboto.className}>
