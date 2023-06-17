@@ -9,8 +9,6 @@ import { Roboto } from "@next/font/google";
 import Link from "next/link";
 import { useUser } from "@/utils/userProvider";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import { subscribeToReservationAPI } from "@/queries/subscribeToReservationAPI";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -22,12 +20,10 @@ export default function PaymentSuccessful() {
   const { t: nav } = useTranslation("navbar");
   const { t } = useTranslation("payment");
   const { user } = useUser();
-  const { query } = useRouter();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    subscribeToReservationAPI(query);
   }, []);
 
   if (mounted && !user) {
@@ -101,12 +97,7 @@ export default function PaymentSuccessful() {
             />
           </svg>
           <h1 className={roboto.className}>{t("success")}</h1>
-          <Link
-            href={"/reservationshistory"}
-            onClick={subscribeToReservationAPI}
-          >
-            {t("navigatesucc")}
-          </Link>
+          <Link href={"/reservationshistory"}>{t("navigatesucc")}</Link>
         </div>
       </Layout>
     </>
