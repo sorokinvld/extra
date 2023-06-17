@@ -53,13 +53,13 @@ export default function Tour({ tour, events }: any) {
         toast.error(t("dinarerror"));
       } else if (currency == "Euro") {
         const paymentData = {
-          amount: tour.Priceeuro,
-          currency: "EUR",
-          productId: tour._id,
-          userId: user._id,
-          start_date: startDate,
-          end_date: endDate,
-          image: tour.image,
+          amount: tour.Priceeuro as number,
+          currency: "EUR" as string,
+          productId: tour._id as string,
+          userId: user._id as string,
+          start_date: startDate as string,
+          end_date: endDate as string,
+          image: tour.image as string,
         };
         axios
           .post(
@@ -77,13 +77,13 @@ export default function Tour({ tour, events }: any) {
           });
       } else {
         const paymentData = {
-          amount: tour.Pricedollar,
-          currency: "USD",
-          productId: tour._id,
-          userId: user._id,
-          start_date: startDate,
-          end_date: endDate,
-          image: tour.image,
+          amount: tour.Pricedollar as number,
+          currency: "USD" as string,
+          productId: tour._id as string,
+          userId: user._id as string,
+          start_date: startDate as string,
+          end_date: endDate as string,
+          image: tour.image as string,
         };
         axios
           .post(

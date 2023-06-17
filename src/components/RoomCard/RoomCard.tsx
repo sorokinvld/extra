@@ -51,58 +51,60 @@ function RoomCard({
   const { user } = useUser();
   const { query, push } = useRouter();
   const handleBook = () => {
-   if(user){ if (currency == "Dinar") {
-      toast.error("We don't support payment in Dinar yet!");
-    } else if (currency == "Euro") {
-      const paymentData = {
-        amount: priceineuro,
-        currency: "EUR",
-        roomId: id,
-        userId: user._id,
-        start_date: query.startDate,
-        end_date: query.endDate,
-        image: image,
-      };
-      axios
-        .post(
-          `${process.env.NEXT_PUBLIC_SERVER_URL}/create-room-checkout-session`,
-          paymentData
-        )
-        .then((res) => {
-          if (res.data.sessionurl) {
-            window.location.href = res.data.sessionurl;
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-          toast.error("Something went wrong try again!");
-        });
+    if (user) {
+      if (currency == "Dinar") {
+        toast.error("We don't support payment in Dinar yet!");
+      } else if (currency == "Euro") {
+        const paymentData = {
+          amount: priceineuro as number,
+          currency: "EUR" as string,
+          roomId: id as string,
+          userId: user._id as string,
+          start_date: query.startDate as string,
+          end_date: query.endDate as string,
+          image: image as string,
+        };
+        axios
+          .post(
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/create-room-checkout-session`,
+            paymentData
+          )
+          .then((res) => {
+            if (res.data.sessionurl) {
+              window.location.href = res.data.sessionurl;
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+            toast.error("Something went wrong try again!");
+          });
+      } else {
+        const paymentData = {
+          amount: priceindollar as number,
+          currency: "USD" as string,
+          roomId: id as string,
+          userId: user._id as string,
+          start_date: query.startDate as string,
+          end_date: query.endDate as string,
+          image: image as string,
+        };
+        axios
+          .post(
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/create-room-checkout-session`,
+            paymentData
+          )
+          .then((res) => {
+            if (res.data.sessionurl) {
+              window.location.href = res.data.sessionurl;
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+            toast.error("Something went wrong try again!");
+          });
+      }
     } else {
-      const paymentData = {
-        amount: priceindollar,
-        currency: "USD",
-        roomId: id,
-        userId: user._id,
-        start_date: query.startDate,
-        end_date: query.endDate,
-        image: image,
-      };
-      axios
-        .post(
-          `${process.env.NEXT_PUBLIC_SERVER_URL}/create-room-checkout-session`,
-          paymentData
-        )
-        .then((res) => {
-          if (res.data.sessionurl) {
-            window.location.href = res.data.sessionurl;
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-          toast.error("Something went wrong try again!");
-        });
-    }}else{
-      push("/login")
+      push("/login");
     }
   };
   return (
