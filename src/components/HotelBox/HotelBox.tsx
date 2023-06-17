@@ -62,9 +62,16 @@ function HotelBox({
   const { user } = useUser();
 
   useEffect(() => {
+    const timer = () =>
+      setTimeout(() => {
+        checkFavoriteState(user._id, id, setLiked);
+      }, 1500);
     if (user) {
-      checkFavoriteState(user._id, id, setLiked);
+      timer();
     }
+    return () => {
+      clearTimeout(timer());
+    };
   }, [id, user, user?._id]);
 
   const handleLike = async () => {
