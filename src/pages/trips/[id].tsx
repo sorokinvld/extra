@@ -53,13 +53,13 @@ export default function Trip({ trip, events, params }: any) {
         toast.error(t("dinarerror"));
       } else if (currency == "Euro") {
         const paymentData = {
-          amount: trip.Priceeuro as number,
-          currency: "EUR" as string,
-          productId: trip._id as string,
-          userId: user._id as string,
-          start_date: startDate as string,
-          end_date: endDate as string,
-          image: trip.image as string,
+          amount: trip.Priceeuro,
+          currency: "EUR",
+          productId: trip._id,
+          userId: user._id,
+          start_date: startDate,
+          end_date: endDate,
+          image: trip.image,
         };
         axios
           .post(
@@ -77,13 +77,13 @@ export default function Trip({ trip, events, params }: any) {
           });
       } else {
         const paymentData = {
-          amount: trip.Pricedollar as number,
-          currency: "USD" as string,
-          productId: trip._id as string,
-          userId: user._id as string,
-          start_date: startDate as string,
-          end_date: endDate as string,
-          image: trip.image as string,
+          amount: trip.Pricedollar,
+          currency: "USD",
+          productId: trip._id,
+          userId: user._id,
+          start_date: startDate,
+          end_date: endDate,
+          image: trip.image,
         };
         axios
           .post(
