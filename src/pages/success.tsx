@@ -22,7 +22,7 @@ export default function PaymentSuccessful() {
   const { t: nav } = useTranslation("navbar");
   const { t } = useTranslation("payment");
   const { user } = useUser();
-  const { query } = useRouter();
+  const { query, push } = useRouter();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -39,10 +39,13 @@ export default function PaymentSuccessful() {
         start_date: query.start_date,
         end_date: query.end_date,
       };
-      axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/createProductReservation`,
-        details
-      );
+      axios
+        .post(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/createProductReservation`,
+          details
+        )
+        .then(() => push("/reservationshistory"))
+        .catch((err) => console.log(err));
     } else {
       const details = {
         item_id: query.item_id,
@@ -52,10 +55,13 @@ export default function PaymentSuccessful() {
         start_date: query.start_date,
         end_date: query.end_date,
       };
-      axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/createRoomReservation`,
-        details
-      );
+      axios
+        .post(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/api/createRoomReservation`,
+          details
+        )
+        .then(() => push("/reservationshistory"))
+        .catch((err) => console.log(err));
     }
   };
 
@@ -130,12 +136,7 @@ export default function PaymentSuccessful() {
             />
           </svg>
           <h1 className={roboto.className}>{t("success")}</h1>
-          <Link
-            href={"/reservationshistory"}
-            onClick={subscribeToReservationAPI}
-          >
-            {t("navigatesucc")}
-          </Link>
+          <p onClick={subscribeToReservationAPI}>{t("navigatesucc")}</p>
         </div>
       </Layout>
     </>
