@@ -56,13 +56,13 @@ function RoomCard({
         toast.error("We don't support payment in Dinar yet!");
       } else if (currency == "Euro") {
         const paymentData = {
-          amount: priceineuro,
-          currency: "EUR",
-          roomId: id,
-          userId: user._id,
-          start_date: query.startDate,
-          end_date: query.endDate,
-          image: image,
+          amount: priceineuro as number,
+          currency: "EUR" as string,
+          roomId: id as string,
+          userId: user._id as string,
+          start_date: query.startDate as string,
+          end_date: query.endDate as string,
+          image: image as string,
         };
         axios
           .post(
@@ -80,13 +80,13 @@ function RoomCard({
           });
       } else {
         const paymentData = {
-          amount: priceindollar,
-          currency: "USD",
-          roomId: id,
-          userId: user._id,
-          start_date: query.startDate,
-          end_date: query.endDate,
-          image: image,
+          amount: priceindollar as number,
+          currency: "USD" as string,
+          roomId: id as string,
+          userId: user._id as string,
+          start_date: query.startDate as string,
+          end_date: query.endDate as string,
+          image: image as string,
         };
         axios
           .post(
