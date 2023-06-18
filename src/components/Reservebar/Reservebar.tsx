@@ -109,6 +109,8 @@ function ReserveBar({
   const formatedStartDate = (): string => {
     if (startDate != null) {
       return format(new Date(startDate), "dd/MM/yyyy");
+    } else if (checkinPlaceholder != null) {
+      return checkinPlaceholder;
     } else {
       return format(new Date(), "dd/MM/yyyy");
     }
@@ -116,6 +118,8 @@ function ReserveBar({
   const formatedEndDate = (): string => {
     if (endDate != null) {
       return format(new Date(endDate), "dd/MM/yyyy");
+    } else if (checkoutPlaceholder != null) {
+      return checkoutPlaceholder;
     } else {
       return format(
         add(new Date(), {
