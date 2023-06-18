@@ -333,7 +333,7 @@ export default function Hotel({ data, params }: any) {
               checkinPlaceholder={query.startDate}
               checkoutPlaceholder={query.endDate}
               adultPlaceholder={query.adults}
-              childrenPlaceholder={query.childrens}
+              childrenPlaceholder={query.children}
               roomsPlaceholder={query.rooms}
             />
             {loading ? (
