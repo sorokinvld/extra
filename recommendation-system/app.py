@@ -78,13 +78,12 @@ def recommend_hotels(user_id):
         index='userid', columns='hotelid', values=['rating', 'sentiment']).fillna(0)
     # Calculate the cosine similarity between users
     user_similarity = cosine_similarity(user_item_matrix)
-    target_user_id = ObjectId(user_id)  # Convert user_id to ObjectId
+    # Convert user_id to ObjectId
+    target_user_id = ObjectId(user_id)
     if target_user_id not in df['userid'].values:
         return []  # User not found
     # Get the index of the target user
     target_user_index = df[df['userid'] == target_user_id].index[0]
-    if target_user_index >= len(user_similarity):
-        return []  # Invalid target user index
     # Get the similarity scores of the target user compared to other users
     target_user_similarity_scores = user_similarity[target_user_index]
     # Sort the similarity scores and get the indices of the most similar users
@@ -115,12 +114,12 @@ def greetings():
 def recommendation():
     id = request.args["id"]
     hotels = []
+    # Do the recommendation algorithm using the id
     recommended_hotels = recommend_hotels(id)
     print(recommended_hotels)
     for recommendation in recommended_hotels:
         for hotel in hotelscollection.find({"_id": recommendation[1]}):
             hotels.append(hotel)
-    # Do the recommendation algorithm using the id
     return json.loads(json_util.dumps(hotels))
 
 

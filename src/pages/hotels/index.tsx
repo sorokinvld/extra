@@ -236,9 +236,9 @@ export default function Hotels() {
                           desc={hotel.desc_en}
                           location={hotel.Hotel_Destination[0].city_en}
                           stars={hotel.star}
-                          priceindinar={hotel.Room_Hotel[0].PriceDt}
-                          priceineuro={hotel.Room_Hotel[0].PriceEuro}
-                          priceindollar={hotel.Room_Hotel[0].PriceDollar}
+                          priceindinar={hotel.minPricedinar}
+                          priceineuro={hotel.minPriceeuro}
+                          priceindollar={hotel.minPricedollar}
                           total={total}
                         />
                       </div>

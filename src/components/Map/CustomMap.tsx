@@ -80,17 +80,17 @@ function CustomMap({ searchResult, hovered }: any) {
             >
               {currency === "Euro" && (
                 <span className={robotoveryBold.className}>
-                  €{Math.round(result.Room_Hotel[0].PriceEuro)}
+                  €{Math.round(result.minPriceeuro)}
                 </span>
               )}
               {currency === "Dollar" && (
                 <span className={robotoveryBold.className}>
-                  ${Math.round(result.Room_Hotel[0].PriceDollar)}
+                  ${Math.round(result.minPricedollar)}
                 </span>
               )}
               {currency === "Dinar" && (
                 <span className={robotoveryBold.className}>
-                  {result.Room_Hotel[0].PriceDt}DT
+                  {result.minPricedinar}DT
                 </span>
               )}
             </div>
@@ -155,17 +155,17 @@ function CustomMap({ searchResult, hovered }: any) {
                   <div className={styles.pricedetails}>
                     {currency === "Euro" && (
                       <span className={robotoveryBold.className}>
-                        €{Math.round(result.Room_Hotel[0].PriceEuro)}
+                        €{Math.round(result.minPriceeuro)}
                       </span>
                     )}
                     {currency === "Dollar" && (
                       <span className={robotoveryBold.className}>
-                        ${Math.round(result.Room_Hotel[0].PriceDollar)}
+                        ${Math.round(result.minPricedollar)}
                       </span>
                     )}
                     {currency === "Dinar" && (
                       <span className={robotoveryBold.className}>
-                        {result.Room_Hotel[0].PriceDt}DT
+                        {result.minPricedinar}DT
                       </span>
                     )}
                     <span className={lora.className}>night</span>
@@ -194,17 +194,17 @@ function CustomMap({ searchResult, hovered }: any) {
           >
             {currency === "Euro" && (
               <span className={robotoveryBold.className}>
-                €{Math.round(selectedLocation.Room_Hotel[0].PriceEuro)}
+                €{Math.round(selectedLocation.minPriceeuro)}
               </span>
             )}
             {currency === "Dollar" && (
               <span className={robotoveryBold.className}>
-                ${Math.round(selectedLocation.Room_Hotel[0].PriceDollar)}
+                ${Math.round(selectedLocation.minPricedollar)}
               </span>
             )}
             {currency === "Dinar" && (
               <span className={robotoveryBold.className}>
-                {selectedLocation.Room_Hotel[0].PriceDt}DT
+                {selectedLocation.minPricedinar}DT
               </span>
             )}
           </div>
@@ -228,17 +228,17 @@ function CustomMap({ searchResult, hovered }: any) {
           >
             {currency === "Euro" && (
               <span className={robotoveryBold.className}>
-                €{Math.round(hovered.Room_Hotel[0].PriceEuro)}
+                €{Math.round(hovered.minPriceeuro)}
               </span>
             )}
             {currency === "Dollar" && (
               <span className={robotoveryBold.className}>
-                ${Math.round(hovered.Room_Hotel[0].PriceDollar)}
+                ${Math.round(hovered.minPricedollar)}
               </span>
             )}
             {currency === "Dinar" && (
               <span className={robotoveryBold.className}>
-                {hovered.Room_Hotel[0].PriceDt}DT
+                {hovered.minPricedinar}DT
               </span>
             )}
           </div>
@@ -267,17 +267,17 @@ function CustomMap({ searchResult, hovered }: any) {
           >
             {currency === "Euro" && (
               <span className={robotoveryBold.className}>
-                €{Math.round(hoveredonMapMarker.Room_Hotel[0].PriceEuro)}
+                €{Math.round(hoveredonMapMarker.minPriceeuro)}
               </span>
             )}
             {currency === "Dollar" && (
               <span className={robotoveryBold.className}>
-                ${Math.round(hoveredonMapMarker.Room_Hotel[0].PriceDollar)}
+                ${Math.round(hoveredonMapMarker.minPricedollar)}
               </span>
             )}
             {currency === "Dinar" && (
               <span className={robotoveryBold.className}>
-                {hoveredonMapMarker.Room_Hotel[0].PriceDt}DT
+                {hoveredonMapMarker.minPricedinar}DT
               </span>
             )}
           </div>
